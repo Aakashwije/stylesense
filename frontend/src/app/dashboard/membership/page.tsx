@@ -24,7 +24,7 @@ const TIERS = [
   {
     id: "essential",
     name: "Essential",
-    price: 29,
+    price: 2900,
     color: "#22D3EE",
     icon: Zap,
     features: [
@@ -38,7 +38,7 @@ const TIERS = [
   {
     id: "premium",
     name: "Premium",
-    price: 59,
+    price: 5900,
     color: "#8B5CF6",
     icon: Star,
     features: [
@@ -55,7 +55,7 @@ const TIERS = [
   {
     id: "elite",
     name: "Elite",
-    price: 99,
+    price: 9900,
     color: "#E8B4B8",
     icon: Crown,
     features: [
@@ -175,7 +175,7 @@ export default function MembershipPage() {
                   </h3>
                   <div className="flex items-baseline gap-1 mb-5">
                     <span className="text-3xl font-bold text-[#F5F5F7]">
-                      ${tier.price}
+                      LKR {tier.price.toLocaleString()}
                     </span>
                     <span className="text-sm text-[#52525B]">/month</span>
                   </div>

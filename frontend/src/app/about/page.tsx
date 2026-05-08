@@ -23,15 +23,20 @@ import {
 import Link from "next/link";
 
 const STATS = [
-  { label: "Happy clients", value: "50,000+", icon: Users, color: "#8B5CF6" },
+  { label: "Co-founders", value: "2", icon: Users, color: "#8B5CF6" },
   {
-    label: "AI analyses done",
-    value: "200K+",
+    label: "AI features built",
+    value: "6+",
     icon: Sparkles,
     color: "#22D3EE",
   },
-  { label: "Expert stylists", value: "120+", icon: Star, color: "#E8B4B8" },
-  { label: "Cities served", value: "12", icon: MapPin, color: "#10B981" },
+  {
+    label: "Partner stylists",
+    value: "Coming soon",
+    icon: Star,
+    color: "#E8B4B8",
+  },
+  { label: "Founded", value: "2026", icon: MapPin, color: "#10B981" },
 ];
 
 const VALUES = [
@@ -39,14 +44,14 @@ const VALUES = [
     icon: Heart,
     title: "Client-first always",
     description:
-      "Every feature, every decision is made with one question: does this make our clients' lives better? Our NPS of 78 speaks for itself.",
+      "Every feature and decision starts with one question: does this make the salon experience better for Sri Lankan clients?",
     color: "#E8B4B8",
   },
   {
     icon: Sparkles,
     title: "AI with purpose",
     description:
-      "We believe AI should amplify human expertise, not replace it. Our models work alongside stylists to deliver insights no human or machine could alone.",
+      "We believe AI should amplify human expertise, not replace it. Our models work alongside stylists to deliver insights neither could achieve alone.",
     color: "#8B5CF6",
   },
   {
@@ -60,69 +65,52 @@ const VALUES = [
     icon: Globe,
     title: "Inclusive beauty",
     description:
-      "Beauty is for everyone. Our AI is trained on the broadest dataset of hair types, skin tones, and styles in the industry.",
+      "Beauty is for everyone. We're building AI trained on South Asian hair types, skin tones, and styles that are often overlooked by global platforms.",
     color: "#10B981",
   },
 ];
 
 const TEAM = [
   {
-    name: "Aisha Patel",
+    name: "Aakash Wijesekara",
     role: "CEO & Co-founder",
-    bio: "Former beauty director at Vogue. 15+ years in luxury beauty.",
+    bio: "Passionate about solving real-world problems for Sri Lankan beauty clients through technology and innovation.",
     gradient: ["#8B5CF6", "#E8B4B8"],
-    initials: "AP",
+    initials: "AW",
   },
   {
-    name: "James Luo",
-    role: "CTO & Co-founder",
-    bio: "Ex-Google AI. Built computer vision systems used by 500M users.",
+    name: "Ayora Fernando",
+    role: "COO & Co-founder",
+    bio: "Operations and growth lead. Driving StyleSense's expansion across Sri Lanka with a client-first mindset.",
     gradient: ["#22D3EE", "#8B5CF6"],
-    initials: "JL",
-  },
-  {
-    name: "Sofia Reyes",
-    role: "Chief Beauty Officer",
-    bio: "20 years as a master colorist. Trained over 300 stylists globally.",
-    gradient: ["#E8B4B8", "#F59E0B"],
-    initials: "SR",
-  },
-  {
-    name: "Marcus Webb",
-    role: "Head of AI",
-    bio: "PhD in Computer Vision, MIT. Pioneered hair texture analysis models.",
-    gradient: ["#10B981", "#22D3EE"],
-    initials: "MW",
+    initials: "AF",
   },
 ];
 
 const TIMELINE = [
   {
-    year: "2022",
-    title: "Founded in San Francisco",
-    description: "Started with 3 stylists, a laptop, and an idea.",
-  },
-  {
-    year: "2023",
-    title: "AI hair analysis v1 launched",
+    year: "2026",
+    title: "The problem identified",
     description:
-      "First model to analyze hair porosity, texture, and health from a photo.",
-  },
-  {
-    year: "2024",
-    title: "Raised Series A — $12M",
-    description: "Backed by top beauty and consumer tech investors.",
-  },
-  {
-    year: "2025",
-    title: "Virtual Try-On released",
-    description:
-      "Photorealistic style previews powered by our custom diffusion model.",
+      "Aakash and Ayora experienced firsthand how frustrating it is to find the right stylist in Sri Lanka — no transparency, no personalisation, no easy booking.",
   },
   {
     year: "2026",
-    title: "50,000 clients and growing",
-    description: "Expanding to 12 cities with 120+ hand-selected stylists.",
+    title: "StyleSense founded",
+    description:
+      "The two co-founders decided to build the solution themselves — a platform purpose-built for the Sri Lankan beauty market.",
+  },
+  {
+    year: "2026",
+    title: "Platform development begins",
+    description:
+      "Building the AI engine, virtual try-on, smart booking, and loyalty system from the ground up with a focus on local needs.",
+  },
+  {
+    year: "Soon",
+    title: "Beta launch — Colombo",
+    description:
+      "Onboarding our first wave of partner stylists and early adopters in Colombo. Want in? Sign up and be first.",
   },
 ];
 
@@ -145,9 +133,9 @@ export default function AboutPage() {
               effortless and personal
             </h1>
             <p className="text-lg text-[#A1A1AA] leading-relaxed max-w-2xl mx-auto">
-              StyleSense AI was born from a simple frustration: finding the
-              right stylist, right style, and right routine felt like guesswork.
-              We fixed that with AI.
+              StyleSense AI was born from a real problem Sri Lankan clients face
+              every day — finding the right stylist, communicating your style,
+              and knowing what suits you. We're fixing that with AI.
             </p>
           </FadeUp>
         </div>
@@ -190,17 +178,18 @@ export default function AboutPage() {
               Our mission
             </Badge>
             <h2 className="text-3xl font-bold text-[#F5F5F7] mb-5">
-              Putting intelligence behind every beauty decision
+              Building intelligence for Sri Lanka's beauty industry
             </h2>
             <p className="text-[#A1A1AA] leading-relaxed mb-5">
-              For too long, getting the perfect look relied on luck — stumbling
-              upon the right stylist, hoping a recommendation would suit you.
-              StyleSense AI changes that by giving clients the tools to arrive
-              informed, inspired, and ready.
+              Sri Lanka's salon industry is thriving — but the experience for
+              clients hasn't kept up. Finding the right stylist, communicating
+              what you want, and knowing if a style suits you is still largely
+              guesswork.
             </p>
             <p className="text-[#A1A1AA] leading-relaxed">
-              We pair the world's most advanced hair AI with hand-curated salon
-              talent so every appointment ends exactly as imagined.
+              StyleSense AI is changing that. We're building a platform that
+              pairs AI-powered personalisation with Sri Lanka's best stylists —
+              so every appointment starts informed and ends exactly as imagined.
             </p>
           </FadeUp>
 
@@ -239,7 +228,7 @@ export default function AboutPage() {
               Our journey
             </Badge>
             <h2 className="text-3xl font-bold text-[#F5F5F7]">
-              From idea to industry leader
+              From a startup idea to solving a real problem
             </h2>
           </FadeUp>
           <div className="relative">
@@ -247,7 +236,7 @@ export default function AboutPage() {
             <div className="space-y-8">
               {TIMELINE.map((item, i) => (
                 <motion.div
-                  key={item.year}
+                  key={item.title}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -318,10 +307,11 @@ export default function AboutPage() {
       <section className="bg-[#141419] border-t border-[#27272A] py-20 px-6 text-center">
         <FadeUp>
           <h2 className="text-3xl font-bold text-[#F5F5F7] mb-4">
-            Ready to experience StyleSense?
+            Be part of the beginning
           </h2>
           <p className="text-[#A1A1AA] mb-8">
-            Join 50,000+ clients who transformed their beauty routine.
+            We're just getting started. Sign up to be among the first to
+            experience StyleSense when we launch in Colombo.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <SSButton asChild variant="primary" size="lg">
