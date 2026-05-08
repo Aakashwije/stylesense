@@ -28,7 +28,7 @@ const SERVICES = [
     id: "haircut-style",
     name: "Haircut & Style",
     category: "Hair",
-    price: 65,
+    price: 3500,
     duration: "60 min",
     desc: "Precision cut tailored to your face shape and lifestyle.",
     popular: true,
@@ -37,7 +37,7 @@ const SERVICES = [
     id: "balayage",
     name: "Balayage",
     category: "Color",
-    price: 220,
+    price: 12000,
     duration: "180 min",
     desc: "Sun-kissed, natural-looking color with seamless blending.",
     popular: true,
@@ -46,7 +46,7 @@ const SERVICES = [
     id: "keratin",
     name: "Keratin Treatment",
     category: "Treatments",
-    price: 280,
+    price: 15000,
     duration: "180 min",
     desc: "Smooth, frizz-free hair that lasts up to 4 months.",
     popular: false,
@@ -55,7 +55,7 @@ const SERVICES = [
     id: "blowout",
     name: "Luxury Blowout",
     category: "Hair",
-    price: 55,
+    price: 2800,
     duration: "45 min",
     desc: "Flawless blowdry finish with premium styling products.",
     popular: true,
@@ -64,7 +64,7 @@ const SERVICES = [
     id: "highlights",
     name: "Full Highlights",
     category: "Color",
-    price: 200,
+    price: 10500,
     duration: "150 min",
     desc: "Multi-dimensional color that enhances your natural tone.",
     popular: false,
@@ -73,7 +73,7 @@ const SERVICES = [
     id: "facial",
     name: "Signature Facial",
     category: "Facials",
-    price: 120,
+    price: 6500,
     duration: "75 min",
     desc: "Deep cleansing and rejuvenating facial for glowing skin.",
     popular: true,
@@ -82,7 +82,7 @@ const SERVICES = [
     id: "scalp-treatment",
     name: "Scalp Treatment",
     category: "Treatments",
-    price: 85,
+    price: 4500,
     duration: "60 min",
     desc: "Restore scalp health with a customized treatment plan.",
     popular: false,
@@ -91,7 +91,7 @@ const SERVICES = [
     id: "manicure",
     name: "Luxury Manicure",
     category: "Nails",
-    price: 50,
+    price: 2500,
     duration: "60 min",
     desc: "Premium nail care with long-lasting gel polish.",
     popular: false,
@@ -100,7 +100,7 @@ const SERVICES = [
     id: "hot-stone",
     name: "Hot Stone Massage",
     category: "Spa",
-    price: 160,
+    price: 8500,
     duration: "90 min",
     desc: "Deep relaxation with heated volcanic stone therapy.",
     popular: true,
@@ -121,7 +121,7 @@ export default function ServicesPage() {
     <PublicLayout>
       <div className="min-h-screen bg-[#0B0B0F]">
         {/* Header */}
-        <div className="bg-[#141419] border-b border-[#27272A] py-16 px-4 sm:px-6">
+        <div className="bg-[#141419] border-b border-[#27272A] pt-32 pb-16 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
             <FadeUp>
               <p className="text-[#8B5CF6] text-sm font-medium tracking-wider uppercase mb-3">
@@ -195,7 +195,7 @@ export default function ServicesPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-[#F5F5F7] font-bold">
-                          ${service.price}
+                          LKR {service.price.toLocaleString()}
                         </span>
                         <span className="text-[#52525B] text-xs ml-1.5">
                           · {service.duration}

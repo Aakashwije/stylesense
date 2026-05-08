@@ -16,7 +16,6 @@ import {
   CheckCircle2,
   ChevronLeft,
   Clock,
-  DollarSign,
   Quote,
   Sparkles,
   Star,
@@ -63,7 +62,7 @@ const SERVICES_DATA: Record<
     description: "Natural sun-kissed color blended seamlessly into your hair.",
     longDescription:
       "Our signature balayage treatment creates soft, dimensional color that mimics the natural highlights of sun-kissed hair. Our master colorists hand-paint every strand for a perfectly blended, grow-out-friendly finish that looks beautiful at every stage.",
-    price: 185,
+    price: 12000,
     duration: 180,
     rating: 4.9,
     reviews: 412,
@@ -122,8 +121,7 @@ const SERVICES_DATA: Record<
       "Expertly crafted cuts tailored to your face shape and lifestyle.",
     longDescription:
       "A great haircut is the foundation of everything. Our precision stylists analyze your face shape, hair texture, growth patterns, and lifestyle before cutting a single strand. The result: a shape that flatters, moves well, and works with your routine.",
-    price: 85,
-    duration: 60,
+    price: 3500,
     rating: 4.8,
     reviews: 623,
     gradient: ["#8B5CF6", "#22D3EE"],
@@ -181,7 +179,7 @@ const DEFAULT_SERVICE = {
   description: "A transformative salon experience tailored just for you.",
   longDescription:
     "Each service at StyleSense is a fully personalized experience. Our stylists use AI-powered insights combined with expert technique to deliver results you'll love.",
-  price: 120,
+  price: 6500,
   duration: 90,
   rating: 4.8,
   reviews: 200,
@@ -265,8 +263,9 @@ export default function ServiceDetailPage({
                 {service.duration} min
               </div>
               <div className="flex items-center gap-1.5 text-[#F5F5F7]">
-                <DollarSign className="w-4 h-4 text-[#10B981]" />
-                <span className="font-semibold">${service.price}</span>
+                <span className="font-semibold">
+                  LKR {service.price.toLocaleString()}
+                </span>
               </div>
             </div>
             <SSButton
@@ -403,7 +402,7 @@ export default function ServiceDetailPage({
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-sm text-[#52525B]">Starting from</span>
                   <span className="text-2xl font-bold text-[#F5F5F7]">
-                    ${service.price}
+                    LKR {service.price.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 text-xs text-[#A1A1AA] mb-5">

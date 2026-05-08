@@ -55,7 +55,7 @@ const REWARDS = [
   },
   {
     id: "2",
-    name: "$20 Off Any Service",
+    name: "LKR 2,000 Off Any Service",
     cost: 600,
     category: "Discount",
     available: true,
@@ -76,7 +76,7 @@ const REWARDS = [
   },
   {
     id: "5",
-    name: "$50 Gift Card",
+    name: "LKR 5,000 Gift Card",
     cost: 1500,
     category: "Gift",
     available: false,

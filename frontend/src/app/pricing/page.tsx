@@ -27,8 +27,8 @@ const TIERS = [
   {
     id: "essential",
     name: "Essential",
-    price: 29,
-    yearly: 23,
+    price: 2900,
+    yearly: 2300,
     description: "Perfect for casual beauty enthusiasts exploring AI tools.",
     color: "#22D3EE",
     icon: Zap,
@@ -45,8 +45,8 @@ const TIERS = [
   {
     id: "premium",
     name: "Premium",
-    price: 59,
-    yearly: 47,
+    price: 5900,
+    yearly: 4700,
     description:
       "The complete beauty intelligence platform for committed clients.",
     color: "#8B5CF6",
@@ -67,8 +67,8 @@ const TIERS = [
   {
     id: "elite",
     name: "Elite",
-    price: 99,
-    yearly: 79,
+    price: 9900,
+    yearly: 7900,
     description: "White-glove experience with a dedicated concierge stylist.",
     color: "#E8B4B8",
     icon: Crown,
@@ -202,14 +202,15 @@ export default function PricingPage() {
                     <div className="mb-6">
                       <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-bold text-[#F5F5F7]">
-                          ${price}
+                          LKR {price.toLocaleString()}
                         </span>
                         <span className="text-sm text-[#52525B]">/month</span>
                       </div>
                       {billing === "yearly" && (
                         <p className="text-xs text-[#52525B] mt-0.5">
-                          Billed annually · Save $
-                          {(tier.price - tier.yearly) * 12}/yr
+                          Billed annually · Save LKR
+                          {((tier.price - tier.yearly) * 12).toLocaleString()}
+                          /yr
                         </p>
                       )}
                     </div>

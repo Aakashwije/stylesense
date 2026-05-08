@@ -23,42 +23,22 @@ const SERVICES = [
     id: "haircut",
     name: "Haircut & Style",
     duration: "60 min",
-    price: 65,
-    popular: true,
-  },
-  {
-    id: "color",
+    price: 3500,
     name: "Full Color",
     duration: "120 min",
-    price: 150,
-    popular: true,
-  },
-  {
-    id: "keratin",
+    price: 8000,
     name: "Keratin Treatment",
     duration: "180 min",
-    price: 280,
-    popular: false,
-  },
-  {
-    id: "highlights",
+    price: 15000,
     name: "Highlights",
     duration: "150 min",
-    price: 200,
-    popular: false,
-  },
-  {
-    id: "blowout",
+    price: 10500,
     name: "Blowout",
     duration: "45 min",
-    price: 45,
-    popular: true,
-  },
-  {
-    id: "facial",
+    price: 2500,
     name: "Signature Facial",
     duration: "75 min",
-    price: 120,
+    price: 6500,
     popular: false,
   },
 ];
@@ -224,7 +204,7 @@ export default function BookingPage() {
                             </span>
                           </div>
                           <span className="text-[#F5F5F7] font-semibold text-sm">
-                            ${service.price}
+                            LKR {service.price.toLocaleString()}
                           </span>
                         </div>
                       </button>
@@ -344,7 +324,10 @@ export default function BookingPage() {
                         { label: "Date", value: selectedDate, icon: Calendar },
                         { label: "Time", value: selectedTime, icon: Clock },
                         { label: "Duration", value: service?.duration },
-                        { label: "Total", value: `$${service?.price}` },
+                        {
+                          label: "Total",
+                          value: `LKR ${service?.price?.toLocaleString()}`,
+                        },
                       ].map(({ label, value, icon: Icon }) => (
                         <div
                           key={label}

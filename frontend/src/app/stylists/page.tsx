@@ -37,7 +37,7 @@ const STYLISTS = [
     gradient: ["#8B5CF6", "#22D3EE"],
     initials: "MC",
     badge: "Top Rated",
-    price: 120,
+    price: 6500,
   },
   {
     id: "jordan",
@@ -54,7 +54,7 @@ const STYLISTS = [
     gradient: ["#22D3EE", "#10B981"],
     initials: "JR",
     badge: null,
-    price: 90,
+    price: 4500,
   },
   {
     id: "priya",
@@ -71,7 +71,7 @@ const STYLISTS = [
     gradient: ["#E8B4B8", "#8B5CF6"],
     initials: "PS",
     badge: "Fan Favorite",
-    price: 130,
+    price: 7000,
   },
   {
     id: "alex",
@@ -88,7 +88,7 @@ const STYLISTS = [
     gradient: ["#F59E0B", "#EF4444"],
     initials: "AK",
     badge: "Rising Star",
-    price: 85,
+    price: 4500,
   },
   {
     id: "sam",
@@ -105,7 +105,7 @@ const STYLISTS = [
     gradient: ["#10B981", "#22D3EE"],
     initials: "SO",
     badge: null,
-    price: 100,
+    price: 5500,
   },
   {
     id: "lucia",
@@ -122,7 +122,7 @@ const STYLISTS = [
     gradient: ["#8B5CF6", "#E8B4B8"],
     initials: "LB",
     badge: "Elite",
-    price: 200,
+    price: 10500,
   },
 ];
 
@@ -305,7 +305,7 @@ export default function StylistsPage() {
                         {stylist.experience}y exp
                       </span>
                       <span className="font-semibold text-[#F5F5F7]">
-                        from ${stylist.price}
+                        from LKR {stylist.price.toLocaleString()}
                       </span>
                     </div>
 

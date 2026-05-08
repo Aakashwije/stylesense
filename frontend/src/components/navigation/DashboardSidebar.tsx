@@ -17,6 +17,7 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -76,13 +77,14 @@ export function DashboardSidebar() {
     <aside className="w-64 h-screen sticky top-0 bg-[#141419] border-r border-[#27272A] flex flex-col">
       {/* Logo */}
       <div className="p-5 border-b border-[#27272A]">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-[#8B5CF6]" />
-          </div>
-          <span className="text-[#F5F5F7] font-semibold text-sm">
-            StyleSense AI
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/stylesense_logo.png"
+            alt="StyleSense"
+            width={120}
+            height={36}
+            className="object-contain"
+          />
         </Link>
       </div>
 

@@ -219,7 +219,7 @@ export default function FavoritesPage() {
                     {service.duration}min
                   </span>
                   <span className="font-semibold text-[#F5F5F7]">
-                    ${service.price}
+                    LKR {service.price.toLocaleString()}
                   </span>
                 </div>
 
@@ -268,7 +268,7 @@ export default function FavoritesPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-semibold text-[#F5F5F7]">
-                    ${service.price}
+                    LKR {service.price.toLocaleString()}
                   </span>
                   <button onClick={() => toggle(service.id)}>
                     <Heart

@@ -15,7 +15,7 @@ const PLANS = [
   {
     tier: "essential",
     name: "Essential",
-    price: 29,
+    price: 2900,
     description: "Perfect for occasional salon visits",
     features: [
       "5 AI style recommendations/month",
@@ -31,7 +31,7 @@ const PLANS = [
   {
     tier: "premium",
     name: "Premium",
-    price: 59,
+    price: 5900,
     description: "For the true beauty enthusiast",
     features: [
       "Unlimited AI recommendations",
@@ -49,7 +49,7 @@ const PLANS = [
   {
     tier: "elite",
     name: "Elite",
-    price: 99,
+    price: 9900,
     description: "The ultimate beauty experience",
     features: [
       "Everything in Premium",

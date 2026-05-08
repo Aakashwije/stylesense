@@ -23,26 +23,32 @@ const SERVICES = [
     label: "Haircuts",
     icon: Scissors,
     color: "#8B5CF6",
-    from: 45,
+    from: 1500,
   },
   {
     id: "coloring",
     label: "Coloring",
     icon: Palette,
     color: "#22D3EE",
-    from: 95,
+    from: 3500,
   },
-  { id: "bridal", label: "Bridal", icon: Crown, color: "#E8B4B8", from: 299 },
+  { id: "bridal", label: "Bridal", icon: Crown, color: "#E8B4B8", from: 15000 },
   {
     id: "facial",
     label: "Facials",
     icon: Sparkles,
     color: "#10B981",
-    from: 75,
+    from: 2500,
   },
-  { id: "spa", label: "Spa", icon: Flower2, color: "#F59E0B", from: 120 },
-  { id: "nails", label: "Nails", icon: Star, color: "#EC4899", from: 35 },
-  { id: "grooming", label: "Grooming", icon: User, color: "#6366F1", from: 55 },
+  { id: "spa", label: "Spa", icon: Flower2, color: "#F59E0B", from: 4500 },
+  { id: "nails", label: "Nails", icon: Star, color: "#EC4899", from: 1200 },
+  {
+    id: "grooming",
+    label: "Grooming",
+    icon: User,
+    color: "#6366F1",
+    from: 1800,
+  },
 ];
 
 export function ServicesSection() {
@@ -90,7 +96,9 @@ export function ServicesSection() {
                   <p className="text-[#F5F5F7] font-medium text-sm mb-1">
                     {service.label}
                   </p>
-                  <p className="text-[#A1A1AA] text-xs">From ${service.from}</p>
+                  <p className="text-[#A1A1AA] text-xs">
+                    From LKR {service.from.toLocaleString()}
+                  </p>
                 </motion.div>
               </Link>
             </StaggerItem>

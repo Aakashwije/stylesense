@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface AuthLayoutProps {
@@ -32,22 +32,26 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
         />
 
         <div className="relative z-10 max-w-md text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#8B5CF6]/15 border border-[#8B5CF6]/25 flex items-center justify-center mx-auto mb-6">
-            <Sparkles className="w-8 h-8 text-[#8B5CF6]" />
+          <div className="flex items-center justify-center mb-6">
+            <Image
+              src="/stylesense_logo.png"
+              alt="StyleSense"
+              width={180}
+              height={54}
+              className="object-contain"
+              priority
+            />
           </div>
-          <h1 className="text-4xl font-bold text-[#F5F5F7] mb-4">
-            StyleSense AI
-          </h1>
           <p className="text-[#A1A1AA] text-lg leading-relaxed">
             AI-powered beauty platform built for the modern salon experience.
           </p>
 
           <div className="mt-12 grid grid-cols-2 gap-4">
             {[
-              { label: "50K+", desc: "Happy clients" },
-              { label: "4.9★", desc: "Average rating" },
-              { label: "200+", desc: "Expert stylists" },
-              { label: "98%", desc: "Satisfaction rate" },
+              { label: "AI-Powered", desc: "Style recommendations" },
+              { label: "Virtual", desc: "Try-on technology" },
+              { label: "Smart", desc: "Instant booking" },
+              { label: "Built for", desc: "Sri Lanka" },
             ].map((stat) => (
               <div
                 key={stat.label}
@@ -70,13 +74,14 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
           className="w-full max-w-md"
         >
           {/* Mobile logo */}
-          <Link href="/" className="flex items-center gap-2.5 mb-8 lg:hidden">
-            <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-[#8B5CF6]" />
-            </div>
-            <span className="text-[#F5F5F7] font-semibold text-sm">
-              StyleSense AI
-            </span>
+          <Link href="/" className="flex items-center mb-8 lg:hidden">
+            <Image
+              src="/stylesense_logo.png"
+              alt="StyleSense"
+              width={120}
+              height={36}
+              className="object-contain"
+            />
           </Link>
 
           <div className="mb-8">

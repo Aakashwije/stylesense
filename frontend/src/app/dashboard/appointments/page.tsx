@@ -145,7 +145,7 @@ export default function AppointmentsPage() {
           { label: "Completed", value: completed, color: "text-[#8B5CF6]" },
           {
             label: "Total Spent",
-            value: `$${totalSpend}`,
+            value: `LKR ${totalSpend.toLocaleString()}`,
             color: "text-[#22D3EE]",
           },
         ].map((stat) => (
@@ -260,7 +260,7 @@ export default function AppointmentsPage() {
                           {appt.location}
                         </span>
                         <span className="font-medium text-[#F5F5F7]">
-                          ${appt.price}
+                          LKR {appt.price.toLocaleString()}
                         </span>
                       </div>
 
