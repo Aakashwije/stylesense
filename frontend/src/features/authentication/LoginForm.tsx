@@ -53,6 +53,38 @@ export function LoginForm() {
     router.push("/dashboard");
   };
 
+  const handleSalonDevLogin = () => {
+    setUser({
+      id: "salon-dev-001",
+      name: "Glamour Studio",
+      email: "admin@glamourstudio.lk",
+      phone: "+94 11 234 5678",
+      role: "user",
+      avatar: undefined,
+      loyaltyPoints: 0,
+      membershipTier: "premium",
+      createdAt: new Date().toISOString(),
+    });
+    setToken("salon-dev-token");
+    router.push("/dashboard");
+  };
+
+  const handleStylistDevLogin = () => {
+    setUser({
+      id: "stylist-dev-001",
+      name: "Shenali Rodrigo",
+      email: "shenali.r@glamourstudio.lk",
+      phone: "+94 77 123 4567",
+      role: "user",
+      avatar: undefined,
+      loyaltyPoints: 0,
+      membershipTier: "free",
+      createdAt: new Date().toISOString(),
+    });
+    setToken("stylist-dev-token");
+    router.push("/stylist");
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       {loginError && (
@@ -139,14 +171,29 @@ export function LoginForm() {
       </SSButton>
 
       {/* DEV ONLY — bypass auth for local preview */}
-      <button
-        type="button"
-        onClick={handleDevLogin}
-        className="w-full flex items-center justify-center gap-2 h-11 rounded-xl border border-dashed border-[#8B5CF6]/40 text-[#8B5CF6] text-xs font-medium hover:bg-[#8B5CF6]/10 transition-all duration-200"
-      >
-        <Zap className="w-3.5 h-3.5" />
-        Dev Login — skip API
-      </button>
+      <div className="space-y-2">
+        <p className="text-center text-[#52525B] text-[10px] uppercase tracking-widest">
+          Dev shortcuts
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={handleSalonDevLogin}
+            className="flex items-center justify-center gap-1.5 h-10 rounded-xl border border-dashed border-[#8B5CF6]/40 text-[#8B5CF6] text-xs font-medium hover:bg-[#8B5CF6]/10 transition-all duration-200"
+          >
+            <Zap className="w-3 h-3" />
+            Salon Admin
+          </button>
+          <button
+            type="button"
+            onClick={handleStylistDevLogin}
+            className="flex items-center justify-center gap-1.5 h-10 rounded-xl border border-dashed border-[#22D3EE]/40 text-[#22D3EE] text-xs font-medium hover:bg-[#22D3EE]/10 transition-all duration-200"
+          >
+            <Zap className="w-3 h-3" />
+            Stylist Portal
+          </button>
+        </div>
+      </div>
 
       <div className="flex items-center gap-3">
         <div className="flex-1 h-px bg-[#27272A]" />
