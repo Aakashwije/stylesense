@@ -154,7 +154,7 @@ function AddModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
           <h3 className="text-[#F5F5F7] font-semibold">Add Walk-in</h3>
@@ -340,7 +340,7 @@ export default function QueuePage() {
           },
         ].map((k, i) => (
           <motion.div key={k.label} {...fadeUp(0.05 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
                 style={{ backgroundColor: `${k.color}15` }}
@@ -419,7 +419,7 @@ export default function QueuePage() {
           <span className="w-2 h-2 rounded-full bg-[#F59E0B] inline-block" />{" "}
           Waiting ({waiting.length})
         </h3>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           {waiting.length === 0 && (
             <p className="text-[#52525B] text-sm p-5">
               Queue is empty — no one waiting.
@@ -484,7 +484,7 @@ export default function QueuePage() {
             <span className="w-2 h-2 rounded-full bg-[#10B981] inline-block" />{" "}
             Completed Today ({done.length})
           </h3>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl divide-y divide-[#27272A]">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl divide-y divide-[#27272A]">
             {done.map((entry) => (
               <div
                 key={entry.id}

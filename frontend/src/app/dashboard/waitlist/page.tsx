@@ -124,7 +124,7 @@ function AddModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
           <h3 className="text-[#F5F5F7] font-semibold">Add to Waitlist</h3>
@@ -299,7 +299,7 @@ export default function WaitlistPage() {
           },
         ].map((k, i) => (
           <motion.div key={k.label} {...fadeUp(0.04 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
                 style={{ backgroundColor: `${k.color}15` }}
@@ -319,7 +319,7 @@ export default function WaitlistPage() {
 
       {/* Waitlist */}
       <motion.div {...fadeUp(0.1)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           {entries.length === 0 && (
             <p className="text-[#52525B] text-sm text-center py-12">
               Waitlist is empty.

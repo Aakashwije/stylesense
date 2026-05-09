@@ -162,7 +162,7 @@ export default function StylistOverviewPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {KPI_CARDS.map((card, i) => (
           <motion.div key={card.label} {...fadeUp(0.05 * (i + 1))}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -190,7 +190,7 @@ export default function StylistOverviewPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Today's schedule */}
         <motion.div {...fadeUp(0.2)} className="lg:col-span-2">
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
               <div className="flex items-center gap-2.5">
                 <Calendar
@@ -244,7 +244,7 @@ export default function StylistOverviewPage() {
 
         {/* Recent activity */}
         <motion.div {...fadeUp(0.25)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden h-full">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden h-full">
             <div className="flex items-center gap-2.5 p-5 border-b border-[#27272A]">
               <Clock className="w-4 h-4 text-[#22D3EE]" strokeWidth={1.75} />
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
@@ -285,7 +285,7 @@ export default function StylistOverviewPage() {
 
       {/* Performance summary strip */}
       <motion.div {...fadeUp(0.3)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <h3 className="text-[#F5F5F7] font-semibold text-sm mb-4">
             This Week at a Glance
           </h3>

@@ -78,7 +78,7 @@ function StylistCard({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -4 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors cursor-pointer group"
+      className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors cursor-pointer group"
       onClick={onSelect}
     >
       {/* Gradient header */}
@@ -210,7 +210,7 @@ export default function StylistsPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-[#141419] border border-[#27272A] rounded-xl px-4 py-2 text-sm text-[#A1A1AA]">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-xl px-4 py-2 text-sm text-[#A1A1AA]">
             <span className="text-[#F5F5F7] font-semibold">3</span> / 3 stylists
             <span className="text-[#52525B] ml-1">(Base plan)</span>
           </div>
@@ -273,7 +273,7 @@ export default function StylistsPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg p-6"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg p-6"
             >
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
@@ -363,7 +363,7 @@ export default function StylistsPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
             >
               <div className="flex items-center justify-between mb-5">
                 <p className="text-[#F5F5F7] font-semibold">Add New Stylist</p>

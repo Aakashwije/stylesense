@@ -249,7 +249,7 @@ export default function BookingsPage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-[#141419] border border-[#27272A] rounded-xl p-4"
+            className="card-3d bg-[#141419] border border-[#27272A] rounded-xl p-4"
           >
             <p className="text-[#52525B] text-xs mb-1">{s.label}</p>
             <p
@@ -263,7 +263,7 @@ export default function BookingsPage() {
       </div>
 
       {/* Search + Tabs */}
-      <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+      <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
         <div className="p-4 border-b border-[#27272A] flex flex-col sm:flex-row gap-3">
           <div className="flex items-center gap-2 bg-[#0B0B0F] border border-[#27272A] rounded-xl px-3 h-9 flex-1 max-w-xs focus-within:border-[#8B5CF6]/50 transition-colors">
             <Search className="w-4 h-4 text-[#52525B] flex-shrink-0" />
@@ -427,7 +427,7 @@ export default function BookingsPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
             >
               <div className="flex items-center justify-between mb-5">
                 <div>

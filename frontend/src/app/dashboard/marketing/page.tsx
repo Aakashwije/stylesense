@@ -204,7 +204,7 @@ function CampaignModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A] sticky top-0 bg-[#141419]">
           <h3 className="text-[#F5F5F7] font-semibold">New Campaign</h3>
@@ -394,7 +394,7 @@ export default function MarketingPage() {
           },
         ].map((k, i) => (
           <motion.div key={k.label} {...fadeUp(0.04 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
                 style={{ backgroundColor: `${k.color}15` }}
@@ -417,7 +417,7 @@ export default function MarketingPage() {
         <h3 className="text-[#F5F5F7] font-semibold text-sm mb-3">
           All Campaigns
         </h3>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

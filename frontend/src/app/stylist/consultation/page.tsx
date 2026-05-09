@@ -116,7 +116,7 @@ function FormCard({
     Severe: "#EF4444",
   }[form.damageLevel];
   return (
-    <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
+    <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[#F5F5F7] font-semibold text-sm">
@@ -205,7 +205,7 @@ function ViewModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A] sticky top-0 bg-[#141419]">
           <div>
@@ -433,7 +433,7 @@ function NewFormModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A] sticky top-0 bg-[#141419]">
           <div>
@@ -551,7 +551,7 @@ export default function ConsultationPage() {
           },
         ].map((k, i) => (
           <motion.div key={k.label} {...fadeUp(0.04 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4">
               <p className="font-bold text-2xl" style={{ color: k.color }}>
                 {k.value}
               </p>

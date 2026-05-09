@@ -178,7 +178,7 @@ export default function SubscriptionPage() {
           ].map((s) => (
             <div
               key={s.label}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-center gap-4"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-center gap-4"
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -282,7 +282,7 @@ export default function SubscriptionPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden"
       >
         <div className="p-5 border-b border-[#27272A]">
           <p className="text-[#F5F5F7] font-semibold">Billing History</p>
@@ -330,7 +330,7 @@ export default function SubscriptionPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
             >
               <p className="text-[#F5F5F7] font-semibold text-lg mb-2">
                 Upgrade to Pro

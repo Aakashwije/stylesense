@@ -96,7 +96,7 @@ export default function SettingsPage() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
             >
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-5">
                   Salon Information
                 </p>
@@ -180,7 +180,7 @@ export default function SettingsPage() {
               </div>
 
               {/* Social links */}
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-4">
                   Social Media Links
                 </p>
@@ -237,7 +237,7 @@ export default function SettingsPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-5">
                   Weekly Opening Hours
                 </p>
@@ -293,7 +293,7 @@ export default function SettingsPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-5">
                   Notification Preferences
                 </p>
@@ -377,7 +377,7 @@ export default function SettingsPage() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-5"
             >
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-1">
                   Payment Method
                 </p>
@@ -400,7 +400,7 @@ export default function SettingsPage() {
                   + Add new payment method
                 </button>
               </div>
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-4">
                   UPI / Bank Details (for payouts)
                 </p>
@@ -438,7 +438,7 @@ export default function SettingsPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6">
                 <p className="text-[#F5F5F7] font-semibold mb-2">
                   Branding Customization
                 </p>
@@ -495,7 +495,7 @@ export default function SettingsPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6 space-y-4">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6 space-y-4">
                 <p className="text-[#F5F5F7] font-semibold">
                   Security Settings
                 </p>

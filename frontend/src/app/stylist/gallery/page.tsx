@@ -172,7 +172,7 @@ function AddModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
           <h3 className="text-[#F5F5F7] font-semibold">Add Transformation</h3>
@@ -376,7 +376,7 @@ export default function GalleryPage() {
         <AnimatePresence>
           {displayed.map((t, i) => (
             <motion.div key={t.id} layout {...fadeUp(0.04 * i)}>
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors group">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors group">
                 {/* Before/After split */}
                 <div className="grid grid-cols-2 h-36 relative">
                   <div

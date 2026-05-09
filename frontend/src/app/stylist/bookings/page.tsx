@@ -279,7 +279,7 @@ export default function StylistBookingsPage() {
           },
         ].map((s, i) => (
           <motion.div key={s.label} {...fadeUp(0.05 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-center gap-4 hover:border-[#3f3f46] transition-colors">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-center gap-4 hover:border-[#3f3f46] transition-colors">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ backgroundColor: `${s.color}15` }}
@@ -304,7 +304,7 @@ export default function StylistBookingsPage() {
         {...fadeUp(0.2)}
         className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between"
       >
-        <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 w-full sm:w-64 focus-within:border-[#22D3EE]/50 transition-colors">
+        <div className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 w-full sm:w-64 focus-within:border-[#22D3EE]/50 transition-colors">
           <Search className="w-3.5 h-3.5 text-[#52525B] flex-shrink-0" />
           <input
             type="text"
@@ -340,7 +340,7 @@ export default function StylistBookingsPage() {
 
       {/* Bookings table */}
       <motion.div {...fadeUp(0.25)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -451,7 +451,7 @@ export default function StylistBookingsPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
             >
               <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
                 <h3 className="text-[#F5F5F7] font-semibold">
@@ -559,7 +559,7 @@ export default function StylistBookingsPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
             >
               <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
                 <h3 className="text-[#F5F5F7] font-semibold">New Booking</h3>

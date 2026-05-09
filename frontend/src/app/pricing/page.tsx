@@ -132,7 +132,7 @@ export default function PricingPage() {
           </p>
 
           {/* Billing toggle */}
-          <div className="inline-flex items-center gap-1 bg-[#141419] border border-[#27272A] rounded-xl p-1">
+          <div className="inline-flex items-center gap-1 card-3d bg-[#141419] border border-[#27272A] rounded-xl p-1">
             {(["monthly", "yearly"] as const).map((b) => (
               <button
                 key={b}

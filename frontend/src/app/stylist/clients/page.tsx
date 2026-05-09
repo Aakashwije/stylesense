@@ -259,7 +259,7 @@ export default function StylistClientsPage() {
         {...fadeUp(0.05)}
         className="flex flex-col sm:flex-row gap-3 items-start sm:items-center"
       >
-        <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 w-full sm:w-64 focus-within:border-[#22D3EE]/50 transition-colors">
+        <div className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 w-full sm:w-64 focus-within:border-[#22D3EE]/50 transition-colors">
           <Search className="w-3.5 h-3.5 text-[#52525B] flex-shrink-0" />
           <input
             type="text"
@@ -291,7 +291,7 @@ export default function StylistClientsPage() {
         {filtered.map((client, i) => (
           <motion.div key={client.id} {...fadeUp(0.05 * (i + 1))}>
             <div
-              className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors cursor-pointer"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors cursor-pointer"
               onClick={() => setSelectedClient(client)}
             >
               <div className="flex items-start justify-between mb-3">
@@ -373,7 +373,7 @@ export default function StylistClientsPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
                 <h3 className="text-[#F5F5F7] font-semibold">Client Profile</h3>
@@ -516,7 +516,7 @@ export default function StylistClientsPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[85vh] overflow-y-auto"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[85vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
                 <h3 className="text-[#F5F5F7] font-semibold">Edit Client</h3>
@@ -619,7 +619,7 @@ export default function StylistClientsPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
             >
               <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
                 <div className="flex items-center gap-2.5">
@@ -729,7 +729,7 @@ export default function StylistClientsPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-sm p-6 text-center"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-sm p-6 text-center"
             >
               <div className="w-12 h-12 rounded-full bg-[#EF4444]/10 flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-5 h-5 text-[#EF4444]" />

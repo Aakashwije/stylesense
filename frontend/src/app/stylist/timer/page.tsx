@@ -160,7 +160,7 @@ export default function TimerPage() {
 
       {/* Client + Service selectors */}
       <motion.div {...fadeUp(0.04)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 space-y-3">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-[#52525B] text-xs mb-1 block">
@@ -214,7 +214,7 @@ export default function TimerPage() {
 
       {/* Timer face */}
       <motion.div {...fadeUp(0.08)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-8 flex flex-col items-center gap-6">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-8 flex flex-col items-center gap-6">
           {/* Circular progress (countdown only) */}
           {mode === "countdown" && (
             <div className="relative w-36 h-36">
@@ -331,7 +331,7 @@ export default function TimerPage() {
           ].map((k) => (
             <div
               key={k.label}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 text-center"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 text-center"
             >
               <p className="font-bold text-xl" style={{ color: k.color }}>
                 {k.value}
@@ -348,7 +348,7 @@ export default function TimerPage() {
           <h3 className="text-[#F5F5F7] font-semibold text-sm mb-3 flex items-center gap-2">
             <Clock className="w-4 h-4 text-[#22D3EE]" /> Today&apos;s Sessions
           </h3>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-[#27272A]">

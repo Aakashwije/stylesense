@@ -162,7 +162,7 @@ export default function StylistEarningsPage() {
         <div className="relative">
           <button
             onClick={() => setShowMonthPicker((p) => !p)}
-            className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-4 h-10 text-[#F5F5F7] text-sm hover:border-[#3f3f46] transition-colors"
+            className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-4 h-10 text-[#F5F5F7] text-sm hover:border-[#3f3f46] transition-colors"
           >
             {month}
             <ChevronDown className="w-4 h-4 text-[#52525B]" />
@@ -174,7 +174,7 @@ export default function StylistEarningsPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.97 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 top-12 z-50 bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden shadow-2xl w-48"
+                className="absolute right-0 top-12 z-50 card-3d bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden shadow-2xl w-48"
               >
                 <div className="max-h-60 overflow-y-auto py-1">
                   {[...MONTHS].reverse().map((m, i) => (
@@ -295,7 +295,7 @@ export default function StylistEarningsPage() {
           },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} {...fadeUp(0.05 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 hover:border-[#3f3f46] transition-colors">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
                 style={{ backgroundColor: `${kpi.color}15` }}
@@ -318,7 +318,7 @@ export default function StylistEarningsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Earnings by service */}
         <motion.div {...fadeUp(0.15)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="p-5 border-b border-[#27272A]">
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
                 Earnings by Service
@@ -375,7 +375,7 @@ export default function StylistEarningsPage() {
 
         {/* This week day bars */}
         <motion.div {...fadeUp(0.2)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="p-5 border-b border-[#27272A]">
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
                 This Week's Daily Earnings
@@ -459,7 +459,7 @@ export default function StylistEarningsPage() {
 
       {/* Payout history */}
       <motion.div {...fadeUp(0.25)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
             <div>
               <h3 className="text-[#F5F5F7] font-semibold text-sm">

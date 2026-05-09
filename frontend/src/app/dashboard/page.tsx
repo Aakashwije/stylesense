@@ -100,7 +100,7 @@ function KPICard({ label, value, change, positive, icon: Icon, color, delay = 0 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
       whileHover={{ y: -3 }}
-      className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 relative overflow-hidden group cursor-pointer hover:border-[#3f3f46] transition-colors"
+      className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 relative overflow-hidden group cursor-pointer hover:border-[#3f3f46] transition-colors"
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{ background: `radial-gradient(circle at 0% 0%, ${color}08 0%, transparent 70%)` }} />
@@ -175,7 +175,7 @@ export default function DashboardOverviewPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
-          className="lg:col-span-2 bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+          className="lg:col-span-2 card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
             <div>
               <p className="text-[#F5F5F7] font-semibold">Revenue Analytics</p>
@@ -201,7 +201,7 @@ export default function DashboardOverviewPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <p className="text-[#F5F5F7] font-semibold mb-1">Service Popularity</p>
           <p className="text-[#52525B] text-xs mb-4">Distribution by type</p>
           <ResponsiveContainer width="100%" height={160}>
@@ -229,7 +229,7 @@ export default function DashboardOverviewPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <p className="text-[#F5F5F7] font-semibold mb-1">Weekly Bookings</p>
           <p className="text-[#52525B] text-xs mb-5">This week at a glance</p>
           <ResponsiveContainer width="100%" height={200}>
@@ -244,7 +244,7 @@ export default function DashboardOverviewPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <p className="text-[#F5F5F7] font-semibold mb-1">Peak Hour Heatmap</p>
           <p className="text-[#52525B] text-xs mb-4">Busiest times of the week</p>
           <div className="overflow-x-auto">
@@ -281,7 +281,7 @@ export default function DashboardOverviewPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.4 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <p className="text-[#F5F5F7] font-semibold">Today&apos;s Appointments</p>
             <Link href="/dashboard/bookings" className="text-[#8B5CF6] text-xs hover:underline">View all</Link>
@@ -306,7 +306,7 @@ export default function DashboardOverviewPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.45 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <p className="text-[#F5F5F7] font-semibold">Top Stylists</p>
             <Link href="/dashboard/stylists" className="text-[#8B5CF6] text-xs hover:underline">Manage</Link>
@@ -344,7 +344,7 @@ export default function DashboardOverviewPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.5 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 space-y-4">
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 space-y-4">
           <div className="bg-gradient-to-r from-[#8B5CF6]/10 to-[#22D3EE]/10 border border-[#8B5CF6]/20 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-4 h-4 text-[#8B5CF6]" />

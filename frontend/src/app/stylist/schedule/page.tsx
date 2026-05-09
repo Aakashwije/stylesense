@@ -298,7 +298,7 @@ export default function StylistSchedulePage() {
           },
         ].map((s, i) => (
           <motion.div key={s.label} {...fadeUp(0.05 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-center gap-3 hover:border-[#3f3f46] transition-colors">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-center gap-3 hover:border-[#3f3f46] transition-colors">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ backgroundColor: `${s.color}15` }}
@@ -320,7 +320,7 @@ export default function StylistSchedulePage() {
 
       {/* Week navigation */}
       <motion.div {...fadeUp(0.2)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="flex items-center justify-between px-5 py-3 border-b border-[#27272A]">
             <button
               onClick={() => setWeekOffset((w) => w - 1)}
@@ -489,7 +489,7 @@ export default function StylistSchedulePage() {
 
       {/* Availability toggle cards */}
       <motion.div {...fadeUp(0.3)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <h3 className="text-[#F5F5F7] font-semibold text-sm mb-4">
             Weekly Availability
           </h3>

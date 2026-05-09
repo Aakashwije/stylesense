@@ -126,7 +126,7 @@ export default function ChatbotPage() {
               <div className="w-8 h-8 rounded-full bg-[#8B5CF6]/15 border border-[#8B5CF6]/25 flex items-center justify-center flex-shrink-0">
                 <Bot className="w-4 h-4 text-[#8B5CF6]" />
               </div>
-              <div className="bg-[#1C1C22] border border-[#27272A] rounded-2xl px-4 py-3 flex gap-1.5 items-center">
+              <div className="card-3d bg-[#1C1C22] border border-[#27272A] rounded-2xl px-4 py-3 flex gap-1.5 items-center">
                 {[0, 1, 2].map((i) => (
                   <motion.div
                     key={i}
@@ -163,7 +163,7 @@ export default function ChatbotPage() {
 
       {/* Input */}
       <div className="border-t border-[#27272A] px-4 py-3">
-        <div className="flex items-center gap-3 bg-[#1C1C22] border border-[#27272A] rounded-2xl px-4 py-2 focus-within:border-[#8B5CF6]/50 transition-colors">
+        <div className="flex items-center gap-3 card-3d bg-[#1C1C22] border border-[#27272A] rounded-2xl px-4 py-2 focus-within:border-[#8B5CF6]/50 transition-colors">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}

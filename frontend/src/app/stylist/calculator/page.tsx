@@ -74,7 +74,7 @@ export default function CalculatorPage() {
 
       {/* Main inputs */}
       <motion.div {...fadeUp(0.06)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 space-y-5">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 space-y-5">
           <h3 className="text-[#F5F5F7] font-semibold text-sm">
             Session Details
           </h3>
@@ -136,7 +136,7 @@ export default function CalculatorPage() {
           Earnings Breakdown
         </h3>
         <div className="grid grid-cols-3 gap-3">
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4">
             <p className="text-[#52525B] text-xs mb-1">Gross Revenue</p>
             <p className="font-bold text-lg text-[#F5F5F7]">
               LKR {gross.toLocaleString()}
@@ -213,7 +213,7 @@ export default function CalculatorPage() {
 
       {/* "What if" slider */}
       <motion.div {...fadeUp(0.12)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp className="w-4 h-4 text-[#22D3EE]" />
             <h3 className="text-[#F5F5F7] font-semibold text-sm">
@@ -270,7 +270,7 @@ export default function CalculatorPage() {
           <Calculator className="w-4 h-4 text-[#22D3EE]" /> Service Price
           Reference
         </h3>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[#27272A]">
