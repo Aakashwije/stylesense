@@ -5,14 +5,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   BookOpen,
   Calendar,
+  Camera,
   ChevronLeft,
   ChevronRight,
+  ClipboardList,
   LogOut,
   Palette,
   Scissors,
   Settings,
   Sparkles,
   Star,
+  Target,
+  Timer,
   User,
   Users,
   Wallet,
@@ -36,6 +40,7 @@ const NAV_SECTIONS = [
       },
       { href: "/stylist/schedule", label: "My Schedule", icon: Calendar },
       { href: "/stylist/earnings", label: "My Earnings", icon: Wallet },
+      { href: "/stylist/timer", label: "Service Timer", icon: Timer },
     ],
   },
   {
@@ -44,7 +49,22 @@ const NAV_SECTIONS = [
   },
   {
     label: "Clients",
-    items: [{ href: "/stylist/clients", label: "My Clients", icon: Users }],
+    items: [
+      { href: "/stylist/clients", label: "My Clients", icon: Users },
+      {
+        href: "/stylist/consultation",
+        label: "Consultation Form",
+        icon: ClipboardList,
+      },
+      { href: "/stylist/gallery", label: "Before / After", icon: Camera },
+    ],
+  },
+  {
+    label: "My Growth",
+    items: [
+      { href: "/stylist/goals", label: "Goal Tracker", icon: Target },
+      { href: "/stylist/calculator", label: "Commission Calc", icon: Wallet },
+    ],
   },
   {
     label: "Inspiration",
