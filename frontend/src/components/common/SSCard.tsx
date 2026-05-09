@@ -41,9 +41,8 @@ export function SSCard({
       }
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       className={cn(
-        "bg-[#232329] border border-[#38383F] rounded-2xl",
+        "card-3d bg-[#141419] border border-[#27272A] rounded-2xl",
         "relative overflow-hidden",
-        "shadow-[0_4px_28px_rgba(0,0,0,0.55)]",
         paddingMap[padding],
         hover && "cursor-pointer",
         glow && "shadow-[0_0_30px_rgba(139,92,246,0.12)]",

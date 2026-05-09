@@ -85,6 +85,22 @@ export function LoginForm() {
     router.push("/stylist");
   };
 
+  const handleClientDevLogin = () => {
+    setUser({
+      id: "client-dev-001",
+      name: "Anika Fernando",
+      email: "anika.f@gmail.com",
+      phone: "+94 77 987 6543",
+      role: "user",
+      avatar: undefined,
+      loyaltyPoints: 1250,
+      membershipTier: "premium",
+      createdAt: new Date().toISOString(),
+    });
+    setToken("client-dev-token");
+    router.push("/client");
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       {loginError && (
@@ -175,7 +191,7 @@ export function LoginForm() {
         <p className="text-center text-[#52525B] text-[10px] uppercase tracking-widest">
           Dev shortcuts
         </p>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <button
             type="button"
             onClick={handleSalonDevLogin}
@@ -191,6 +207,14 @@ export function LoginForm() {
           >
             <Zap className="w-3 h-3" />
             Stylist Portal
+          </button>
+          <button
+            type="button"
+            onClick={handleClientDevLogin}
+            className="flex items-center justify-center gap-1.5 h-10 rounded-xl border border-dashed border-[#EC4899]/40 text-[#EC4899] text-xs font-medium hover:bg-[#EC4899]/10 transition-all duration-200"
+          >
+            <Zap className="w-3 h-3" />
+            Client App
           </button>
         </div>
       </div>
