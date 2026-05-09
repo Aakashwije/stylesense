@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,8 +21,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const prevPathname = useRef(pathname);
   useEffect(() => {
-    setMobileOpen(false);
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+      setMobileOpen(false);
+    }
   }, [pathname]);
 
   return (

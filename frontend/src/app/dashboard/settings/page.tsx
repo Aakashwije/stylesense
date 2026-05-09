@@ -1,378 +1,553 @@
 "use client";
 
-import { FadeUp } from "@/components/animations/FadeUp";
-import { Badge } from "@/components/common/Badge";
-import { SSButton } from "@/components/common/SSButton";
-import { SSCard } from "@/components/common/SSCard";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  Bell,
+  AtSign,
   Camera,
-  Check,
   CreditCard,
-  Eye,
-  EyeOff,
-  Moon,
-  Palette,
+  Globe,
+  Link2,
+  Save,
   Shield,
-  Sun,
-  Trash2,
-  User,
 } from "lucide-react";
 import { useState } from "react";
 
 const SECTIONS = [
-  { id: "profile", label: "Profile", icon: User },
-  { id: "notifications", label: "Notifications", icon: Bell },
-  { id: "privacy", label: "Privacy & Security", icon: Shield },
-  { id: "billing", label: "Billing", icon: CreditCard },
-  { id: "appearance", label: "Appearance", icon: Palette },
+  "Salon Profile",
+  "Opening Hours",
+  "Notifications",
+  "Payment",
+  "Branding",
+  "Security",
 ];
 
-const NOTIFICATION_PREFS = [
-  {
-    id: "booking_reminders",
-    label: "Booking reminders",
-    description: "Get notified 24h before your appointment",
-  },
-  {
-    id: "ai_ready",
-    label: "AI analysis ready",
-    description: "When your hair analysis or style is complete",
-  },
-  {
-    id: "offers",
-    label: "Promotions & offers",
-    description: "Exclusive deals and limited-time discounts",
-  },
-  {
-    id: "loyalty",
-    label: "Loyalty milestones",
-    description: "When you earn or reach a new tier",
-  },
+const DAYS = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
 ];
+
+const defaultHours: Record<
+  string,
+  { open: boolean; from: string; to: string }
+> = {
+  Monday: { open: true, from: "09:00", to: "20:00" },
+  Tuesday: { open: true, from: "09:00", to: "20:00" },
+  Wednesday: { open: true, from: "09:00", to: "20:00" },
+  Thursday: { open: true, from: "09:00", to: "20:00" },
+  Friday: { open: true, from: "09:00", to: "21:00" },
+  Saturday: { open: true, from: "08:00", to: "21:00" },
+  Sunday: { open: false, from: "10:00", to: "18:00" },
+};
 
 export default function SettingsPage() {
-  const [activeSection, setActiveSection] = useState("profile");
-  const [saved, setSaved] = useState(false);
-  const [notifPrefs, setNotifPrefs] = useState<Record<string, boolean>>(
-    Object.fromEntries(NOTIFICATION_PREFS.map((n) => [n.id, true])),
-  );
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [showPhone, setShowPhone] = useState(false);
+  const [activeSection, setActiveSection] = useState("Salon Profile");
+  const [hours, setHours] = useState(defaultHours);
+  const [notifPrefs, setNotifPrefs] = useState({
+    newBooking: true,
+    cancellation: true,
+    payment: true,
+    review: true,
+    subscription: true,
+    lowSlots: true,
+    smsAlerts: false,
+    emailDigest: true,
+  });
 
-  const handleSave = async () => {
-    await new Promise((r) => setTimeout(r, 600));
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+  const toggleHour = (day: string) => {
+    setHours((prev) => ({
+      ...prev,
+      [day]: { ...prev[day], open: !prev[day].open },
+    }));
   };
 
-  const toggleNotif = (id: string) =>
-    setNotifPrefs((p) => ({ ...p, [id]: !p[id] }));
-
   return (
-    <div className="p-8">
-      <FadeUp className="mb-8">
-        <h1 className="text-2xl font-bold text-[#F5F5F7]">Settings</h1>
-        <p className="text-[#A1A1AA] mt-1">
-          Manage your account, preferences, and privacy.
-        </p>
-      </FadeUp>
-
-      <div className="grid lg:grid-cols-[220px_1fr] gap-8">
+    <div className="p-6 lg:p-8 max-w-[1200px] mx-auto">
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar nav */}
-        <FadeUp>
+        <div className="lg:w-56 flex-shrink-0">
           <nav className="space-y-1">
-            {SECTIONS.map((s) => {
-              const Icon = s.icon;
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setActiveSection(s.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-                    activeSection === s.id
-                      ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20"
-                      : "text-[#A1A1AA] hover:text-[#F5F5F7] hover:bg-[#1C1C22]"
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  {s.label}
-                  {activeSection === s.id && (
-                    <motion.div
-                      layoutId="settings-active"
-                      className="ml-auto w-1.5 h-1.5 rounded-full bg-[#8B5CF6]"
-                    />
-                  )}
-                </button>
-              );
-            })}
+            {SECTIONS.map((s) => (
+              <button
+                key={s}
+                onClick={() => setActiveSection(s)}
+                className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  activeSection === s
+                    ? "bg-[#8B5CF6]/15 text-[#8B5CF6] border border-[#8B5CF6]/20"
+                    : "text-[#52525B] hover:text-[#A1A1AA] hover:bg-[#1C1C22]"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
           </nav>
-        </FadeUp>
+        </div>
 
-        {/* Panel */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSection}
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.2 }}
-          >
-            {/* ── Profile ── */}
-            {activeSection === "profile" && (
-              <div className="space-y-6">
-                <SSCard className="p-6">
-                  <h2 className="text-base font-semibold text-[#F5F5F7] mb-5">
-                    Personal information
-                  </h2>
-                  {/* Avatar */}
-                  <div className="flex items-center gap-5 mb-6">
-                    <div className="relative">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#8B5CF6] to-[#22D3EE] flex items-center justify-center text-white text-xl font-bold">
-                        AK
-                      </div>
-                      <button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#1C1C22] border border-[#27272A] flex items-center justify-center">
-                        <Camera className="w-3 h-3 text-[#A1A1AA]" />
-                      </button>
-                    </div>
-                    <div>
-                      <p className="font-medium text-[#F5F5F7]">Aakash Kumar</p>
-                      <p className="text-sm text-[#52525B]">Premium member</p>
-                    </div>
-                  </div>
-                  {/* Fields */}
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {[
-                      { label: "First name", value: "Aakash", type: "text" },
-                      { label: "Last name", value: "Kumar", type: "text" },
-                      {
-                        label: "Email",
-                        value: "aakash@example.com",
-                        type: "email",
-                      },
-                    ].map((f) => (
-                      <div key={f.label} className="space-y-1.5">
-                        <label className="text-xs font-medium text-[#A1A1AA]">
-                          {f.label}
-                        </label>
-                        <input
-                          type={f.type}
-                          defaultValue={f.value}
-                          className="w-full bg-[#141419] border border-[#27272A] rounded-xl px-4 py-2.5 text-sm text-[#F5F5F7] focus:outline-none focus:border-[#8B5CF6] transition-all"
-                        />
-                      </div>
-                    ))}
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-medium text-[#A1A1AA]">
-                        Phone
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showPhone ? "text" : "password"}
-                          defaultValue="+1 (555) 123-4567"
-                          className="w-full bg-[#141419] border border-[#27272A] rounded-xl pl-4 pr-10 py-2.5 text-sm text-[#F5F5F7] focus:outline-none focus:border-[#8B5CF6] transition-all"
-                        />
-                        <button
-                          onClick={() => setShowPhone(!showPhone)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-[#52525B] hover:text-[#A1A1AA] transition-colors"
-                        >
-                          {showPhone ? (
-                            <EyeOff className="w-4 h-4" />
-                          ) : (
-                            <Eye className="w-4 h-4" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-end mt-5">
-                    <SSButton
-                      variant="primary"
-                      size="sm"
-                      onClick={handleSave}
-                      leftIcon={
-                        saved ? <Check className="w-4 h-4" /> : undefined
-                      }
-                    >
-                      {saved ? "Saved!" : "Save changes"}
-                    </SSButton>
-                  </div>
-                </SSCard>
-
-                {/* Danger zone */}
-                <SSCard className="p-6 border-[#EF4444]/20">
-                  <h2 className="text-base font-semibold text-[#EF4444] mb-1">
-                    Danger zone
-                  </h2>
-                  <p className="text-xs text-[#52525B] mb-4">
-                    Permanently delete your account and all associated data.
-                  </p>
-                  <SSButton
-                    variant="danger"
-                    size="sm"
-                    leftIcon={<Trash2 className="w-4 h-4" />}
-                  >
-                    Delete account
-                  </SSButton>
-                </SSCard>
-              </div>
-            )}
-
-            {/* ── Notifications ── */}
-            {activeSection === "notifications" && (
-              <SSCard className="p-6 space-y-5">
-                <h2 className="text-base font-semibold text-[#F5F5F7]">
-                  Notification preferences
-                </h2>
-                {NOTIFICATION_PREFS.map((pref) => (
-                  <div
-                    key={pref.id}
-                    className="flex items-start justify-between gap-4"
-                  >
-                    <div>
-                      <p className="text-sm font-medium text-[#F5F5F7]">
-                        {pref.label}
-                      </p>
-                      <p className="text-xs text-[#52525B] mt-0.5">
-                        {pref.description}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => toggleNotif(pref.id)}
-                      className={`relative w-10 h-5.5 rounded-full transition-colors shrink-0 ${
-                        notifPrefs[pref.id] ? "bg-[#8B5CF6]" : "bg-[#27272A]"
-                      }`}
-                      style={{ height: 22, minWidth: 40 }}
-                    >
-                      <motion.div
-                        animate={{ x: notifPrefs[pref.id] ? 18 : 2 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 500,
-                          damping: 30,
-                        }}
-                        className="absolute top-0.5 w-4 h-4 rounded-full bg-white"
-                      />
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          {/* Salon Profile */}
+          {activeSection === "Salon Profile" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-6"
+            >
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-5">
+                  Salon Information
+                </p>
+                {/* Logo upload */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#8B5CF6] to-[#22D3EE] flex items-center justify-center text-white text-2xl font-bold relative">
+                    S
+                    <button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#1C1C22] border border-[#27272A] flex items-center justify-center">
+                      <Camera className="w-3 h-3 text-[#A1A1AA]" />
                     </button>
                   </div>
-                ))}
-              </SSCard>
-            )}
-
-            {/* ── Privacy ── */}
-            {activeSection === "privacy" && (
-              <div className="space-y-4">
-                <SSCard className="p-6">
-                  <h2 className="text-base font-semibold text-[#F5F5F7] mb-4">
-                    Security
-                  </h2>
-                  <div className="space-y-3">
-                    {[
-                      {
-                        label: "Two-factor authentication",
-                        status: "Disabled",
-                        action: "Enable",
-                        color: "text-[#EF4444]",
-                      },
-                      {
-                        label: "Active sessions",
-                        status: "1 device",
-                        action: "Manage",
-                        color: "text-[#A1A1AA]",
-                      },
-                      {
-                        label: "Password",
-                        status: "Last changed 60 days ago",
-                        action: "Change",
-                        color: "text-[#A1A1AA]",
-                      },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="flex items-center justify-between py-3 border-b border-[#27272A] last:border-0"
-                      >
-                        <div>
-                          <p className="text-sm font-medium text-[#F5F5F7]">
-                            {item.label}
-                          </p>
-                          <p className={`text-xs mt-0.5 ${item.color}`}>
-                            {item.status}
-                          </p>
-                        </div>
-                        <SSButton variant="outline" size="sm">
-                          {item.action}
-                        </SSButton>
-                      </div>
-                    ))}
+                  <div>
+                    <p className="text-[#F5F5F7] text-sm font-medium">
+                      Salon Logo
+                    </p>
+                    <p className="text-[#52525B] text-xs">
+                      JPG or PNG, max 2MB
+                    </p>
+                    <button className="text-[#8B5CF6] text-xs mt-1 hover:underline">
+                      Upload logo
+                    </button>
                   </div>
-                </SSCard>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    {
+                      label: "Salon Name",
+                      defaultValue: "Glow & Grace Salon",
+                      type: "text",
+                    },
+                    {
+                      label: "Owner Name",
+                      defaultValue: "Salon Owner",
+                      type: "text",
+                    },
+                    {
+                      label: "Phone",
+                      defaultValue: "+94 77 123 4567",
+                      type: "tel",
+                    },
+                    {
+                      label: "Email",
+                      defaultValue: "owner@glowgrace.lk",
+                      type: "email",
+                    },
+                    { label: "City", defaultValue: "Colombo", type: "text" },
+                    { label: "Postal Code", defaultValue: "00300", type: "text" },
+                  ].map((f) => (
+                    <div key={f.label}>
+                      <label className="text-[#52525B] text-xs mb-1 block">
+                        {f.label}
+                      </label>
+                      <input
+                        type={f.type}
+                        defaultValue={f.defaultValue}
+                        className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4">
+                  <label className="text-[#52525B] text-xs mb-1 block">
+                    Full Address
+                  </label>
+                  <textarea
+                    rows={2}
+                    defaultValue="No. 45, Galle Road, Kollupitiya, Colombo — 00300"
+                    className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors resize-none"
+                  />
+                </div>
+                <div className="mt-4">
+                  <label className="text-[#52525B] text-xs mb-1 block">
+                    About Salon
+                  </label>
+                  <textarea
+                    rows={3}
+                    defaultValue="Luxury beauty salon offering premium hair, skin and nail services in the heart of Colombo."
+                    className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors resize-none"
+                  />
+                </div>
               </div>
-            )}
 
-            {/* ── Billing ── */}
-            {activeSection === "billing" && (
-              <SSCard className="p-6 space-y-6">
-                <h2 className="text-base font-semibold text-[#F5F5F7]">
-                  Payment methods
-                </h2>
-                <div className="flex items-center justify-between p-4 rounded-xl border border-[#8B5CF6]/30 bg-[#8B5CF6]/5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-7 rounded-md bg-[#141419] border border-[#27272A] flex items-center justify-center text-xs font-bold text-[#F5F5F7]">
-                      VISA
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-[#F5F5F7]">
-                        Visa ending 4242
-                      </p>
-                      <p className="text-xs text-[#52525B]">Expires 08/28</p>
-                    </div>
-                  </div>
-                  <Badge variant="green" size="sm">
-                    Default
-                  </Badge>
-                </div>
-                <SSButton variant="outline" size="sm" className="w-full">
-                  + Add payment method
-                </SSButton>
-              </SSCard>
-            )}
-
-            {/* ── Appearance ── */}
-            {activeSection === "appearance" && (
-              <SSCard className="p-6 space-y-6">
-                <h2 className="text-base font-semibold text-[#F5F5F7]">
-                  Appearance
-                </h2>
-                <div>
-                  <p className="text-sm text-[#A1A1AA] mb-3">Theme</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    {(["dark", "light"] as const).map((t) => (
-                      <button
-                        key={t}
-                        onClick={() => setTheme(t)}
-                        className={`flex items-center justify-center gap-2 py-3 rounded-xl border text-sm font-medium capitalize transition-all ${
-                          theme === t
-                            ? "border-[#8B5CF6] bg-[#8B5CF6]/10 text-[#8B5CF6]"
-                            : "border-[#27272A] text-[#A1A1AA] hover:text-[#F5F5F7]"
-                        }`}
+              {/* Social links */}
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-4">
+                  Social Media Links
+                </p>
+                <div className="space-y-3">
+                  {[
+                    {
+                      label: "Instagram",
+                      icon: AtSign,
+                      placeholder: "@glowgrace_salon",
+                      color: "#E8B4B8",
+                    },
+                    {
+                      label: "Website",
+                      icon: Globe,
+                      placeholder: "https://glowgrace.lk",
+                      color: "#22D3EE",
+                    },
+                    {
+                      label: "Facebook",
+                      icon: Link2,
+                      placeholder: "facebook.com/glowgrace",
+                      color: "#3B82F6",
+                    },
+                  ].map((s) => (
+                    <div key={s.label} className="flex items-center gap-3">
+                      <div
+                        className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: `${s.color}15` }}
                       >
-                        {t === "dark" ? (
-                          <Moon className="w-4 h-4" />
-                        ) : (
-                          <Sun className="w-4 h-4" />
-                        )}
-                        {t} mode
-                      </button>
-                    ))}
-                  </div>
-                  <p className="text-xs text-[#52525B] mt-2">
-                    Note: StyleSense is designed for dark mode.
-                  </p>
+                        <s.icon
+                          className="w-4 h-4"
+                          style={{ color: s.color }}
+                        />
+                      </div>
+                      <input
+                        placeholder={s.placeholder}
+                        className="flex-1 bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-9 text-sm text-[#F5F5F7] placeholder:text-[#3f3f46] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                      />
+                    </div>
+                  ))}
                 </div>
-              </SSCard>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              </div>
+
+              <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#8B5CF6] text-white text-sm font-medium hover:bg-[#7C3AED] transition-colors">
+                <Save className="w-4 h-4" />
+                Save Changes
+              </button>
+            </motion.div>
+          )}
+
+          {/* Opening Hours */}
+          {activeSection === "Opening Hours" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-5">
+                  Weekly Opening Hours
+                </p>
+                <div className="space-y-3">
+                  {DAYS.map((day) => (
+                    <div key={day} className="flex items-center gap-4">
+                      <div className="w-28 flex items-center gap-2 flex-shrink-0">
+                        <button
+                          onClick={() => toggleHour(day)}
+                          className={`w-9 h-5 rounded-full transition-colors relative flex-shrink-0 ${hours[day].open ? "bg-[#8B5CF6]" : "bg-[#27272A]"}`}
+                        >
+                          <span
+                            className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform shadow-sm ${hours[day].open ? "translate-x-[18px]" : "translate-x-0.5"}`}
+                          />
+                        </button>
+                        <span
+                          className={`text-sm font-medium ${hours[day].open ? "text-[#F5F5F7]" : "text-[#52525B]"}`}
+                        >
+                          {day.slice(0, 3)}
+                        </span>
+                      </div>
+                      {hours[day].open ? (
+                        <div className="flex items-center gap-2 flex-1">
+                          <input
+                            type="time"
+                            defaultValue={hours[day].from}
+                            className="bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-9 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                          />
+                          <span className="text-[#52525B] text-sm">to</span>
+                          <input
+                            type="time"
+                            defaultValue={hours[day].to}
+                            className="bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-9 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                          />
+                        </div>
+                      ) : (
+                        <span className="text-[#52525B] text-sm">Closed</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <button className="flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl bg-[#8B5CF6] text-white text-sm font-medium hover:bg-[#7C3AED] transition-colors">
+                  <Save className="w-4 h-4" />
+                  Save Hours
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Notifications */}
+          {activeSection === "Notifications" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-5">
+                  Notification Preferences
+                </p>
+                <div className="space-y-4">
+                  {[
+                    {
+                      key: "newBooking",
+                      label: "New Bookings",
+                      desc: "Alert when a customer places a booking",
+                    },
+                    {
+                      key: "cancellation",
+                      label: "Cancellations",
+                      desc: "Alert when a booking is cancelled",
+                    },
+                    {
+                      key: "payment",
+                      label: "Payments",
+                      desc: "Confirm when payment is received",
+                    },
+                    {
+                      key: "review",
+                      label: "New Reviews",
+                      desc: "Alert when a customer leaves a review",
+                    },
+                    {
+                      key: "subscription",
+                      label: "Subscription Alerts",
+                      desc: "Renewal reminders and billing notifications",
+                    },
+                    {
+                      key: "lowSlots",
+                      label: "Low Availability Warnings",
+                      desc: "Alert when slots are almost full",
+                    },
+                    {
+                      key: "smsAlerts",
+                      label: "SMS Alerts",
+                      desc: "Send notifications via SMS (charges may apply)",
+                    },
+                    {
+                      key: "emailDigest",
+                      label: "Daily Email Digest",
+                      desc: "Summary of the day's activity at 9 PM",
+                    },
+                  ].map((n) => (
+                    <div
+                      key={n.key}
+                      className="flex items-center justify-between py-3 border-b border-[#27272A]/50 last:border-0"
+                    >
+                      <div>
+                        <p className="text-[#F5F5F7] text-sm font-medium">
+                          {n.label}
+                        </p>
+                        <p className="text-[#52525B] text-xs">{n.desc}</p>
+                      </div>
+                      <button
+                        onClick={() =>
+                          setNotifPrefs((p) => ({
+                            ...p,
+                            [n.key]: !p[n.key as keyof typeof p],
+                          }))
+                        }
+                        className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${notifPrefs[n.key as keyof typeof notifPrefs] ? "bg-[#8B5CF6]" : "bg-[#27272A]"}`}
+                      >
+                        <span
+                          className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform shadow-sm ${notifPrefs[n.key as keyof typeof notifPrefs] ? "translate-x-[22px]" : "translate-x-0.5"}`}
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Payment Settings */}
+          {activeSection === "Payment" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-5"
+            >
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-1">
+                  Payment Method
+                </p>
+                <p className="text-[#52525B] text-xs mb-5">
+                  Used for subscription billing
+                </p>
+                <div className="bg-[#1C1C22] border border-[#27272A] rounded-xl p-4 flex items-center gap-4 mb-4">
+                  <CreditCard className="w-8 h-8 text-[#8B5CF6]" />
+                  <div>
+                    <p className="text-[#F5F5F7] text-sm font-medium">
+                      Visa ending in 4242
+                    </p>
+                    <p className="text-[#52525B] text-xs">Expires 08/2027</p>
+                  </div>
+                  <span className="ml-auto text-[10px] bg-[#10B981]/10 text-[#10B981] px-2 py-0.5 rounded-full font-semibold">
+                    Default
+                  </span>
+                </div>
+                <button className="text-sm text-[#8B5CF6] hover:underline">
+                  + Add new payment method
+                </button>
+              </div>
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-4">
+                  UPI / Bank Details (for payouts)
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-[#52525B] text-xs mb-1 block">
+                      UPI ID
+                    </label>
+                    <input
+                      defaultValue="glowgrace@dialog"
+                      className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[#52525B] text-xs mb-1 block">
+                      Account Holder Name
+                    </label>
+                    <input
+                      defaultValue="Glow & Grace Salon"
+                      className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                    />
+                  </div>
+                </div>
+                <button className="flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl bg-[#8B5CF6] text-white text-sm font-medium hover:bg-[#7C3AED] transition-colors">
+                  <Save className="w-4 h-4" />
+                  Save Payment Info
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Branding */}
+          {activeSection === "Branding" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6">
+                <p className="text-[#F5F5F7] font-semibold mb-2">
+                  Branding Customization
+                </p>
+                <p className="text-[#52525B] text-xs mb-5">
+                  Customize how your salon appears to customers
+                </p>
+                <div className="space-y-5">
+                  <div>
+                    <label className="text-[#52525B] text-xs mb-2 block">
+                      Primary Color
+                    </label>
+                    <div className="flex gap-2 flex-wrap">
+                      {[
+                        "#8B5CF6",
+                        "#22D3EE",
+                        "#10B981",
+                        "#F59E0B",
+                        "#EF4444",
+                        "#E8B4B8",
+                      ].map((c) => (
+                        <button
+                          key={c}
+                          className="w-8 h-8 rounded-full border-2 border-transparent hover:border-white/30 transition-colors"
+                          style={{ background: c }}
+                        />
+                      ))}
+                      <input
+                        type="color"
+                        className="w-8 h-8 rounded-full cursor-pointer bg-transparent border border-[#27272A]"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[#52525B] text-xs mb-1 block">
+                      Booking Page Tagline
+                    </label>
+                    <input
+                      defaultValue="Beauty is not a look, it's a feeling."
+                      className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                    />
+                  </div>
+                </div>
+                <button className="flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl bg-[#8B5CF6] text-white text-sm font-medium hover:bg-[#7C3AED] transition-colors">
+                  <Save className="w-4 h-4" />
+                  Save Branding
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Security */}
+          {activeSection === "Security" && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-6 space-y-4">
+                <p className="text-[#F5F5F7] font-semibold">
+                  Security Settings
+                </p>
+                <div>
+                  <label className="text-[#52525B] text-xs mb-1 block">
+                    Current Password
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+                <div>
+                  <label className="text-[#52525B] text-xs mb-1 block">
+                    New Password
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+                <div>
+                  <label className="text-[#52525B] text-xs mb-1 block">
+                    Confirm New Password
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-10 text-sm text-[#F5F5F7] outline-none focus:border-[#8B5CF6]/50 transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+                <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#8B5CF6] text-white text-sm font-medium hover:bg-[#7C3AED] transition-colors">
+                  <Shield className="w-4 h-4" />
+                  Update Password
+                </button>
+                <div className="pt-4 border-t border-[#27272A]">
+                  <p className="text-[#F5F5F7] text-sm font-medium mb-1">
+                    Two-Factor Authentication
+                  </p>
+                  <p className="text-[#52525B] text-xs mb-3">
+                    Secure your account with OTP verification on login.
+                  </p>
+                  <button className="px-4 py-2 rounded-xl bg-[#1C1C22] border border-[#27272A] text-[#A1A1AA] text-sm hover:text-[#F5F5F7] transition-colors">
+                    Enable 2FA
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </div>
       </div>
     </div>
   );

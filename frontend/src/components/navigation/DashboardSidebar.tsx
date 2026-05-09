@@ -1,36 +1,67 @@
 "use client";
 
-import { cn, getInitials } from "@/lib/utils";
-import { useAuthStore } from "@/store/authStore";
-import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  BarChart2,
   Bell,
+  BookOpen,
   Calendar,
-  Crown,
-  Heart,
-  Image as ImageIcon,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
   LayoutDashboard,
   LogOut,
   Scissors,
   Settings,
+  ShoppingBag,
   Sparkles,
   Star,
+  Users,
+  Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const NAV_SECTIONS = [
   {
-    label: "Main",
+    label: "Management",
     items: [
-      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
       {
-        href: "/dashboard/appointments",
-        label: "Appointments",
-        icon: Calendar,
+        href: "/dashboard",
+        label: "Overview",
+        icon: LayoutDashboard,
+        exact: true,
       },
+      {
+        href: "/dashboard/bookings",
+        label: "Bookings",
+        icon: BookOpen,
+        badge: 5,
+      },
+      { href: "/dashboard/calendar", label: "Calendar", icon: Calendar },
+    ],
+  },
+  {
+    label: "Salon",
+    items: [
+      { href: "/dashboard/stylists", label: "Stylists", icon: Scissors },
+      { href: "/dashboard/services", label: "Services", icon: ShoppingBag },
+      { href: "/dashboard/customers", label: "Customers", icon: Users },
+    ],
+  },
+  {
+    label: "Finance",
+    items: [
+      { href: "/dashboard/earnings", label: "Earnings", icon: Wallet },
+      { href: "/dashboard/analytics", label: "AI Analytics", icon: Sparkles },
+    ],
+  },
+  {
+    label: "Insights",
+    items: [
+      { href: "/dashboard/reviews", label: "Reviews", icon: Star },
       {
         href: "/dashboard/notifications",
         label: "Notifications",
@@ -40,30 +71,13 @@ const NAV_SECTIONS = [
     ],
   },
   {
-    label: "AI Features",
-    items: [
-      { href: "/ai/analysis", label: "AI Analysis", icon: Sparkles },
-      { href: "/ai/virtual-tryon", label: "Virtual Try-On", icon: ImageIcon },
-      { href: "/ai/chatbot", label: "AI Chatbot", icon: Scissors },
-    ],
-  },
-  {
-    label: "My Beauty",
-    items: [
-      { href: "/dashboard/favorites", label: "Favorites", icon: Heart },
-      { href: "/dashboard/saved-styles", label: "Saved Styles", icon: Star },
-      {
-        href: "/dashboard/beauty-reports",
-        label: "Beauty Reports",
-        icon: BarChart2,
-      },
-    ],
-  },
-  {
     label: "Account",
     items: [
-      { href: "/dashboard/membership", label: "Membership", icon: Crown },
-      { href: "/dashboard/loyalty", label: "Loyalty", icon: Star },
+      {
+        href: "/dashboard/subscription",
+        label: "Subscription",
+        icon: CreditCard,
+      },
       { href: "/dashboard/settings", label: "Settings", icon: Settings },
     ],
   },
@@ -71,40 +85,95 @@ const NAV_SECTIONS = [
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  const { user, logout } = useAuthStore();
+  const [collapsed, setCollapsed] = useState(false);
+
+  const isActive = (href: string, exact?: boolean) => {
+    if (exact) return pathname === href;
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   return (
-    <aside className="w-64 h-screen sticky top-0 bg-[#141419] border-r border-[#27272A] flex flex-col">
-      {/* Logo */}
-      <div className="p-5 border-b border-[#27272A]">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/stylesense_logo.png"
-            alt="StyleSense"
-            width={120}
-            height={36}
-            className="object-contain"
-          />
-        </Link>
+    <motion.aside
+      animate={{ width: collapsed ? 68 : 256 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className="h-screen sticky top-0 bg-[#141419] border-r border-[#27272A] flex flex-col overflow-hidden flex-shrink-0 z-40"
+    >
+      {/* Logo + collapse toggle */}
+      <div className="p-4 border-b border-[#27272A] flex items-center justify-between flex-shrink-0 h-[65px]">
+        <AnimatePresence mode="wait">
+          {!collapsed && (
+            <motion.div
+              key="logo"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <Link href="/" className="flex items-center">
+                <Image
+                  src="/stylesense_logo.png"
+                  alt="StyleSense"
+                  width={70}
+                  height={20}
+                  className="object-contain"
+                />
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {collapsed && (
+          <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/15 flex items-center justify-center mx-auto">
+            <Scissors className="w-4 h-4 text-[#8B5CF6]" strokeWidth={1.75} />
+          </div>
+        )}
+        <button
+          onClick={() => setCollapsed((c) => !c)}
+          className={cn(
+            "w-7 h-7 rounded-lg flex items-center justify-center",
+            "text-[#52525B] hover:text-[#A1A1AA] hover:bg-[#1C1C22]",
+            "transition-colors flex-shrink-0",
+            collapsed && "mx-auto mt-1",
+          )}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {collapsed ? (
+            <ChevronRight className="w-4 h-4" />
+          ) : (
+            <ChevronLeft className="w-4 h-4" />
+          )}
+        </button>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-6 scrollbar-thin">
+      <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-5 scrollbar-thin">
         {NAV_SECTIONS.map((section) => (
           <div key={section.label}>
-            <p className="text-[#52525B] text-[10px] font-semibold uppercase tracking-widest px-3 mb-2">
-              {section.label}
-            </p>
+            <AnimatePresence mode="wait">
+              {!collapsed && (
+                <motion.p
+                  key="label"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.1 }}
+                  className="text-[#52525B] text-[10px] font-semibold uppercase tracking-widest px-3 mb-1.5"
+                >
+                  {section.label}
+                </motion.p>
+              )}
+            </AnimatePresence>
             <div className="space-y-0.5">
               {section.items.map((item) => {
-                const active = pathname === item.href;
+                const active = isActive(item.href, item.exact);
                 return (
                   <Link key={item.href} href={item.href}>
                     <div
+                      title={collapsed ? item.label : undefined}
                       className={cn(
-                        "group flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all duration-150 relative",
+                        "group flex items-center gap-3 rounded-xl text-sm transition-all duration-150 relative",
+                        collapsed ? "px-0 py-2 justify-center" : "px-3 py-2",
                         active
-                          ? "bg-[#8B5CF6]/12 text-[#F5F5F7]"
+                          ? "text-[#F5F5F7]"
                           : "text-[#A1A1AA] hover:bg-[#1C1C22] hover:text-[#F5F5F7]",
                       )}
                     >
@@ -126,9 +195,22 @@ export function DashboardSidebar() {
                         )}
                         strokeWidth={1.75}
                       />
-                      <span className="relative z-10 flex-1">{item.label}</span>
-                      {item.badge && (
-                        <span className="relative z-10 bg-[#8B5CF6] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                      <AnimatePresence mode="wait">
+                        {!collapsed && (
+                          <motion.span
+                            key="label"
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.12 }}
+                            className="relative z-10 flex-1 whitespace-nowrap"
+                          >
+                            {item.label}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                      {item.badge && !collapsed && (
+                        <span className="relative z-10 bg-[#8B5CF6] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
                           {item.badge}
                         </span>
                       )}
@@ -141,29 +223,46 @@ export function DashboardSidebar() {
         ))}
       </nav>
 
-      {/* User */}
-      <div className="p-4 border-t border-[#27272A]">
-        <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#1C1C22] transition-colors cursor-pointer">
+      {/* User footer */}
+      <div className="p-3 border-t border-[#27272A] flex-shrink-0">
+        <div
+          className={cn(
+            "flex items-center rounded-xl p-2 hover:bg-[#1C1C22] transition-colors cursor-pointer",
+            collapsed && "justify-center",
+          )}
+        >
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#22D3EE] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-            {user ? getInitials(user.name) : "U"}
+            S
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[#F5F5F7] text-sm font-medium truncate">
-              {user?.name ?? "Guest"}
-            </p>
-            <p className="text-[#A1A1AA] text-xs truncate">
-              {user?.email ?? ""}
-            </p>
-          </div>
-          <button
-            onClick={logout}
-            className="text-[#52525B] hover:text-[#EF4444] transition-colors"
-            aria-label="Sign out"
-          >
-            <LogOut className="w-4 h-4" />
-          </button>
+          <AnimatePresence mode="wait">
+            {!collapsed && (
+              <motion.div
+                key="user-info"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.12 }}
+                className="flex-1 min-w-0 ml-3"
+              >
+                <p className="text-[#F5F5F7] text-sm font-medium truncate">
+                  Salon Owner
+                </p>
+                <p className="text-[#A1A1AA] text-xs truncate">
+                  owner@salon.com
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {!collapsed && (
+            <Link
+              href="/"
+              className="text-[#52525B] hover:text-[#EF4444] transition-colors ml-1"
+            >
+              <LogOut className="w-4 h-4" />
+            </Link>
+          )}
         </div>
       </div>
-    </aside>
+    </motion.aside>
   );
 }

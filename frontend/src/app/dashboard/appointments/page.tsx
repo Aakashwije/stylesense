@@ -26,7 +26,7 @@ const APPOINTMENTS = [
   {
     id: "1",
     service: "Balayage + Gloss Treatment",
-    stylist: "Maya Chen",
+    stylist: "Kasun Perera",
     date: "2026-05-15",
     time: "10:30 AM",
     duration: 180,
@@ -51,7 +51,7 @@ const APPOINTMENTS = [
   {
     id: "3",
     service: "Hydration Facial",
-    stylist: "Priya Sharma",
+    stylist: "Shenali Rodrigo",
     date: "2026-04-10",
     time: "11:00 AM",
     duration: 60,
@@ -77,7 +77,7 @@ const APPOINTMENTS = [
   {
     id: "5",
     service: "Scalp Treatment + Massage",
-    stylist: "Maya Chen",
+    stylist: "Kasun Perera",
     date: "2026-03-05",
     time: "9:00 AM",
     duration: 45,
