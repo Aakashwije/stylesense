@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  BarChart2,
   Bell,
   BookOpen,
   Calendar,
@@ -10,12 +11,17 @@ import {
   ChevronRight,
   CreditCard,
   LayoutDashboard,
+  ListOrdered,
   LogOut,
+  Mail,
+  Package,
+  Receipt,
   Scissors,
   Settings,
   ShoppingBag,
   Sparkles,
   Star,
+  UserCheck,
   Users,
   Wallet,
 } from "lucide-react";
@@ -41,6 +47,8 @@ const NAV_SECTIONS = [
         badge: 5,
       },
       { href: "/dashboard/calendar", label: "Calendar", icon: Calendar },
+      { href: "/dashboard/queue", label: "Live Queue", icon: ListOrdered },
+      { href: "/dashboard/waitlist", label: "Waitlist", icon: UserCheck },
     ],
   },
   {
@@ -49,18 +57,27 @@ const NAV_SECTIONS = [
       { href: "/dashboard/stylists", label: "Stylists", icon: Scissors },
       { href: "/dashboard/services", label: "Services", icon: ShoppingBag },
       { href: "/dashboard/customers", label: "Customers", icon: Users },
+      { href: "/dashboard/inventory", label: "Inventory", icon: Package },
+      {
+        href: "/dashboard/utilisation",
+        label: "Staff Heatmap",
+        icon: BarChart2,
+      },
     ],
   },
   {
     label: "Finance",
     items: [
       { href: "/dashboard/earnings", label: "Earnings", icon: Wallet },
+      { href: "/dashboard/pos", label: "POS / Checkout", icon: Receipt },
       { href: "/dashboard/analytics", label: "AI Analytics", icon: Sparkles },
     ],
   },
   {
-    label: "Insights",
+    label: "Growth",
     items: [
+      { href: "/dashboard/marketing", label: "Marketing Hub", icon: Mail },
+      { href: "/dashboard/rfm", label: "Client Segments", icon: BarChart2 },
       { href: "/dashboard/reviews", label: "Reviews", icon: Star },
       {
         href: "/dashboard/notifications",
