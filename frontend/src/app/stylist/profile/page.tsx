@@ -112,7 +112,7 @@ export default function StylistProfilePage() {
     <div className="p-6 space-y-6 max-w-5xl mx-auto">
       {/* Profile card */}
       <motion.div {...fadeUp(0)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           {/* Banner */}
           <div className="h-28 bg-gradient-to-r from-[#22D3EE]/20 via-[#8B5CF6]/15 to-[#22D3EE]/10 relative">
             <div className="absolute inset-0 flex items-end px-6 pb-0">
@@ -261,7 +261,7 @@ export default function StylistProfilePage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {PERFORMANCE.map((p, i) => (
             <motion.div key={p.label} {...fadeUp(0.05 * i)}>
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 text-center hover:border-[#3f3f46] transition-colors">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 text-center hover:border-[#3f3f46] transition-colors">
                 <div
                   className="w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-2"
                   style={{ backgroundColor: `${p.color}15` }}
@@ -283,7 +283,7 @@ export default function StylistProfilePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Certifications */}
         <motion.div {...fadeUp(0.2)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="flex items-center gap-2.5 p-5 border-b border-[#27272A]">
               <Award className="w-4 h-4 text-[#22D3EE]" strokeWidth={1.75} />
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
@@ -319,7 +319,7 @@ export default function StylistProfilePage() {
 
         {/* Recent reviews */}
         <motion.div {...fadeUp(0.25)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="flex items-center gap-2.5 p-5 border-b border-[#27272A]">
               <Star className="w-4 h-4 text-[#F59E0B]" strokeWidth={1.75} />
               <h3 className="text-[#F5F5F7] font-semibold text-sm">

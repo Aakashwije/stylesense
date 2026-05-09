@@ -195,7 +195,7 @@ export default function CustomersPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+            className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
           >
             <p className="text-[#52525B] text-xs mb-2">{s.label}</p>
             <p className="text-[#F5F5F7] text-2xl font-bold">{s.value}</p>
@@ -205,7 +205,7 @@ export default function CustomersPage() {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 flex-1 focus-within:border-[#8B5CF6]/50 transition-colors">
+        <div className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 flex-1 focus-within:border-[#8B5CF6]/50 transition-colors">
           <Search className="w-4 h-4 text-[#52525B] flex-shrink-0" />
           <input
             type="text"
@@ -237,7 +237,7 @@ export default function CustomersPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden"
       >
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -365,7 +365,7 @@ export default function CustomersPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">

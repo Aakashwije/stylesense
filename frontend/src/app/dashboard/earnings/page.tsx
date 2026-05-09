@@ -210,7 +210,7 @@ export default function EarningsPage() {
     <div className="p-6 lg:p-8 max-w-[1400px] mx-auto space-y-8">
       {/* Period tabs + export */}
       <div className="flex items-center justify-between">
-        <div className="flex gap-1 bg-[#141419] border border-[#27272A] rounded-xl p-1">
+        <div className="flex gap-1 card-3d bg-[#141419] border border-[#27272A] rounded-xl p-1">
           {TABS.map((t) => (
             <button
               key={t}
@@ -264,7 +264,7 @@ export default function EarningsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+            className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
           >
             <div className="flex items-center justify-between mb-3">
               <div
@@ -293,7 +293,7 @@ export default function EarningsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="lg:col-span-2 bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="lg:col-span-2 card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-1">Revenue Trends</p>
           <p className="text-[#52525B] text-xs mb-5">
@@ -379,7 +379,7 @@ export default function EarningsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-1">Daily Revenue</p>
           <p className="text-[#52525B] text-xs mb-5">This week</p>
@@ -425,7 +425,7 @@ export default function EarningsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-4">Stylist Earnings</p>
           <div className="space-y-4">
@@ -477,7 +477,7 @@ export default function EarningsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-4">
             Service Profitability
@@ -522,7 +522,7 @@ export default function EarningsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden"
       >
         <div className="p-5 border-b border-[#27272A] flex items-center justify-between">
           <p className="text-[#F5F5F7] font-semibold">Recent Transactions</p>

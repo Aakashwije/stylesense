@@ -208,7 +208,7 @@ export default function CalendarPage() {
               </button>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex gap-1 bg-[#141419] border border-[#27272A] rounded-xl p-1">
+              <div className="flex gap-1 card-3d bg-[#141419] border border-[#27272A] rounded-xl p-1">
                 {(["month", "week"] as const).map((v) => (
                   <button
                     key={v}
@@ -230,7 +230,7 @@ export default function CalendarPage() {
           </div>
 
           {/* Month grid */}
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="grid grid-cols-7 border-b border-[#27272A]">
               {DAYS_SHORT.map((d) => (
                 <div
@@ -298,7 +298,7 @@ export default function CalendarPage() {
           animate={{ opacity: 1, x: 0 }}
           className="w-full lg:w-80 flex-shrink-0"
         >
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden sticky top-6">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden sticky top-6">
             <div className="p-4 border-b border-[#27272A]">
               <p className="text-[#F5F5F7] font-semibold">
                 {selectedDate
@@ -380,7 +380,7 @@ export default function CalendarPage() {
           </div>
 
           {/* Slot blocking legend */}
-          <div className="mt-4 bg-[#141419] border border-[#27272A] rounded-2xl p-4">
+          <div className="mt-4 card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4">
             <p className="text-[#52525B] text-xs uppercase tracking-wider mb-3">
               Slot Status
             </p>
@@ -422,7 +422,7 @@ export default function CalendarPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md p-6"
             >
               <div className="flex items-center justify-between mb-5">
                 <p className="text-[#F5F5F7] font-semibold">New Booking</p>

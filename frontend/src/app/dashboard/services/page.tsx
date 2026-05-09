@@ -271,7 +271,7 @@ export default function ServicesPage() {
           active
         </p>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 focus-within:border-[#8B5CF6]/50 transition-colors">
+          <div className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 h-9 focus-within:border-[#8B5CF6]/50 transition-colors">
             <Search className="w-4 h-4 text-[#52525B] flex-shrink-0" />
             <input
               type="text"
@@ -341,7 +341,7 @@ export default function ServicesPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-5">
                 <p className="text-[#F5F5F7] font-semibold">

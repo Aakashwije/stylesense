@@ -211,7 +211,7 @@ export default function ReviewsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-6 flex flex-col items-center justify-center"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6 flex flex-col items-center justify-center"
         >
           <div className="w-16 h-16 rounded-2xl bg-[#F59E0B]/10 flex items-center justify-center mb-3">
             <Star className="w-8 h-8 fill-[#F59E0B] text-[#F59E0B]" />
@@ -242,7 +242,7 @@ export default function ReviewsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-6"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6"
         >
           <p className="text-[#F5F5F7] font-semibold mb-4">
             Rating Distribution
@@ -264,7 +264,7 @@ export default function ReviewsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-6"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-6"
         >
           <p className="text-[#F5F5F7] font-semibold mb-1">Rating Trend</p>
           <p className="text-[#52525B] text-xs mb-4">Monthly average</p>
@@ -387,7 +387,7 @@ export default function ReviewsPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors"
             >
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#22D3EE] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">

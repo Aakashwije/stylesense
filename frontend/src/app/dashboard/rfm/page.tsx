@@ -282,7 +282,7 @@ export default function RFMPage() {
       {/* Action recommendations */}
       {segFilter !== "All" && (
         <motion.div {...fadeUp(0.05)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-start gap-3">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 flex items-start gap-3">
             <div
               className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
               style={{
@@ -325,7 +325,7 @@ export default function RFMPage() {
             ))}
           </div>
         </div>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

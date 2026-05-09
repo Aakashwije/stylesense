@@ -329,7 +329,7 @@ export default function AppointmentsPage() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-[#1C1C22] border border-[#27272A] rounded-2xl p-8 max-w-sm w-full mx-4"
+              className="card-3d bg-[#1C1C22] border border-[#27272A] rounded-2xl p-8 max-w-sm w-full mx-4"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-6">

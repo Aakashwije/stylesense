@@ -217,7 +217,7 @@ function ProductModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A] sticky top-0 bg-[#141419]">
           <h3 className="text-[#F5F5F7] font-semibold">
@@ -384,7 +384,7 @@ export default function InventoryPage() {
 
       {/* Search + filter */}
       <motion.div {...fadeUp(0.08)} className="flex flex-wrap gap-3">
-        <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-10 w-64 focus-within:border-[#8B5CF6]/50 transition-colors">
+        <div className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 h-10 w-64 focus-within:border-[#8B5CF6]/50 transition-colors">
           <Search className="w-3.5 h-3.5 text-[#52525B] shrink-0" />
           <input
             value={search}
@@ -433,7 +433,7 @@ export default function InventoryPage() {
           },
         ].map((k, i) => (
           <motion.div key={k.label} {...fadeUp(0.04 * i)}>
-            <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4">
+            <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4">
               <p
                 className="text-[#F5F5F7] font-bold text-lg leading-tight"
                 style={{ color: k.color }}
@@ -448,7 +448,7 @@ export default function InventoryPage() {
 
       {/* Table */}
       <motion.div {...fadeUp(0.15)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

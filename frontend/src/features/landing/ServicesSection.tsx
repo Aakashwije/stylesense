@@ -78,7 +78,7 @@ export function ServicesSection() {
                 <motion.div
                   whileHover={{ y: -6, scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="bg-[#1C1C22] border border-[#27272A] rounded-2xl p-5 text-center cursor-pointer hover:border-[#3f3f46] transition-colors duration-200 group"
+                  className="card-3d bg-[#1C1C22] border border-[#27272A] rounded-2xl p-5 text-center cursor-pointer hover:border-[#3f3f46] transition-colors duration-200 group"
                 >
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 transition-all duration-300 group-hover:scale-110"

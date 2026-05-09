@@ -96,7 +96,7 @@ function GoalBar({ goal }: { goal: Goal }) {
         : `${v}`;
 
   return (
-    <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5">
+    <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Target className="w-4 h-4 text-[#52525B]" />
@@ -154,7 +154,7 @@ function EditModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-md"
       >
         <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
           <h3 className="text-[#F5F5F7] font-semibold">Set Monthly Targets</h3>
@@ -315,7 +315,7 @@ export default function GoalsPage() {
           <TrendingUp className="w-4 h-4 text-[#22D3EE]" /> Historical
           Comparison
         </h3>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[#27272A]">

@@ -211,7 +211,7 @@ export default function StylistAIInsightsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Booking Predictions */}
         <motion.div {...fadeUp(0.1)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="p-5 border-b border-[#27272A]">
               <div className="flex items-center gap-2">
                 <TrendingUp
@@ -287,7 +287,7 @@ export default function StylistAIInsightsPage() {
 
         {/* Client Retention Alerts */}
         <motion.div {...fadeUp(0.15)}>
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="p-5 border-b border-[#27272A]">
               <div className="flex items-center gap-2">
                 <AlertCircle
@@ -349,7 +349,7 @@ export default function StylistAIInsightsPage() {
 
       {/* Revenue Optimisation Tips */}
       <motion.div {...fadeUp(0.2)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="p-5 border-b border-[#27272A]">
             <div className="flex items-center gap-2">
               <Wallet className="w-4 h-4 text-[#10B981]" strokeWidth={1.75} />
@@ -417,7 +417,7 @@ export default function StylistAIInsightsPage() {
 
       {/* Style Trend Recommendations */}
       <motion.div {...fadeUp(0.25)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="p-5 border-b border-[#27272A]">
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-[#F59E0B]" strokeWidth={1.75} />
@@ -467,7 +467,7 @@ export default function StylistAIInsightsPage() {
 
       {/* AI Chat */}
       <motion.div {...fadeUp(0.3)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="p-5 border-b border-[#27272A]">
             <div className="flex items-center gap-2">
               <Zap className="w-4 h-4 text-[#22D3EE]" strokeWidth={1.75} />

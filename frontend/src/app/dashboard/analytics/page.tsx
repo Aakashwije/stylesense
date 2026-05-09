@@ -199,7 +199,7 @@ export default function AnalyticsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+            className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
           >
             <p className="text-[#52525B] text-xs mb-2">{s.label}</p>
             <p className="text-[#F5F5F7] text-2xl font-bold mb-0.5">
@@ -218,7 +218,7 @@ export default function AnalyticsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <div className="flex items-center justify-between mb-1">
             <p className="text-[#F5F5F7] font-semibold">
@@ -298,7 +298,7 @@ export default function AnalyticsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-1">
             Service Demand Forecast
@@ -364,7 +364,7 @@ export default function AnalyticsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-1">
             Customer Retention Trend
@@ -419,7 +419,7 @@ export default function AnalyticsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="lg:col-span-2 bg-[#141419] border border-[#27272A] rounded-2xl p-5"
+          className="lg:col-span-2 card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5"
         >
           <p className="text-[#F5F5F7] font-semibold mb-1">Booking Heatmap</p>
           <p className="text-[#52525B] text-xs mb-5">
@@ -481,7 +481,7 @@ export default function AnalyticsPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + i * 0.06 }}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 flex gap-4 hover:border-[#3f3f46] transition-colors"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 flex gap-4 hover:border-[#3f3f46] transition-colors"
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"

@@ -94,7 +94,7 @@ export function PricingSection() {
                 className={
                   plan.highlight
                     ? "relative bg-gradient-to-b from-[#8B5CF6]/10 to-[#1C1C22] border-2 border-[#8B5CF6]/50 rounded-2xl p-8 shadow-[0_0_60px_rgba(139,92,246,0.15)]"
-                    : "relative bg-[#1C1C22] border border-[#27272A] rounded-2xl p-8 hover:border-[#3f3f46] transition-colors duration-200"
+                    : "relative card-3d bg-[#1C1C22] border border-[#27272A] rounded-2xl p-8 hover:border-[#3f3f46] transition-colors duration-200"
                 }
               >
                 {plan.highlight && (

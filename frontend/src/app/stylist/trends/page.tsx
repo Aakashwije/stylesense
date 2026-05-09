@@ -389,7 +389,7 @@ function ColorSwatch({ color }: { color: (typeof COLOR_PALETTE)[0] }) {
   };
 
   return (
-    <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors group">
+    <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors group">
       <div
         className="h-20 w-full flex items-center justify-center cursor-pointer relative"
         style={{ backgroundColor: color.hex }}
@@ -451,7 +451,7 @@ export default function StylistTrendsPage() {
 
       {/* Tabs */}
       <motion.div {...fadeUp(0.05)}>
-        <div className="flex items-center gap-1 bg-[#141419] border border-[#27272A] rounded-xl p-1 w-fit">
+        <div className="flex items-center gap-1 card-3d bg-[#141419] border border-[#27272A] rounded-xl p-1 w-fit">
           {TABS.map((tab) => (
             <button
               key={tab.id}
@@ -480,7 +480,7 @@ export default function StylistTrendsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {MENS_CUTS.map((cut, i) => (
             <motion.div key={cut.name} {...fadeUp(0.05 * i)}>
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors h-full">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors h-full">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2.5">
                     <div className="w-9 h-9 rounded-xl bg-[#22D3EE]/10 flex items-center justify-center flex-shrink-0">
@@ -534,7 +534,7 @@ export default function StylistTrendsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {WOMENS_STYLES.map((style, i) => (
             <motion.div key={style.name} {...fadeUp(0.05 * i)}>
-              <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors h-full">
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors h-full">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2.5">
                     <div className="w-9 h-9 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center flex-shrink-0">
@@ -621,7 +621,7 @@ export default function StylistTrendsPage() {
           {TECHNIQUES.map((tech, i) => (
             <motion.div key={tech.name} {...fadeUp(0.05 * i)}>
               <div
-                className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors cursor-pointer"
+                className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors cursor-pointer"
                 onClick={() =>
                   setExpandedTechnique(
                     expandedTechnique === tech.name ? null : tech.name,

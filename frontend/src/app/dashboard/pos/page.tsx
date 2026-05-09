@@ -121,7 +121,7 @@ function ReceiptModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-sm"
+        className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl w-full max-w-sm"
       >
         <div className="p-5 text-center border-b border-[#27272A]">
           <div className="w-12 h-12 rounded-full bg-[#10B981]/10 border border-[#10B981]/20 flex items-center justify-center mx-auto mb-3">
@@ -275,7 +275,7 @@ export default function POSPage() {
                 <button
                   key={s.id}
                   onClick={() => addItem(s)}
-                  className="bg-[#141419] border border-[#27272A] rounded-xl px-3 py-3 text-left hover:border-[#8B5CF6]/40 hover:bg-[#1C1C22] transition-colors group"
+                  className="card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 py-3 text-left hover:border-[#8B5CF6]/40 hover:bg-[#1C1C22] transition-colors group"
                 >
                   <p className="text-[#F5F5F7] text-xs font-medium leading-tight group-hover:text-[#8B5CF6] transition-colors">
                     {s.name}
@@ -294,7 +294,7 @@ export default function POSPage() {
               Search Catalog
             </p>
             <div className="relative">
-              <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-10 focus-within:border-[#8B5CF6]/50">
+              <div className="flex items-center gap-2 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-3 h-10 focus-within:border-[#8B5CF6]/50">
                 <Search className="w-3.5 h-3.5 text-[#52525B] shrink-0" />
                 <input
                   value={search}
@@ -304,7 +304,7 @@ export default function POSPage() {
                 />
               </div>
               {results.length > 0 && (
-                <div className="absolute top-12 left-0 right-0 bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden z-10 shadow-lg">
+                <div className="absolute top-12 left-0 right-0 card-3d bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden z-10 shadow-lg">
                   {results.map((r) => (
                     <button
                       key={r.id}
@@ -334,7 +334,7 @@ export default function POSPage() {
           <div className="relative">
             <button
               onClick={() => setShowClientDD((v) => !v)}
-              className="w-full bg-[#141419] border border-[#27272A] rounded-xl px-4 h-11 flex items-center justify-between hover:border-[#3f3f46] transition-colors"
+              className="w-full card-3d bg-[#141419] border border-[#27272A] rounded-xl px-4 h-11 flex items-center justify-between hover:border-[#3f3f46] transition-colors"
             >
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4 text-[#52525B]" />
@@ -347,7 +347,7 @@ export default function POSPage() {
               )}
             </button>
             {showClientDD && (
-              <div className="absolute top-12 left-0 right-0 bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden z-10 shadow-lg">
+              <div className="absolute top-12 left-0 right-0 card-3d bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden z-10 shadow-lg">
                 {CLIENTS.map((c) => (
                   <button
                     key={c}
@@ -365,7 +365,7 @@ export default function POSPage() {
           </div>
 
           {/* Bill items */}
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="px-4 py-3 border-b border-[#27272A] flex items-center justify-between">
               <p className="text-[#F5F5F7] text-sm font-semibold">
                 Bill ({bill.length} items)
@@ -433,7 +433,7 @@ export default function POSPage() {
           </div>
 
           {/* Summary */}
-          <div className="bg-[#141419] border border-[#27272A] rounded-2xl p-4 space-y-3">
+          <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4 space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-[#52525B]">Subtotal</span>
               <span className="text-[#A1A1AA]">

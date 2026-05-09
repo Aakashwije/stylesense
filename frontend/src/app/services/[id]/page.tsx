@@ -316,7 +316,7 @@ export default function ServiceDetailPage({
                 {service.benefits.map((b) => (
                   <div
                     key={b}
-                    className="flex items-start gap-2.5 p-4 bg-[#141419] border border-[#27272A] rounded-xl"
+                    className="flex items-start gap-2.5 p-4 card-3d bg-[#141419] border border-[#27272A] rounded-xl"
                   >
                     <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
                     <span className="text-sm text-[#A1A1AA]">{b}</span>

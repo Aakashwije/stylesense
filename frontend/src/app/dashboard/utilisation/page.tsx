@@ -407,7 +407,7 @@ export default function UtilisationPage() {
           return (
             <div
               key={name}
-              className="bg-[#141419] border border-[#27272A] rounded-2xl p-4"
+              className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-4"
             >
               <div className="flex items-center justify-between mb-2">
                 <div>
@@ -461,7 +461,7 @@ export default function UtilisationPage() {
 
       {/* Heatmap grid */}
       <motion.div {...fadeUp(0.1)}>
-        <div className="bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
+        <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
@@ -545,7 +545,7 @@ export default function UtilisationPage() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-8 right-8 bg-[#141419] border border-[#27272A] rounded-xl px-4 py-3 z-20 shadow-xl max-w-xs"
+          className="fixed bottom-8 right-8 card-3d bg-[#141419] border border-[#27272A] rounded-xl px-4 py-3 z-20 shadow-xl max-w-xs"
         >
           <div className="flex items-start gap-2">
             <Info className="w-3.5 h-3.5 text-[#8B5CF6] mt-0.5 shrink-0" />
