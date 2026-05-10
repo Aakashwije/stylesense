@@ -26,7 +26,7 @@ import {
   User,
   Zap,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   CLIENTS,
   DEFAULT_TAX_CONFIG,
@@ -118,6 +118,18 @@ const newPayId = () => `pe-${++payEntryCounter}`;
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function POSPage() {
   // ── Bill ──────────────────────────────────────────────────────────────────
+  const [today, setToday] = useState("");
+  useEffect(() => {
+    setToday(
+      new Date().toLocaleDateString("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    );
+  }, []);
+
   const [bill, setBill] = useState<LineItem[]>([]);
   const [client, setClient] = useState<Client>(WALK_IN);
   const [staff, setStaff] = useState<Stylist>(STYLISTS[0]);
@@ -474,14 +486,7 @@ export default function POSPage() {
       >
         <div>
           <h1 className="text-[#F5F5F7] text-xl font-bold">POS / Checkout</h1>
-          <p className="text-[#52525B] text-sm">
-            {new Date().toLocaleDateString("en-GB", {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
+          <p className="text-[#52525B] text-sm">{today}</p>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
