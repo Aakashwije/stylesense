@@ -40,6 +40,7 @@
 - [Project Structure](#project-structure)
 - [Features](#features)
   - [Public Platform](#-public-platform)
+  - [Client Dashboard](#-client-dashboard)
   - [Salon Admin Dashboard](#-salon-admin-dashboard)
   - [Stylist Portal](#-stylist-portal)
   - [AI Features](#-ai-features)
@@ -60,11 +61,11 @@
 
 The platform is built around **three distinct user roles**:
 
-| Role            | Portal                | Key Capabilities                                            |
-| --------------- | --------------------- | ----------------------------------------------------------- |
-| **Client**      | Public + `/dashboard` | Browse, book, loyalty points, AI style guide                |
-| **Salon Admin** | `/dashboard`          | Full business ops — queue, POS, CRM, marketing, analytics   |
-| **Stylist**     | `/stylist`            | Schedule, clients, commissions, gallery, consultation forms |
+| Role            | Portal       | Key Capabilities                                                                |
+| --------------- | ------------ | ------------------------------------------------------------------------------- |
+| **Client**      | `/client`    | Browse salons & stylists, book, loyalty rewards, AI hair studio, virtual try-on |
+| **Salon Admin** | `/dashboard` | Full business ops — queue, POS, CRM, marketing, analytics                       |
+| **Stylist**     | `/stylist`   | Schedule, clients, commissions, gallery, consultation forms                     |
 
 > **Note:** The backend is currently under active development. All frontend pages use local mock data. This document describes the intended full-stack architecture.
 
@@ -145,6 +146,7 @@ graph LR
         direction TB
         Public["Public Routes<br/>/ · /about · /services<br/>/stylists · /pricing · /booking"]
         Auth["Auth Routes<br/>/auth/login · /auth/signup<br/>/auth/otp · /auth/reset-password"]
+        ClientPortal["Client Portal<br/>/client/*"]
         AdminDash["Admin Dashboard<br/>/dashboard/*"]
         StylistPortal["Stylist Portal<br/>/stylist/*"]
         AIHub["AI Hub<br/>/ai/analysis · /ai/chatbot<br/>/ai/virtual-tryon"]
@@ -159,8 +161,8 @@ graph LR
     subgraph UILayer["UI Layer"]
         direction TB
         Components["Shared Components<br/>SSButton · SSCard · Badge"]
-        Layouts["Layouts<br/>PublicLayout · AuthLayout<br/>DashboardLayout · StylistLayout"]
-        Nav["Navigation<br/>Navbar · Footer<br/>DashboardSidebar · StylistSidebar"]
+        Layouts["Layouts<br/>PublicLayout · AuthLayout<br/>DashboardLayout · StylistLayout · ClientLayout"]
+        Nav["Navigation<br/>Navbar · Footer<br/>DashboardSidebar · StylistSidebar · ClientSidebar"]
     end
 
     App --> State
@@ -268,6 +270,17 @@ stylesense/
 │   │   │   ├── booking/
 │   │   │   ├── auth/                  # Login, signup, OTP, reset
 │   │   │   ├── ai/                    # AI analysis, chatbot, virtual try-on
+│   │   │   ├── client/                # Client portal
+│   │   │   │   ├── page.tsx           # Client home overview
+│   │   │   │   ├── bookings/          # Appointment history & upcoming
+│   │   │   │   ├── salons/            # Browse & discover salons
+│   │   │   │   ├── stylists/          # Browse & discover stylists
+│   │   │   │   ├── favorites/         # Saved stylists
+│   │   │   │   ├── loyalty/           # Points balance, tiers, rewards
+│   │   │   │   ├── reviews/           # Submit and view reviews
+│   │   │   │   ├── ai/                # AI Hair Studio + virtual try-on
+│   │   │   │   ├── profile/           # Account profile editor
+│   │   │   │   └── settings/          # Notification & account settings
 │   │   │   ├── dashboard/             # Salon admin dashboard
 │   │   │   │   ├── page.tsx           # Overview
 │   │   │   │   ├── bookings/
@@ -385,6 +398,51 @@ graph LR
     style Premium fill:#1C1C22,stroke:#8B5CF6,color:#F5F5F7
     style Elite fill:#1C1C22,stroke:#F59E0B,color:#F5F5F7
 ```
+
+---
+
+### 👤 Client Dashboard
+
+Personal portal for clients at `/client`, with its own sidebar navigation and glassmorphism card design.
+
+```mermaid
+mindmap
+  root((Client Portal))
+    Discover
+      Browse Salons
+      Browse Stylists
+      Saved Favorites
+    Bookings
+      Upcoming Appointments
+      Booking History
+    AI Studio
+      Face Shape Analysis
+      Hairstyle Matching
+      Color Simulation
+      Virtual Try-On
+    Loyalty
+      Points Balance
+      Membership Tiers
+      Redeem Rewards
+      Points History
+    Account
+      Reviews
+      Profile Editor
+      Settings
+```
+
+| Section            | Route               | Key Features                                                           |
+| ------------------ | ------------------- | ---------------------------------------------------------------------- |
+| **Home**           | `/client`           | Welcome overview, upcoming bookings, quick stats, AI feature shortcuts |
+| **Salons**         | `/client/salons`    | Browse and discover nearby salons, ratings, services                   |
+| **Stylists**       | `/client/stylists`  | Discover stylists, filter by specialty and rating                      |
+| **Bookings**       | `/client/bookings`  | Upcoming and past appointment history, status tracking                 |
+| **Favorites**      | `/client/favorites` | Saved stylists for quick re-booking                                    |
+| **Loyalty**        | `/client/loyalty`   | Points balance, tier progress, reward redemption, transaction history  |
+| **Reviews**        | `/client/reviews`   | Submit and manage salon/stylist reviews                                |
+| **AI Hair Studio** | `/client/ai`        | Gender-based face shape analysis, hairstyle matching, color simulation |
+| **Profile**        | `/client/profile`   | Edit personal info, preferred styles                                   |
+| **Settings**       | `/client/settings`  | Notification preferences, privacy, account management                  |
 
 ---
 
@@ -772,8 +830,9 @@ gantt
     Admin Dashboard (Core)       :done,    f3, 2025-12, 2026-02
     Stylist Portal               :done,    f4, 2026-02, 2026-04
     AI Feature Pages             :done,    f5, 2026-03, 2026-04
-    Advanced Admin Pages         :done,    f6, 2026-04, 2026-05
-    Advanced Stylist Pages       :done,    f7, 2026-05, 2026-05
+    Client Portal                :done,    f6, 2026-04, 2026-05
+    Advanced Admin Pages         :done,    f7, 2026-04, 2026-05
+    Advanced Stylist Pages       :done,    f8, 2026-05, 2026-05
 
     section Backend
     Auth Service (Node.js)       :active,  b1, 2026-05, 2026-06
