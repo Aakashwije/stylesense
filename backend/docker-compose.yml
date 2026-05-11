@@ -65,9 +65,10 @@ services:
     env_file:
       - .env
     environment:
-      PORT: ${AI_SERVICE_PORT:-8000}
+      PORT: 8000
     ports:
-      - "${AI_SERVICE_PORT:-8000}:8000"
+      # Direct access for debugging on host:8001 — gateway routes via Docker DNS.
+      - "${AI_SERVICE_PORT:-8001}:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -85,12 +86,28 @@ services:
     env_file:
       - .env
     environment:
-      PORT: ${REALTIME_SERVICE_PORT:-5000}
+      PORT: 5000
     ports:
-      - "${REALTIME_SERVICE_PORT:-5000}:5000"
+      - "${REALTIME_SERVICE_PORT:-5001}:5000"
     depends_on:
       redis:
         condition: service_healthy
+    networks:
+      - stylesense
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    container_name: stylesense-gateway
+    restart: unless-stopped
+    ports:
+      # Primary frontend entry point — matches NEXT_PUBLIC_API_URL.
+      - "${GATEWAY_PORT:-8000}:80"
+    depends_on:
+      - core-api
+      - ai-service
+      - realtime-service
     networks:
       - stylesense
 

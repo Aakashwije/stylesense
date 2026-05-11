@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { aiService } from "@/services/ai";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, Send, Sparkles, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -31,6 +32,9 @@ export default function ChatbotPage() {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [conversationId, setConversationId] = useState<string | undefined>(
+    undefined,
+  );
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export default function ChatbotPage() {
   }, [messages]);
 
   const sendMessage = async (text: string) => {
-    if (!text.trim()) return;
+    if (!text.trim() || loading) return;
     const userMsg: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -48,19 +52,30 @@ export default function ChatbotPage() {
     setInput("");
     setLoading(true);
 
-    // Simulated AI response
-    await new Promise((r) => setTimeout(r, 1200));
-    const replies: Record<string, string> = {
-      default:
-        "Great question! Based on your profile, I'd recommend consulting with one of our specialist stylists. Would you like to book an appointment?",
-    };
-    const botMsg: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "assistant",
-      content: replies.default,
-    };
-    setMessages((prev) => [...prev, botMsg]);
-    setLoading(false);
+    try {
+      const res = await aiService.chatMessage(text, conversationId);
+      setConversationId(res.conversationId);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `${Date.now()}-bot`,
+          role: "assistant",
+          content: res.reply,
+        },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `${Date.now()}-err`,
+          role: "assistant",
+          content:
+            "Sorry — I couldn't reach the AI service. Please check that the backend is running and try again.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

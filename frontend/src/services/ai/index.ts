@@ -1,6 +1,7 @@
 import { apiClient } from "@/services/api/client";
 
 export interface HairAnalysisResult {
+  id: string;
   overallScore: number;
   metrics: {
     moisture: number;
