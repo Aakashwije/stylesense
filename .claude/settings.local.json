@@ -12,7 +12,21 @@
       "Bash(npx --yes -p typescript@5.6.3 tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --esModuleInterop --strict --skipLibCheck src/index.ts src/app.ts src/config/index.ts src/api/health.ts src/api/index.ts src/middleware/error.ts)",
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "Bash(grep -v \".gitkeep$\")"
+      "Bash(grep -v \".gitkeep$\")",
+      "Bash(python3 -m venv .venv)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(PYTHONPATH=src .venv/bin/python -c \"from ai_service.main import app; print\\('app routes:'\\); [print\\(f'  {r.methods} {r.path}'\\) for r in app.routes if hasattr\\(r, 'path'\\)]\")",
+      "Bash(JWT_SECRET=dev_secret_replace_me_replace_me PYTHONPATH=src .venv/bin/uvicorn ai_service.main:app --host 127.0.0.1 --port 18000 --log-level warning)",
+      "Bash(curl -fs http://127.0.0.1:18000/health)",
+      "Bash(curl -s http://127.0.0.1:18000/health)",
+      "Bash(curl -s -X POST http://127.0.0.1:18000/api/v1/ai/chat -H \"Content-Type: application/json\" -d '{\"message\":\"What hairstyle suits an oval face?\"}')",
+      "Bash(curl -s http://127.0.0.1:18000/api/v1/ai/recommendations)",
+      "Bash(printf '\\\\xff\\\\xd8\\\\xff\\\\xe0\\\\x00\\\\x10JFIF\\\\x00\\\\x01\\\\x01\\\\x00\\\\x00\\\\x01\\\\x00\\\\x01\\\\x00\\\\x00\\\\xff\\\\xd9')",
+      "Bash(curl -s -X POST http://127.0.0.1:18000/api/v1/ai/analyze -F \"image=@/tmp/fake.jpg;type=image/jpeg\")",
+      "Bash(curl -s -X POST http://127.0.0.1:18000/api/v1/ai/virtual-tryon -F \"image=@/tmp/fake.jpg;type=image/jpeg\" -F \"styleId=lob\" -F \"colorId=blonde\")",
+      "Bash(rm /tmp/fake.jpg)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"ai errors: $?\")"
     ]
   }
 }

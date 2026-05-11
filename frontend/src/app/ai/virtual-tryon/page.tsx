@@ -8,8 +8,10 @@ import {
 import { Badge } from "@/components/common/Badge";
 import { SSButton } from "@/components/common/SSButton";
 import { SSCard } from "@/components/common/SSCard";
+import { aiService } from "@/services/ai";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  AlertCircle,
   Camera,
   ChevronLeft,
   ChevronRight,
@@ -56,16 +58,28 @@ type Stage = "upload" | "selecting" | "result";
 export default function VirtualTryOnPage() {
   const [stage, setStage] = useState<Stage>("upload");
   const [isDragging, setIsDragging] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string>("lob");
   const [selectedColor, setSelectedColor] = useState<string>("natural");
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeTab, setActiveTab] = useState<"style" | "color">("style");
   const [styleIndex, setStyleIndex] = useState(0);
+  const [resultUrl, setResultUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((file: File) => {
-    if (!file.type.startsWith("image/")) return;
+    if (!file.type.startsWith("image/")) {
+      setError("Please choose an image file.");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError("Image must be under 10 MB.");
+      return;
+    }
+    setError(null);
+    setSelectedFile(file);
     const reader = new FileReader();
     reader.onload = (e) => {
       setImagePreview(e.target?.result as string);
@@ -85,10 +99,27 @@ export default function VirtualTryOnPage() {
   );
 
   const handleApply = async () => {
+    if (!selectedFile) {
+      setError("Choose a photo first.");
+      return;
+    }
+    setError(null);
     setIsProcessing(true);
-    await new Promise((r) => setTimeout(r, 2500));
-    setIsProcessing(false);
-    setStage("result");
+    try {
+      const res = await aiService.virtualTryOn(
+        selectedFile,
+        selectedStyle,
+        selectedColor,
+      );
+      setResultUrl(res.resultUrl);
+      setStage("result");
+    } catch {
+      setError(
+        "Try-on failed. Please check that the backend is running and try again.",
+      );
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const visibleStyles = HAIRSTYLE_OPTIONS.slice(styleIndex, styleIndex + 4);
@@ -112,6 +143,16 @@ export default function VirtualTryOnPage() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-8">
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 flex items-start gap-2 rounded-xl border border-[#EF4444]/30 bg-[#EF4444]/10 px-3 py-2.5 text-sm text-[#FCA5A5]"
+          >
+            <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+            <span>{error}</span>
+          </motion.div>
+        )}
         <AnimatePresence mode="wait">
           {/* ─── Stage: Upload ─── */}
           {stage === "upload" && (
@@ -448,7 +489,7 @@ export default function VirtualTryOnPage() {
                   </div>
                 </SSCard>
 
-                {/* After (simulated) */}
+                {/* After — image returned by ai-service */}
                 <SSCard className="overflow-hidden p-0">
                   <div className="px-4 pt-4 pb-2">
                     <Badge variant="purple" size="sm">
@@ -456,15 +497,21 @@ export default function VirtualTryOnPage() {
                     </Badge>
                   </div>
                   <div className="aspect-[3/4] bg-gradient-to-br from-[#8B5CF6]/20 to-[#22D3EE]/10 relative overflow-hidden">
-                    {imagePreview && (
+                    {resultUrl ? (
                       <img
-                        src={imagePreview}
+                        src={resultUrl}
                         alt="After"
-                        className="w-full h-full object-cover opacity-90"
-                        style={{
-                          filter: "saturate(1.2) contrast(1.05)",
-                        }}
+                        className="w-full h-full object-cover"
                       />
+                    ) : (
+                      imagePreview && (
+                        <img
+                          src={imagePreview}
+                          alt="After"
+                          className="w-full h-full object-cover opacity-90"
+                          style={{ filter: "saturate(1.2) contrast(1.05)" }}
+                        />
+                      )
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#8B5CF6]/20 to-transparent pointer-events-none" />
                   </div>

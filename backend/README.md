@@ -4,11 +4,20 @@ Polyglot microservices powering StyleSense. Each service owns a bounded context,
 
 ## Services
 
-| Service              | Language          | Port (default) | Purpose                                                       |
-| -------------------- | ----------------- | -------------- | ------------------------------------------------------------- |
-| **core-api**         | Node.js + Express | `4000`         | Auth, users, salons, stylists, bookings, payments, CRM, POS   |
-| **ai-service**       | Python + FastAPI  | `8000`         | Recommendations, hair analysis, chatbot, virtual try-on       |
-| **realtime-service** | Go + Gorilla WS   | `5000`         | WebSocket live queue, booking events, stylist presence, notifications |
+| Service              | Language          | Host port (debug) | Purpose                                                       |
+| -------------------- | ----------------- | ----------------- | ------------------------------------------------------------- |
+| **gateway**          | Nginx             | `8000` (primary)  | Routes all frontend traffic to the right upstream service     |
+| **core-api**         | Node.js + Express | `4000`            | Auth, users, salons, stylists, bookings, payments, CRM, POS   |
+| **ai-service**       | Python + FastAPI  | `8001`            | Recommendations, hair analysis, chatbot, virtual try-on       |
+| **realtime-service** | Go + Gorilla WS   | `5000`            | WebSocket live queue, booking events, stylist presence, notifications |
+
+The **gateway** is the only port the frontend talks to. It fans out by prefix:
+
+| Frontend request           | Forwarded to        |
+| -------------------------- | ------------------- |
+| `GET/POST /api/v1/ai/*`    | `ai-service:8000`   |
+| `GET/POST /api/v1/*` (rest) | `core-api:4000`     |
+| `WS /ws`                   | `realtime-service:5000` |
 
 Shared data plane: **PostgreSQL** (primary store) and **Redis** (cache, sessions, pub/sub).
 
@@ -46,12 +55,18 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Once up, hit the health endpoints:
+Once up, hit the gateway and per-service health endpoints:
 
 ```bash
-curl http://localhost:4000/health   # core-api
-curl http://localhost:8000/health   # ai-service
-curl http://localhost:5000/health   # realtime-service
+curl http://localhost:8000/health   # gateway
+curl http://localhost:4000/health   # core-api (direct)
+curl http://localhost:8001/health   # ai-service (direct)
+curl http://localhost:5000/health   # realtime-service (direct)
+
+# AI flow via gateway (what the frontend will hit):
+curl -X POST http://localhost:8000/api/v1/ai/chat \
+  -H 'Content-Type: application/json' \
+  -d '{"message":"What hairstyle suits an oval face?"}'
 ```
 
 ## Local development (without Docker)
