@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: stylesense-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-stylesense}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stylesense_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-stylesense}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-stylesense}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stylesense
+
+  redis:
+    image: redis:7-alpine
+    container_name: stylesense-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stylesense
+
+  core-api:
+    build:
+      context: ./core-api
+      dockerfile: Dockerfile
+    container_name: stylesense-core-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      PORT: ${CORE_API_PORT:-4000}
+    ports:
+      - "${CORE_API_PORT:-4000}:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - stylesense
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: stylesense-ai-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: ${AI_SERVICE_PORT:-8000}
+    ports:
+      - "${AI_SERVICE_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - stylesense
+
+  realtime-service:
+    build:
+      context: ./realtime-service
+      dockerfile: Dockerfile
+    container_name: stylesense-realtime-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: ${REALTIME_SERVICE_PORT:-5000}
+    ports:
+      - "${REALTIME_SERVICE_PORT:-5000}:5000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - stylesense
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  stylesense:
+    driver: bridge
