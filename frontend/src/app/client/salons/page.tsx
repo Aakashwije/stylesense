@@ -140,27 +140,18 @@ const SALONS = [
   },
 ];
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07 } },
-};
-const cardItem = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-};
-
 export default function SalonsPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [openOnly, setOpenOnly] = useState(false);
 
   const filtered = SALONS.filter((s) => {
+    const q = search.trim().toLowerCase();
     const matchSearch =
-      s.name.toLowerCase().includes(search.toLowerCase()) ||
-      s.location.toLowerCase().includes(search.toLowerCase()) ||
-      s.specialties.some((sp) =>
-        sp.toLowerCase().includes(search.toLowerCase()),
-      );
+      q === "" ||
+      s.name.toLowerCase().includes(q) ||
+      s.location.toLowerCase().includes(q) ||
+      s.specialties.some((sp) => sp.toLowerCase().includes(q));
     const matchCat = activeCategory === "All" || s.category === activeCategory;
     const matchOpen = !openOnly || s.openNow;
     return matchSearch && matchCat && matchOpen;
@@ -228,22 +219,21 @@ export default function SalonsPage() {
         Showing {filtered.length} salon{filtered.length !== 1 ? "s" : ""}
       </p>
 
-      {/* Salon Grid */}
+      {/* Salon Grid — key forces full re-render when filters change */}
       <StaggerContainer
+        key={`${activeCategory}-${search}-${openOnly}`}
         className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
         staggerDelay={0.07}
       >
         {filtered.map((salon) => (
           <StaggerItem key={salon.id}>
             <SSCard hover className="h-full group overflow-hidden">
-              {/* Subtle gradient tint */}
               <div
                 className="pointer-events-none absolute inset-0 rounded-2xl opacity-[0.06]"
                 style={{
                   background: `linear-gradient(135deg, ${salon.tagColor}80, transparent 60%)`,
                 }}
               />
-              {/* Header */}
               <div className="flex items-start justify-between mb-3">
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center"
@@ -279,8 +269,6 @@ export default function SalonsPage() {
                   </span>
                 </div>
               </div>
-
-              {/* Info */}
               <h3 className="text-[#F5F5F7] font-semibold text-sm mb-1">
                 {salon.name}
               </h3>
@@ -298,8 +286,6 @@ export default function SalonsPage() {
                   {salon.phone}
                 </span>
               </div>
-
-              {/* Rating + Stylists */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-1">
                   <Star className="w-3.5 h-3.5 text-[#F59E0B] fill-[#F59E0B]" />
@@ -315,8 +301,6 @@ export default function SalonsPage() {
                   {salon.stylistCount} stylists
                 </div>
               </div>
-
-              {/* Specialties */}
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {salon.specialties.map((sp) => (
                   <span
@@ -327,8 +311,6 @@ export default function SalonsPage() {
                   </span>
                 ))}
               </div>
-
-              {/* Price + CTA */}
               <div className="flex items-center justify-between">
                 <span className="text-[#F5F5F7] text-xs font-medium">
                   From <span className="text-[#8B5CF6]">{salon.price}</span>
