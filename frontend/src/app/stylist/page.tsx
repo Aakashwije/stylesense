@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { Translations } from "@/lib/i18n/translations";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -18,35 +20,35 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.4, delay },
 });
 
-const KPI_CARDS = [
+const buildKpiCards = (t: Translations) => [
   {
-    label: "Today's Bookings",
+    label: t.dashboard.todayBookings,
     value: "6",
-    sub: "2 remaining",
+    sub: t.dashboard.todayBookingsSub,
     icon: BookOpen,
     color: "#22D3EE",
     bg: "#22D3EE",
   },
   {
-    label: "Clients This Month",
+    label: t.dashboard.clientsThisMonth,
     value: "89",
-    sub: "+12 vs last month",
+    sub: t.dashboard.clientsThisMonthSub,
     icon: Users,
     color: "#8B5CF6",
     bg: "#8B5CF6",
   },
   {
-    label: "My Rating",
+    label: t.dashboard.myRating,
     value: "4.9",
-    sub: "from 128 reviews",
+    sub: t.dashboard.myRatingSub,
     icon: Star,
     color: "#F59E0B",
     bg: "#F59E0B",
   },
   {
-    label: "Tips Today",
+    label: t.dashboard.tipsToday,
     value: "LKR 850",
-    sub: "from 4 clients",
+    sub: t.dashboard.tipsTodaySub,
     icon: Wallet,
     color: "#10B981",
     bg: "#10B981",
@@ -96,11 +98,11 @@ const TODAY_APPOINTMENTS = [
   },
 ];
 
-const RECENT_ACTIVITY = [
+const buildActivity = (t: Translations) => [
   {
     id: 1,
     client: "Malsha Bandara",
-    action: "Left a 5★ review",
+    action: t.dashboard.activityReview,
     time: "2h ago",
     icon: Star,
     color: "#F59E0B",
@@ -108,7 +110,7 @@ const RECENT_ACTIVITY = [
   {
     id: 2,
     client: "Kushani Rajapaksa",
-    action: "Booked appointment for tomorrow",
+    action: t.dashboard.activityBooked,
     time: "3h ago",
     icon: Calendar,
     color: "#22D3EE",
@@ -116,7 +118,7 @@ const RECENT_ACTIVITY = [
   {
     id: 3,
     client: "Ayasha Dissanayake",
-    action: "Rescheduled to Friday",
+    action: t.dashboard.activityRescheduled,
     time: "5h ago",
     icon: Clock,
     color: "#F59E0B",
@@ -124,7 +126,7 @@ const RECENT_ACTIVITY = [
   {
     id: 4,
     client: "Dilhani Perera",
-    action: "Session completed",
+    action: t.dashboard.activityCompleted,
     time: "Today 11:00 AM",
     icon: CheckCircle,
     color: "#10B981",
@@ -139,22 +141,34 @@ const statusStyle = (status: string) => {
   return "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20";
 };
 
-const statusLabel = (status: string) => {
-  if (status === "completed") return "Done";
-  if (status === "in-progress") return "In Progress";
-  return "Upcoming";
+const statusLabel = (status: string, t: Translations) => {
+  if (status === "completed") return t.dashboard.statusDone;
+  if (status === "in-progress") return t.dashboard.statusInProgress;
+  return t.dashboard.statusUpcoming;
 };
 
+function getGreeting(t: Translations) {
+  const hour = new Date().getHours();
+  if (hour < 12) return t.dashboard.greetingMorning;
+  if (hour < 18) return t.dashboard.greetingAfternoon;
+  return t.dashboard.greetingEvening;
+}
+
 export default function StylistOverviewPage() {
+  const { t } = useLanguage();
+  const KPI_CARDS = buildKpiCards(t);
+  const RECENT_ACTIVITY = buildActivity(t);
+
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Welcome */}
       <motion.div {...fadeUp(0)}>
         <h1 className="text-[#F5F5F7] text-2xl font-bold">
-          Good afternoon, <span className="text-[#22D3EE]">Shenali</span> ✨
+          {getGreeting(t)},{" "}
+          <span className="text-[#22D3EE]">Shenali</span> ✨
         </h1>
         <p className="text-[#52525B] text-sm mt-1">
-          You have 2 upcoming appointments today. Keep up the great work!
+          {t.dashboard.welcomeSubtitle}
         </p>
       </motion.div>
 
@@ -198,7 +212,7 @@ export default function StylistOverviewPage() {
                   strokeWidth={1.75}
                 />
                 <h3 className="text-[#F5F5F7] font-semibold text-sm">
-                  Today&apos;s Schedule
+                  {t.dashboard.todaySchedule}
                 </h3>
               </div>
               <span className="text-[#52525B] text-xs">
@@ -206,7 +220,7 @@ export default function StylistOverviewPage() {
                   TODAY_APPOINTMENTS.filter((a) => a.status === "completed")
                     .length
                 }
-                /{TODAY_APPOINTMENTS.length} done
+                /{TODAY_APPOINTMENTS.length} {t.dashboard.doneSuffix}
               </span>
             </div>
             <div className="divide-y divide-[#27272A]">
@@ -215,7 +229,7 @@ export default function StylistOverviewPage() {
                   key={appt.id}
                   className="flex items-center gap-4 px-5 py-3.5 hover:bg-[#1C1C22] transition-colors"
                 >
-                  <div className="text-right flex-shrink-0 w-20">
+                  <div className="text-right shrink-0 w-20">
                     <p className="text-[#F5F5F7] text-xs font-medium">
                       {appt.time}
                     </p>
@@ -234,7 +248,7 @@ export default function StylistOverviewPage() {
                   <span
                     className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap ${statusStyle(appt.status)}`}
                   >
-                    {statusLabel(appt.status)}
+                    {statusLabel(appt.status, t)}
                   </span>
                 </div>
               ))}
@@ -248,7 +262,7 @@ export default function StylistOverviewPage() {
             <div className="flex items-center gap-2.5 p-5 border-b border-[#27272A]">
               <Clock className="w-4 h-4 text-[#22D3EE]" strokeWidth={1.75} />
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
-                Recent Activity
+                {t.dashboard.recentActivity}
               </h3>
             </div>
             <div className="divide-y divide-[#27272A]">
@@ -258,7 +272,7 @@ export default function StylistOverviewPage() {
                   className="flex items-start gap-3 px-5 py-3.5 hover:bg-[#1C1C22] transition-colors"
                 >
                   <div
-                    className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
+                    className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
                     style={{ backgroundColor: `${item.color}15` }}
                   >
                     <item.icon
@@ -287,14 +301,30 @@ export default function StylistOverviewPage() {
       <motion.div {...fadeUp(0.3)}>
         <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <h3 className="text-[#F5F5F7] font-semibold text-sm mb-4">
-            This Week at a Glance
+            {t.dashboard.thisWeek}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: "Appointments", value: "28", color: "#22D3EE" },
-              { label: "Avg Session", value: "1h 42m", color: "#8B5CF6" },
-              { label: "5★ Reviews", value: "11", color: "#F59E0B" },
-              { label: "Repeat Clients", value: "73%", color: "#10B981" },
+              {
+                label: t.dashboard.appointments,
+                value: "28",
+                color: "#22D3EE",
+              },
+              {
+                label: t.dashboard.avgSession,
+                value: "1h 42m",
+                color: "#8B5CF6",
+              },
+              {
+                label: t.dashboard.fiveStarReviews,
+                value: "11",
+                color: "#F59E0B",
+              },
+              {
+                label: t.dashboard.repeatClients,
+                value: "73%",
+                color: "#10B981",
+              },
             ].map((stat) => (
               <div
                 key={stat.label}

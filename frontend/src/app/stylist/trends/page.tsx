@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { Translations } from "@/lib/i18n/translations";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Check,
@@ -20,11 +22,11 @@ const fadeUp = (delay = 0) => ({
 
 type Tab = "mens" | "womens" | "colors" | "techniques";
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: "mens", label: "Men's Cuts" },
-  { id: "womens", label: "Women's Styles" },
-  { id: "colors", label: "Colour Palette" },
-  { id: "techniques", label: "Techniques" },
+const buildTabs = (t: Translations): { id: Tab; label: string }[] => [
+  { id: "mens", label: t.trends.tabMens },
+  { id: "womens", label: t.trends.tabWomens },
+  { id: "colors", label: t.trends.tabColors },
+  { id: "techniques", label: t.trends.tabTechniques },
 ];
 
 const MENS_CUTS = [
@@ -413,6 +415,7 @@ function PopularityBar({ value }: { value: number }) {
 }
 
 function ColorSwatch({ color }: { color: (typeof COLOR_PALETTE)[0] }) {
+  const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
@@ -441,7 +444,7 @@ function ColorSwatch({ color }: { color: (typeof COLOR_PALETTE)[0] }) {
           >
             {copied ? (
               <>
-                <Check className="w-3 h-3" /> Copied!
+                <Check className="w-3 h-3" /> {t.common.copied}
               </>
             ) : (
               <>
@@ -465,6 +468,8 @@ function ColorSwatch({ color }: { color: (typeof COLOR_PALETTE)[0] }) {
 }
 
 export default function StylistTrendsPage() {
+  const { t } = useLanguage();
+  const TABS = buildTabs(t);
   const [activeTab, setActiveTab] = useState<Tab>("mens");
   const [expandedTechnique, setExpandedTechnique] = useState<string | null>(
     null,
@@ -480,11 +485,9 @@ export default function StylistTrendsPage() {
           </div>
           <div>
             <h1 className="text-[#F5F5F7] text-xl font-bold">
-              Trending Styles
+              {t.trends.title}
             </h1>
-            <p className="text-[#52525B] text-xs">
-              2025 trend guide · Updated weekly
-            </p>
+            <p className="text-[#52525B] text-xs">{t.trends.subtitle}</p>
           </div>
         </div>
       </motion.div>
@@ -551,7 +554,7 @@ export default function StylistTrendsPage() {
                   <div className="mb-2">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[#52525B] text-[10px]">
-                        Client demand
+                        {t.trends.clientDemand}
                       </span>
                       <Star className="w-3 h-3 text-[#F59E0B]" />
                     </div>
@@ -559,7 +562,7 @@ export default function StylistTrendsPage() {
                   </div>
                   <div className="mt-3 pt-3 border-t border-[#27272A]">
                     <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
-                      Pro tip
+                      {t.trends.proTip}
                     </p>
                     <p className="text-[#A1A1AA] text-[11px] leading-relaxed">
                       {cut.tips}
@@ -610,7 +613,7 @@ export default function StylistTrendsPage() {
                   <div className="mb-2">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[#52525B] text-[10px]">
-                        Client demand
+                        {t.trends.clientDemand}
                       </span>
                       <Star className="w-3 h-3 text-[#F59E0B]" />
                     </div>
@@ -618,7 +621,7 @@ export default function StylistTrendsPage() {
                   </div>
                   <div className="mt-3 pt-3 border-t border-[#27272A]">
                     <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
-                      Pro tip
+                      {t.trends.proTip}
                     </p>
                     <p className="text-[#A1A1AA] text-[11px] leading-relaxed">
                       {style.tips}
@@ -643,12 +646,9 @@ export default function StylistTrendsPage() {
             </div>
             <div>
               <p className="text-[#22D3EE] text-sm font-medium">
-                Click any swatch to copy the hex code
+                {t.trends.copyHint}
               </p>
-              <p className="text-[#52525B] text-xs">
-                Use these as reference when consulting with clients on colour
-                choices.
-              </p>
+              <p className="text-[#52525B] text-xs">{t.trends.copyHintSub}</p>
             </div>
           </motion.div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -694,7 +694,13 @@ export default function StylistTrendsPage() {
                                 : "bg-[#10B981]/10 text-[#10B981] border-[#10B981]/20"
                         }`}
                       >
-                        {tech.level}
+                        {tech.level === "Expert"
+                          ? t.trends.levelExpert
+                          : tech.level === "Advanced"
+                            ? t.trends.levelAdvanced
+                            : tech.level === "Intermediate"
+                              ? t.trends.levelIntermediate
+                              : t.trends.levelBeginner}
                       </span>
                     </div>
                     <p className="text-[#A1A1AA] text-xs truncate">
@@ -703,7 +709,7 @@ export default function StylistTrendsPage() {
                   </div>
                   <div className="flex items-center gap-3 flex-shrink-0 ml-2">
                     <div className="text-right hidden sm:block">
-                      <p className="text-[#52525B] text-[10px]">Avg time</p>
+                      <p className="text-[#52525B] text-[10px]">{t.trends.avgTime}</p>
                       <p className="text-[#F5F5F7] text-xs font-medium">
                         {tech.time}
                       </p>
@@ -726,7 +732,7 @@ export default function StylistTrendsPage() {
                     >
                       <div className="border-t border-[#27272A] px-5 py-4">
                         <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-3">
-                          Step-by-step guide
+                          {t.trends.stepGuide}
                         </p>
                         <ol className="space-y-2">
                           {tech.steps.map((step, idx) => (
