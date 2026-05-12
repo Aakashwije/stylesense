@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import type { Translations } from "@/lib/i18n/translations";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -27,60 +29,67 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const NAV_SECTIONS = [
-  {
-    label: "My Work",
-    items: [
-      { href: "/stylist", label: "Overview", icon: Sparkles, exact: true },
-      {
-        href: "/stylist/bookings",
-        label: "My Bookings",
-        icon: BookOpen,
-        badge: 3,
-      },
-      { href: "/stylist/schedule", label: "My Schedule", icon: Calendar },
-      { href: "/stylist/earnings", label: "My Earnings", icon: Wallet },
-      { href: "/stylist/timer", label: "Service Timer", icon: Timer },
-    ],
-  },
-  {
-    label: "AI",
-    items: [{ href: "/stylist/ai-insights", label: "AI Insights", icon: Zap }],
-  },
-  {
-    label: "Clients",
-    items: [
-      { href: "/stylist/clients", label: "My Clients", icon: Users },
-      {
-        href: "/stylist/consultation",
-        label: "Consultation Form",
-        icon: ClipboardList,
-      },
-      { href: "/stylist/gallery", label: "Before / After", icon: Camera },
-    ],
-  },
-  {
-    label: "My Growth",
-    items: [
-      { href: "/stylist/goals", label: "Goal Tracker", icon: Target },
-      { href: "/stylist/calculator", label: "Commission Calc", icon: Wallet },
-    ],
-  },
-  {
-    label: "Inspiration",
-    items: [
-      { href: "/stylist/trends", label: "Trending Styles", icon: Star },
-      { href: "/stylist/colors", label: "Color Guide", icon: Palette },
-    ],
-  },
-  {
-    label: "Account",
-    items: [
-      { href: "/stylist/profile", label: "My Profile", icon: User },
-      { href: "/stylist/settings", label: "Settings", icon: Settings },
-    ],
-  },
-];
+type SidebarItems = Translations["sidebar"]["items"];
+
+function buildSections(t: Translations) {
+  const item = (key: keyof SidebarItems) => t.sidebar.items[key];
+  return [
+    {
+      label: t.sidebar.sections.myWork,
+      items: [
+        { href: "/stylist", label: item("overview"), icon: Sparkles, exact: true },
+        {
+          href: "/stylist/bookings",
+          label: item("bookings"),
+          icon: BookOpen,
+          badge: 3,
+        },
+        { href: "/stylist/schedule", label: item("schedule"), icon: Calendar },
+        { href: "/stylist/earnings", label: item("earnings"), icon: Wallet },
+        { href: "/stylist/timer", label: item("timer"), icon: Timer },
+      ],
+    },
+    {
+      label: t.sidebar.sections.ai,
+      items: [
+        { href: "/stylist/ai-insights", label: item("aiInsights"), icon: Zap },
+      ],
+    },
+    {
+      label: t.sidebar.sections.clients,
+      items: [
+        { href: "/stylist/clients", label: item("clients"), icon: Users },
+        {
+          href: "/stylist/consultation",
+          label: item("consultation"),
+          icon: ClipboardList,
+        },
+        { href: "/stylist/gallery", label: item("gallery"), icon: Camera },
+      ],
+    },
+    {
+      label: t.sidebar.sections.myGrowth,
+      items: [
+        { href: "/stylist/goals", label: item("goals"), icon: Target },
+        { href: "/stylist/calculator", label: item("calculator"), icon: Wallet },
+      ],
+    },
+    {
+      label: t.sidebar.sections.inspiration,
+      items: [
+        { href: "/stylist/trends", label: item("trends"), icon: Star },
+        { href: "/stylist/colors", label: item("colors"), icon: Palette },
+      ],
+    },
+    {
+      label: t.sidebar.sections.account,
+      items: [
+        { href: "/stylist/profile", label: item("profile"), icon: User },
+        { href: "/stylist/settings", label: item("settings"), icon: Settings },
+      ],
+    },
+  ];
+}
 
 // Mocked connected salon — in production this comes from auth/session
 const CONNECTED_SALON = {
@@ -91,6 +100,8 @@ const CONNECTED_SALON = {
 export function StylistSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { t } = useLanguage();
+  const NAV_SECTIONS = buildSections(t);
 
   const isActive = (href: string, exact?: boolean) => {
     if (exact) return pathname === href;
@@ -139,7 +150,7 @@ export function StylistSidebar() {
             "transition-colors flex-shrink-0",
             collapsed && "mx-auto mt-1",
           )}
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={collapsed ? t.sidebar.expandSidebar : t.sidebar.collapseSidebar}
         >
           {collapsed ? (
             <ChevronRight className="w-4 h-4" />
@@ -163,7 +174,7 @@ export function StylistSidebar() {
             <div className="w-2 h-2 rounded-full bg-[#10B981] flex-shrink-0" />
             <div className="min-w-0">
               <p className="text-[#22D3EE] text-[10px] font-semibold uppercase tracking-wider">
-                Connected Salon
+                {t.sidebar.connectedSalon}
               </p>
               <p className="text-[#F5F5F7] text-xs font-medium truncate">
                 {CONNECTED_SALON.name}
@@ -280,7 +291,7 @@ export function StylistSidebar() {
                   Shenali Rodrigo
                 </p>
                 <p className="text-[#22D3EE] text-[10px] truncate">
-                  Senior Stylist
+                  {t.common.seniorStylist}
                 </p>
               </motion.div>
             )}

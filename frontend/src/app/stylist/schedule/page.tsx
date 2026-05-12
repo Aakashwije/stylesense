@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { motion } from "framer-motion";
 import {
   ChevronLeft,
@@ -215,6 +216,7 @@ const slotStyle = (status: SlotStatus) => {
 };
 
 export default function StylistSchedulePage() {
+  const { t } = useLanguage();
   const [slots, setSlots] = useState<Slot[]>(INITIAL_SLOTS);
   const [weekOffset, setWeekOffset] = useState(0);
   const [availability, setAvailability] = useState(AVAILABILITY);
@@ -273,25 +275,25 @@ export default function StylistSchedulePage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           {
-            label: "Booked Slots",
+            label: t.schedule.bookedSlots,
             value: stats.booked,
             color: "#22D3EE",
             icon: Clock,
           },
           {
-            label: "Available Slots",
+            label: t.schedule.availableSlots,
             value: stats.available,
             color: "#10B981",
             icon: Plus,
           },
           {
-            label: "Blocked Slots",
+            label: t.schedule.blockedSlots,
             value: stats.blocked,
             color: "#EF4444",
             icon: Lock,
           },
           {
-            label: "Days Off",
+            label: t.schedule.daysOff,
             value: stats.daysOff,
             color: "#52525B",
             icon: Unlock,
@@ -342,7 +344,7 @@ export default function StylistSchedulePage() {
                 })}
               </p>
               {weekOffset === 0 && (
-                <p className="text-[#22D3EE] text-[10px]">This week</p>
+                <p className="text-[#22D3EE] text-[10px]">{t.schedule.thisWeek}</p>
               )}
             </div>
             <button
@@ -356,10 +358,10 @@ export default function StylistSchedulePage() {
           {/* Legend */}
           <div className="flex items-center gap-4 px-5 py-2 border-b border-[#27272A] bg-[#0B0B0F]/30 flex-wrap">
             {[
-              { color: "#22D3EE", label: "Booked" },
-              { color: "#10B981", label: "Available (click to block)" },
-              { color: "#EF4444", label: "Blocked (click to unblock)" },
-              { color: "#52525B", label: "Day off" },
+              { color: "#22D3EE", label: t.schedule.legendBooked },
+              { color: "#10B981", label: t.schedule.legendAvailable },
+              { color: "#EF4444", label: t.schedule.legendBlocked },
+              { color: "#52525B", label: t.schedule.legendDayOff },
             ].map((l) => (
               <div key={l.label} className="flex items-center gap-1.5">
                 <div
@@ -401,8 +403,8 @@ export default function StylistSchedulePage() {
                         onClick={() => toggleDayAvailability(i)}
                         title={
                           availability[i]
-                            ? "Mark as day off"
-                            : "Mark as working day"
+                            ? t.schedule.markAsDayOff
+                            : t.schedule.markAsWorking
                         }
                         className={`w-5 h-5 rounded flex items-center justify-center transition-colors ${
                           availability[i]
@@ -491,7 +493,7 @@ export default function StylistSchedulePage() {
       <motion.div {...fadeUp(0.3)}>
         <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5">
           <h3 className="text-[#F5F5F7] font-semibold text-sm mb-4">
-            Weekly Availability
+            {t.schedule.weeklyAvailability}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
             {DAYS.map((day, i) => (
@@ -508,7 +510,7 @@ export default function StylistSchedulePage() {
                 <p
                   className={`text-[10px] mt-0.5 ${availability[i] ? "text-[#22D3EE]" : "text-[#52525B]"}`}
                 >
-                  {availability[i] ? "Working" : "Day off"}
+                  {availability[i] ? t.schedule.weeklyWorking : t.schedule.weeklyDayOff}
                 </p>
               </button>
             ))}

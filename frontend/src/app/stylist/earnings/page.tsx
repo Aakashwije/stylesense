@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
@@ -126,6 +127,7 @@ const WEEK_BARS = [
 const COMMISSION_RATE = 0.3; // salon takes 30%
 
 export default function StylistEarningsPage() {
+  const { t } = useLanguage();
   const [monthIdx, setMonthIdx] = useState(MONTHS.length - 1);
   const [showMonthPicker, setShowMonthPicker] = useState(false);
 
@@ -153,10 +155,8 @@ export default function StylistEarningsPage() {
         className="flex items-center justify-between flex-wrap gap-3"
       >
         <div>
-          <h1 className="text-[#F5F5F7] text-xl font-bold">My Earnings</h1>
-          <p className="text-[#52525B] text-sm">
-            Your personal income from Glamour Studio
-          </p>
+          <h1 className="text-[#F5F5F7] text-xl font-bold">{t.earnings.title}</h1>
+          <p className="text-[#52525B] text-sm">{t.earnings.subtitle}</p>
         </div>
         {/* Month picker */}
         <div className="relative">
@@ -206,7 +206,7 @@ export default function StylistEarningsPage() {
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
               <p className="text-[#52525B] text-sm mb-1">
-                Net Earnings — {month}
+                {t.earnings.netEarnings} — {month}
               </p>
               <p className="text-[#F5F5F7] text-4xl font-bold tracking-tight">
                 LKR {net.toLocaleString()}
@@ -216,22 +216,22 @@ export default function StylistEarningsPage() {
                   className={`text-sm mt-1.5 font-medium ${Number(growthPct) >= 0 ? "text-[#10B981]" : "text-[#EF4444]"}`}
                 >
                   {Number(growthPct) >= 0 ? "↑" : "↓"}{" "}
-                  {Math.abs(Number(growthPct))}% vs {prevMonth}
+                  {Math.abs(Number(growthPct))}% {t.earnings.vsLast} {prevMonth}
                 </p>
               )}
             </div>
             <div className="text-right space-y-1.5">
-              <div className="text-xs text-[#52525B]">Gross Revenue</div>
+              <div className="text-xs text-[#52525B]">{t.earnings.grossRevenue}</div>
               <div className="text-[#F5F5F7] font-semibold text-lg">
                 LKR {data.gross.toLocaleString()}
               </div>
               <div className="text-xs text-[#52525B]">
-                Salon Commission (30%)
+                {t.earnings.salonCommission}
               </div>
               <div className="text-[#EF4444] font-medium">
                 − LKR {data.commission.toLocaleString()}
               </div>
-              <div className="text-xs text-[#52525B]">Tips Received</div>
+              <div className="text-xs text-[#52525B]">{t.earnings.tipsReceived}</div>
               <div className="text-[#10B981] font-medium">
                 + LKR {data.tips.toLocaleString()}
               </div>
@@ -241,8 +241,8 @@ export default function StylistEarningsPage() {
           {/* Commission breakdown bar */}
           <div className="mt-5">
             <div className="flex justify-between text-xs text-[#52525B] mb-1.5">
-              <span>Your cut (70% + tips)</span>
-              <span>Salon commission (30%)</span>
+              <span>{t.earnings.yourCut}</span>
+              <span>{t.earnings.salonCut}</span>
             </div>
             <div className="h-2.5 rounded-full bg-[#1C1C22] overflow-hidden flex">
               <motion.div
@@ -266,28 +266,28 @@ export default function StylistEarningsPage() {
       >
         {[
           {
-            label: "Sessions Completed",
+            label: t.earnings.sessionsCompleted,
             value: data.sessions,
             icon: Clock,
             color: "#22D3EE",
             suffix: "",
           },
           {
-            label: "Avg per Session",
+            label: t.earnings.avgPerSession,
             value: `LKR ${data.avgPerSession.toLocaleString()}`,
             icon: TrendingUp,
             color: "#10B981",
             suffix: "",
           },
           {
-            label: "Tips Received",
+            label: t.earnings.tipsReceived,
             value: `LKR ${data.tips.toLocaleString()}`,
             icon: Star,
             color: "#F59E0B",
             suffix: "",
           },
           {
-            label: "Net Payout",
+            label: t.earnings.netPayout,
             value: `LKR ${net.toLocaleString()}`,
             icon: Wallet,
             color: "#8B5CF6",
@@ -321,7 +321,7 @@ export default function StylistEarningsPage() {
           <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="p-5 border-b border-[#27272A]">
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
-                Earnings by Service
+                {t.earnings.earningsByService}
               </h3>
               <p className="text-[#52525B] text-xs mt-0.5">{month}</p>
             </div>
@@ -337,7 +337,7 @@ export default function StylistEarningsPage() {
                         LKR {service.amount.toLocaleString()}
                       </span>
                       <span className="text-[#52525B] text-xs ml-2">
-                        {service.sessions} sessions
+                        {service.sessions} {t.earnings.sessions}
                       </span>
                     </div>
                   </div>
@@ -378,7 +378,7 @@ export default function StylistEarningsPage() {
           <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden">
             <div className="p-5 border-b border-[#27272A]">
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
-                This Week's Daily Earnings
+                {t.earnings.weekDaily}
               </h3>
               <p className="text-[#52525B] text-xs mt-0.5">
                 Mon 3 – Sun 9 Feb 2026
@@ -429,7 +429,7 @@ export default function StylistEarningsPage() {
               </div>
               <div className="mt-4 pt-4 border-t border-[#27272A] flex justify-between text-sm">
                 <div>
-                  <p className="text-[#52525B] text-xs">Week Total</p>
+                  <p className="text-[#52525B] text-xs">{t.earnings.weekTotal}</p>
                   <p className="text-[#F5F5F7] font-semibold">
                     LKR{" "}
                     {WEEK_BARS.reduce(
@@ -439,7 +439,7 @@ export default function StylistEarningsPage() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[#52525B] text-xs">Best Day</p>
+                  <p className="text-[#52525B] text-xs">{t.earnings.bestDay}</p>
                   <p className="text-[#22D3EE] font-semibold">
                     {
                       WEEK_BARS.reduce((a, b) => (b.amount > a.amount ? b : a))
@@ -463,10 +463,10 @@ export default function StylistEarningsPage() {
           <div className="flex items-center justify-between p-5 border-b border-[#27272A]">
             <div>
               <h3 className="text-[#F5F5F7] font-semibold text-sm">
-                Payout History
+                {t.earnings.payoutHistory}
               </h3>
               <p className="text-[#52525B] text-xs mt-0.5">
-                Bi-monthly payouts from Glamour Studio
+                {t.earnings.biMonthly}
               </p>
             </div>
             <div className="flex items-center gap-1">
@@ -516,7 +516,9 @@ export default function StylistEarningsPage() {
                         : "bg-[#F59E0B]/10 text-[#F59E0B]"
                     }`}
                   >
-                    {payout.status === "paid" ? "Paid" : "Pending"}
+                    {payout.status === "paid"
+                      ? t.earnings.statusPaid
+                      : t.earnings.statusPending}
                   </span>
                 </div>
               </div>
@@ -524,9 +526,9 @@ export default function StylistEarningsPage() {
           </div>
           <div className="px-5 py-3 bg-[#1C1C22]/50 border-t border-[#27272A]">
             <p className="text-[#52525B] text-xs">
-              Commission split:{" "}
-              <span className="text-[#22D3EE]">70% to you</span> ·{" "}
-              <span className="text-[#A1A1AA]">30% to Glamour Studio</span>
+              {t.earnings.commissionSplit}{" "}
+              <span className="text-[#22D3EE]">{t.earnings.yourShare}</span> ·{" "}
+              <span className="text-[#A1A1AA]">{t.earnings.salonShare}</span>
             </p>
           </div>
         </div>
