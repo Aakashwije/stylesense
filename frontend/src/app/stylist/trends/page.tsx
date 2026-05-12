@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Check,
   Copy,
+  ImageIcon,
   Scissors,
   Sparkles,
   Star,
@@ -29,6 +30,7 @@ const TABS: { id: Tab; label: string }[] = [
 const MENS_CUTS = [
   {
     name: "Low Fade",
+    image: "/images/trends/mens/low-fade.jpg",
     popularity: 98,
     tag: "Trending",
     description:
@@ -37,6 +39,7 @@ const MENS_CUTS = [
   },
   {
     name: "Mid Fade",
+    image: "/images/trends/mens/mid-fade.jpg",
     popularity: 94,
     tag: "Classic",
     description:
@@ -45,6 +48,7 @@ const MENS_CUTS = [
   },
   {
     name: "High Fade",
+    image: "/images/trends/mens/high-fade.jpg",
     popularity: 88,
     tag: "Bold",
     description:
@@ -53,6 +57,7 @@ const MENS_CUTS = [
   },
   {
     name: "Textured Quiff",
+    image: "/images/trends/mens/textured-quiff.jpg",
     popularity: 91,
     tag: "Trending",
     description:
@@ -61,6 +66,7 @@ const MENS_CUTS = [
   },
   {
     name: "French Crop",
+    image: "/images/trends/mens/french-crop.jpg",
     popularity: 85,
     tag: "Modern",
     description:
@@ -69,6 +75,7 @@ const MENS_CUTS = [
   },
   {
     name: "Buzz Cut",
+    image: "/images/trends/mens/buzz-cut.jpg",
     popularity: 76,
     tag: "Minimal",
     description:
@@ -77,6 +84,7 @@ const MENS_CUTS = [
   },
   {
     name: "Pompadour",
+    image: "/images/trends/mens/pompadour.jpg",
     popularity: 80,
     tag: "Classic",
     description:
@@ -85,6 +93,7 @@ const MENS_CUTS = [
   },
   {
     name: "Curtain Bangs (Men)",
+    image: "/images/trends/mens/curtain-bangs-men.jpg",
     popularity: 82,
     tag: "Trending",
     description:
@@ -96,6 +105,7 @@ const MENS_CUTS = [
 const WOMENS_STYLES = [
   {
     name: "Balayage",
+    image: "/images/trends/womens/balayage.jpg",
     popularity: 99,
     tag: "Trending",
     description:
@@ -104,6 +114,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Curtain Bangs",
+    image: "/images/trends/womens/curtain-bangs.jpg",
     popularity: 96,
     tag: "Viral",
     description:
@@ -112,6 +123,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Wolf Cut",
+    image: "/images/trends/womens/wolf-cut.jpg",
     popularity: 94,
     tag: "Gen Z Favourite",
     description:
@@ -120,6 +132,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Butterfly Cut",
+    image: "/images/trends/womens/butterfly-cut.jpg",
     popularity: 89,
     tag: "Trending",
     description:
@@ -128,6 +141,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Blunt Bob",
+    image: "/images/trends/womens/blunt-bob.jpg",
     popularity: 88,
     tag: "Timeless",
     description:
@@ -136,6 +150,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Textured Bob",
+    image: "/images/trends/womens/textured-bob.jpg",
     popularity: 85,
     tag: "Modern",
     description:
@@ -144,6 +159,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Shag Cut",
+    image: "/images/trends/womens/shag-cut.jpg",
     popularity: 83,
     tag: "Retro Revival",
     description:
@@ -152,6 +168,7 @@ const WOMENS_STYLES = [
   },
   {
     name: "Long Layers",
+    image: "/images/trends/womens/long-layers.jpg",
     popularity: 91,
     tag: "Classic",
     description:
@@ -345,6 +362,29 @@ const TECHNIQUES = [
   },
 ];
 
+function StyleImage({ src, alt }: { src: string; alt: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="w-full h-44 bg-[#1C1C22] border-b border-[#27272A] overflow-hidden flex items-center justify-center">
+      {!failed ? (
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-2 px-4 text-center">
+          <ImageIcon className="w-7 h-7 text-[#3f3f46]" strokeWidth={1.25} />
+          <p className="text-[#3f3f46] text-[9px] font-mono leading-relaxed break-all">
+            {src}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PopularityBar({ value }: { value: number }) {
   const color =
     value >= 95
@@ -480,48 +520,51 @@ export default function StylistTrendsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {MENS_CUTS.map((cut, i) => (
             <motion.div key={cut.name} {...fadeUp(0.05 * i)}>
-              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors h-full">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-[#22D3EE]/10 flex items-center justify-center flex-shrink-0">
-                      <Scissors
-                        className="w-4 h-4 text-[#22D3EE]"
-                        strokeWidth={1.75}
-                      />
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl hover:border-[#3f3f46] transition-colors h-full overflow-hidden">
+                <StyleImage src={cut.image} alt={cut.name} />
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-xl bg-[#22D3EE]/10 flex items-center justify-center flex-shrink-0">
+                        <Scissors
+                          className="w-4 h-4 text-[#22D3EE]"
+                          strokeWidth={1.75}
+                        />
+                      </div>
+                      <h3 className="text-[#F5F5F7] font-semibold">{cut.name}</h3>
                     </div>
-                    <h3 className="text-[#F5F5F7] font-semibold">{cut.name}</h3>
-                  </div>
-                  <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border flex-shrink-0 ${
-                      cut.tag === "Trending"
-                        ? "bg-[#22D3EE]/10 text-[#22D3EE] border-[#22D3EE]/20"
-                        : cut.tag === "Bold"
-                          ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20"
-                          : "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20"
-                    }`}
-                  >
-                    {cut.tag}
-                  </span>
-                </div>
-                <p className="text-[#A1A1AA] text-xs leading-relaxed mb-3">
-                  {cut.description}
-                </p>
-                <div className="mb-2">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[#52525B] text-[10px]">
-                      Client demand
+                    <span
+                      className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border flex-shrink-0 ${
+                        cut.tag === "Trending"
+                          ? "bg-[#22D3EE]/10 text-[#22D3EE] border-[#22D3EE]/20"
+                          : cut.tag === "Bold"
+                            ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20"
+                            : "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20"
+                      }`}
+                    >
+                      {cut.tag}
                     </span>
-                    <Star className="w-3 h-3 text-[#F59E0B]" />
                   </div>
-                  <PopularityBar value={cut.popularity} />
-                </div>
-                <div className="mt-3 pt-3 border-t border-[#27272A]">
-                  <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
-                    Pro tip
+                  <p className="text-[#A1A1AA] text-xs leading-relaxed mb-3">
+                    {cut.description}
                   </p>
-                  <p className="text-[#A1A1AA] text-[11px] leading-relaxed">
-                    {cut.tips}
-                  </p>
+                  <div className="mb-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[#52525B] text-[10px]">
+                        Client demand
+                      </span>
+                      <Star className="w-3 h-3 text-[#F59E0B]" />
+                    </div>
+                    <PopularityBar value={cut.popularity} />
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-[#27272A]">
+                    <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
+                      Pro tip
+                    </p>
+                    <p className="text-[#A1A1AA] text-[11px] leading-relaxed">
+                      {cut.tips}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -534,50 +577,53 @@ export default function StylistTrendsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {WOMENS_STYLES.map((style, i) => (
             <motion.div key={style.name} {...fadeUp(0.05 * i)}>
-              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl p-5 hover:border-[#3f3f46] transition-colors h-full">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center flex-shrink-0">
-                      <Sparkles
-                        className="w-4 h-4 text-[#8B5CF6]"
-                        strokeWidth={1.75}
-                      />
+              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl hover:border-[#3f3f46] transition-colors h-full overflow-hidden">
+                <StyleImage src={style.image} alt={style.name} />
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center shrink-0">
+                        <Sparkles
+                          className="w-4 h-4 text-[#8B5CF6]"
+                          strokeWidth={1.75}
+                        />
+                      </div>
+                      <h3 className="text-[#F5F5F7] font-semibold">
+                        {style.name}
+                      </h3>
                     </div>
-                    <h3 className="text-[#F5F5F7] font-semibold">
-                      {style.name}
-                    </h3>
-                  </div>
-                  <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border flex-shrink-0 ${
-                      style.tag === "Trending" || style.tag === "Viral"
-                        ? "bg-[#22D3EE]/10 text-[#22D3EE] border-[#22D3EE]/20"
-                        : style.tag === "Gen Z Favourite"
-                          ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20"
-                          : "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20"
-                    }`}
-                  >
-                    {style.tag}
-                  </span>
-                </div>
-                <p className="text-[#A1A1AA] text-xs leading-relaxed mb-3">
-                  {style.description}
-                </p>
-                <div className="mb-2">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[#52525B] text-[10px]">
-                      Client demand
+                    <span
+                      className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border shrink-0 ${
+                        style.tag === "Trending" || style.tag === "Viral"
+                          ? "bg-[#22D3EE]/10 text-[#22D3EE] border-[#22D3EE]/20"
+                          : style.tag === "Gen Z Favourite"
+                            ? "bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20"
+                            : "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20"
+                      }`}
+                    >
+                      {style.tag}
                     </span>
-                    <Star className="w-3 h-3 text-[#F59E0B]" />
                   </div>
-                  <PopularityBar value={style.popularity} />
-                </div>
-                <div className="mt-3 pt-3 border-t border-[#27272A]">
-                  <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
-                    Pro tip
+                  <p className="text-[#A1A1AA] text-xs leading-relaxed mb-3">
+                    {style.description}
                   </p>
-                  <p className="text-[#A1A1AA] text-[11px] leading-relaxed">
-                    {style.tips}
-                  </p>
+                  <div className="mb-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[#52525B] text-[10px]">
+                        Client demand
+                      </span>
+                      <Star className="w-3 h-3 text-[#F59E0B]" />
+                    </div>
+                    <PopularityBar value={style.popularity} />
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-[#27272A]">
+                    <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
+                      Pro tip
+                    </p>
+                    <p className="text-[#A1A1AA] text-[11px] leading-relaxed">
+                      {style.tips}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
