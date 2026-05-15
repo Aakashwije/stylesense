@@ -32,7 +32,7 @@ const buildTabs = (t: Translations): { id: Tab; label: string }[] => [
 const MENS_CUTS = [
   {
     name: "Low Fade",
-    image: "/images/trends/mens/low-fade.jpg",
+    image: "/images/trends/men/low-fade.jpg",
     popularity: 98,
     tag: "Trending",
     description:
@@ -41,7 +41,7 @@ const MENS_CUTS = [
   },
   {
     name: "Mid Fade",
-    image: "/images/trends/mens/mid-fade.jpg",
+    image: "/images/trends/men/mid-fade.jpg",
     popularity: 94,
     tag: "Classic",
     description:
@@ -50,7 +50,7 @@ const MENS_CUTS = [
   },
   {
     name: "High Fade",
-    image: "/images/trends/mens/high-fade.jpg",
+    image: "/images/trends/men/high-fade.jpg",
     popularity: 88,
     tag: "Bold",
     description:
@@ -59,7 +59,7 @@ const MENS_CUTS = [
   },
   {
     name: "Textured Quiff",
-    image: "/images/trends/mens/textured-quiff.jpg",
+    image: "/images/trends/men/textured-quiff.jpg",
     popularity: 91,
     tag: "Trending",
     description:
@@ -68,7 +68,7 @@ const MENS_CUTS = [
   },
   {
     name: "French Crop",
-    image: "/images/trends/mens/french-crop.jpg",
+    image: "/images/trends/men/french-crop.jpg",
     popularity: 85,
     tag: "Modern",
     description:
@@ -77,7 +77,7 @@ const MENS_CUTS = [
   },
   {
     name: "Buzz Cut",
-    image: "/images/trends/mens/buzz-cut.jpg",
+    image: "/images/trends/men/buzz-cut.jpg",
     popularity: 76,
     tag: "Minimal",
     description:
@@ -86,7 +86,7 @@ const MENS_CUTS = [
   },
   {
     name: "Pompadour",
-    image: "/images/trends/mens/pompadour.jpg",
+    image: "/images/trends/men/pompadour.jpg",
     popularity: 80,
     tag: "Classic",
     description:
@@ -95,7 +95,7 @@ const MENS_CUTS = [
   },
   {
     name: "Curtain Bangs (Men)",
-    image: "/images/trends/mens/curtain-bangs-men.jpg",
+    image: "/images/trends/men/curtain-bangs-men.jpg",
     popularity: 82,
     tag: "Trending",
     description:
