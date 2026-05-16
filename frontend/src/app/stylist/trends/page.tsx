@@ -179,6 +179,16 @@ const WOMENS_STYLES = [
       "Subtle layering throughout long hair to create movement and reduce bulk. The most-requested long-hair cut.",
     tips: "Freehand layers — hold hair at 90° from the head. Use scissors with a 20% angle upward for soft graduation.",
   },
+
+  {
+    name: "Short Layers",
+    image: "/images/trends/womens/short-layers.jpg",
+    popularity: 85,
+    tag: "Classic",
+    description:
+      "Subtle layering throughout short hair to create movement and reduce bulk. The most-requested short-hair cut.",
+    tips: "Freehand layers — For short layers, the hair is usually lifted at a 90° angle to create volume and movement while keeping the layers soft and blended.",
+  },
 ];
 
 const COLOR_PALETTE = [
