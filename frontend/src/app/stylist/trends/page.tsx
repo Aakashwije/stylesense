@@ -11,7 +11,9 @@ import {
   Sparkles,
   Star,
   TrendingUp,
+  X,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const fadeUp = (delay = 0) => ({
@@ -364,15 +366,25 @@ const TECHNIQUES = [
   },
 ];
 
-function StyleImage({ src, alt }: { src: string; alt: string }) {
+type TrendStyle = (typeof MENS_CUTS)[number] | (typeof WOMENS_STYLES)[number];
+
+function StyleImage({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
   const [failed, setFailed] = useState(false);
   return (
-    <div className="w-full h-44 bg-[#1C1C22] border-b border-[#27272A] overflow-hidden flex items-center justify-center">
+    <div className="w-full h-44 bg-[#1C1C22] border-b border-[#27272A] overflow-hidden flex items-center justify-center group">
       {!failed ? (
-        <img
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-full object-cover"
+          width={1536}
+          height={1024}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           onError={() => setFailed(true)}
         />
       ) : (
@@ -474,6 +486,7 @@ export default function StylistTrendsPage() {
   const [expandedTechnique, setExpandedTechnique] = useState<string | null>(
     null,
   );
+  const [selectedStyle, setSelectedStyle] = useState<TrendStyle | null>(null);
 
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
@@ -518,12 +531,81 @@ export default function StylistTrendsPage() {
         </div>
       </motion.div>
 
+      <AnimatePresence>
+        {selectedStyle && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3 sm:p-6"
+            onClick={() => setSelectedStyle(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 16 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-6xl max-h-[92vh] overflow-hidden rounded-2xl border border-[#27272A] bg-[#0B0B0F] shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex items-center justify-between gap-4 border-b border-[#27272A] px-4 py-3 sm:px-5">
+                <div className="min-w-0">
+                  <p className="text-[#F5F5F7] text-sm font-semibold truncate">
+                    {selectedStyle.name}
+                  </p>
+                  <p className="text-[#52525B] text-[11px]">
+                    {selectedStyle.tag} · {selectedStyle.popularity}% demand
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedStyle(null)}
+                  className="w-9 h-9 rounded-lg border border-[#27272A] bg-[#141419] text-[#A1A1AA] hover:text-[#F5F5F7] hover:border-[#3F3F46] flex items-center justify-center transition-colors"
+                  aria-label="Close image preview"
+                >
+                  <X className="w-4 h-4" strokeWidth={1.75} />
+                </button>
+              </div>
+              <div className="max-h-[calc(92vh-74px)] overflow-y-auto">
+                <div className="bg-white p-2 sm:p-3">
+                  <Image
+                    src={selectedStyle.image}
+                    alt={`${selectedStyle.name} front side back haircut reference`}
+                    width={1536}
+                    height={1024}
+                    className="w-full max-h-[68vh] object-contain"
+                  />
+                </div>
+                <div className="grid gap-4 border-t border-[#27272A] p-4 sm:grid-cols-[1fr_1fr] sm:p-5">
+                  <p className="text-[#A1A1AA] text-sm leading-relaxed">
+                    {selectedStyle.description}
+                  </p>
+                  <div>
+                    <p className="text-[#52525B] text-[10px] uppercase tracking-wider mb-1.5">
+                      {t.trends.proTip}
+                    </p>
+                    <p className="text-[#A1A1AA] text-xs leading-relaxed">
+                      {selectedStyle.tips}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Men's Cuts */}
       {activeTab === "mens" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {MENS_CUTS.map((cut, i) => (
             <motion.div key={cut.name} {...fadeUp(0.05 * i)}>
-              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl hover:border-[#3f3f46] transition-colors h-full overflow-hidden">
+              <button
+                type="button"
+                className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl hover:border-[#3f3f46] transition-colors h-full overflow-hidden text-left cursor-zoom-in w-full"
+                onClick={() => setSelectedStyle(cut)}
+                aria-label={`Open ${cut.name} reference image`}
+              >
                 <StyleImage src={cut.image} alt={cut.name} />
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">
@@ -569,7 +651,7 @@ export default function StylistTrendsPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </button>
             </motion.div>
           ))}
         </div>
@@ -580,7 +662,12 @@ export default function StylistTrendsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {WOMENS_STYLES.map((style, i) => (
             <motion.div key={style.name} {...fadeUp(0.05 * i)}>
-              <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl hover:border-[#3f3f46] transition-colors h-full overflow-hidden">
+              <button
+                type="button"
+                className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl hover:border-[#3f3f46] transition-colors h-full overflow-hidden text-left cursor-zoom-in w-full"
+                onClick={() => setSelectedStyle(style)}
+                aria-label={`Open ${style.name} reference image`}
+              >
                 <StyleImage src={style.image} alt={style.name} />
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">
@@ -628,7 +715,7 @@ export default function StylistTrendsPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </button>
             </motion.div>
           ))}
         </div>
