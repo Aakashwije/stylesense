@@ -222,7 +222,7 @@ const COLOR_PALETTE = [
   },
   {
     name: "Buttercream Blonde",
-    hex: "#E6C27A",
+    hex: "#F5ECD7",
     category: "Trendy",
     description:
       "Creamy warm blonde with buttery golden tones. Bright yet wearable.",
@@ -257,7 +257,7 @@ const COLOR_PALETTE = [
   },
   {
     name: "Golden Blonde",
-    hex: "#E0B96E",
+    hex: "#FBE7A1",
     category: "Popular",
     description:
       "Warm golden blonde that enhances glow and dimension beautifully.",
@@ -292,7 +292,7 @@ const COLOR_PALETTE = [
   },
   {
     name: "Honey Blonde",
-    hex: "#D6A45F",
+    hex: "#CFB695",
     category: "Both",
     description:
       "Warm honey-toned blonde that suits a wide range of skin tones.",
@@ -508,6 +508,16 @@ function ColorSwatch({ color }: { color: (typeof COLOR_PALETTE)[0] }) {
     return (r * 299 + g * 587 + b * 114) / 1000 > 128;
   };
 
+  const label =
+    color.category === "Both" ? "Popular + Trendy" : color.category;
+
+  const badgeClass =
+  color.category === "Both"
+    ? "bg-[#2563EB]/15 text-[#F9A8D4] border-[#DB2777]/35 shadow-[0_0_18px_rgba(219,39,119,0.22)]"
+    : color.category === "Popular"
+      ? "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20"
+      : "bg-[#22D3EE]/10 text-[#22D3EE] border-[#22D3EE]/20";
+      
   return (
     <div className="card-3d bg-[#141419] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3f3f46] transition-colors group">
       <div
@@ -532,10 +542,13 @@ function ColorSwatch({ color }: { color: (typeof COLOR_PALETTE)[0] }) {
         </div>
       </div>
       <div className="p-3">
-        <p className="text-[#F5F5F7] text-sm font-medium">{color.name}</p>
-        <p className="text-[#52525B] text-[10px] mt-0.5">
-          {color.hex} · {color.category}
-        </p>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-[#F5F5F7] text-sm font-medium">{color.name}</p>
+          <span className={`rounded-full border px-2 py-0.5 text-[9px] font-bold leading-none ${badgeClass}`}>
+            {label}
+          </span>
+        </div>
+        <p className="text-[#52525B] text-[10px] mt-0.5">{color.hex}</p>
         <p className="text-[#A1A1AA] text-[10px] mt-1 leading-relaxed">
           {color.description}
         </p>
