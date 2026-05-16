@@ -135,7 +135,7 @@ export default function AboutPage() {
             <p className="text-lg text-[#A1A1AA] leading-relaxed max-w-2xl mx-auto">
               StyleSense AI was born from a real problem Sri Lankan clients face
               every day — finding the right stylist, communicating your style,
-              and knowing what suits you. We're fixing that with AI.
+              and knowing what suits you. We&apos;re fixing that with AI.
             </p>
           </FadeUp>
         </div>
@@ -178,17 +178,17 @@ export default function AboutPage() {
               Our mission
             </Badge>
             <h2 className="text-3xl font-bold text-[#F5F5F7] mb-5">
-              Building intelligence for Sri Lanka's beauty industry
+              Building intelligence for Sri Lanka&apos;s beauty industry
             </h2>
             <p className="text-[#A1A1AA] leading-relaxed mb-5">
-              Sri Lanka's salon industry is thriving — but the experience for
-              clients hasn't kept up. Finding the right stylist, communicating
+              Sri Lanka&apos;s salon industry is thriving — but the experience for
+              clients hasn&apos;t kept up. Finding the right stylist, communicating
               what you want, and knowing if a style suits you is still largely
               guesswork.
             </p>
             <p className="text-[#A1A1AA] leading-relaxed">
-              StyleSense AI is changing that. We're building a platform that
-              pairs AI-powered personalisation with Sri Lanka's best stylists —
+              StyleSense AI is changing that. We&apos;re building a platform that
+              pairs AI-powered personalisation with Sri Lanka&apos;s best stylists —
               so every appointment starts informed and ends exactly as imagined.
             </p>
           </FadeUp>
@@ -310,7 +310,7 @@ export default function AboutPage() {
             Be part of the beginning
           </h2>
           <p className="text-[#A1A1AA] mb-8">
-            We're just getting started. Sign up to be among the first to
+            We&apos;re just getting started. Sign up to be among the first to
             experience StyleSense when we launch in Colombo.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">

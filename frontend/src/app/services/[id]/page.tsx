@@ -122,6 +122,7 @@ const SERVICES_DATA: Record<
     longDescription:
       "A great haircut is the foundation of everything. Our precision stylists analyze your face shape, hair texture, growth patterns, and lifestyle before cutting a single strand. The result: a shape that flatters, moves well, and works with your routine.",
     price: 3500,
+    duration: 60,
     rating: 4.8,
     reviews: 623,
     gradient: ["#8B5CF6", "#22D3EE"],
@@ -310,7 +311,7 @@ export default function ServiceDetailPage({
             {/* Benefits */}
             <FadeUp>
               <h2 className="text-xl font-semibold text-[#F5F5F7] mb-5">
-                Why you'll love it
+                Why you&apos;ll love it
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
                 {service.benefits.map((b) => (
@@ -328,7 +329,7 @@ export default function ServiceDetailPage({
             {/* Includes */}
             <FadeUp>
               <h2 className="text-xl font-semibold text-[#F5F5F7] mb-5">
-                What's included
+                What&apos;s included
               </h2>
               <SSCard className="p-5">
                 <ul className="space-y-3">

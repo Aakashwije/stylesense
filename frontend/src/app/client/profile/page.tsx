@@ -75,12 +75,12 @@ export default function ProfilePage() {
   };
 
   const fields = [
-    { key: "firstName" as const, label: "First Name", icon: User },
-    { key: "lastName" as const, label: "Last Name", icon: User },
+    { key: "firstName" as const, label: "First Name", icon: User, type: "text" },
+    { key: "lastName" as const, label: "Last Name", icon: User, type: "text" },
     { key: "email" as const, label: "Email", icon: Mail, type: "email" },
     { key: "phone" as const, label: "Phone", icon: Phone, type: "tel" },
-    { key: "city" as const, label: "City", icon: MapPin },
-    { key: "country" as const, label: "Country", icon: Globe },
+    { key: "city" as const, label: "City", icon: MapPin, type: "text" },
+    { key: "country" as const, label: "Country", icon: Globe, type: "text" },
   ] as const;
 
   return (

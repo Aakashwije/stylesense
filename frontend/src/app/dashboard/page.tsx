@@ -209,7 +209,7 @@ export default function DashboardOverviewPage() {
               <Pie data={serviceData} cx="50%" cy="50%" innerRadius={50} outerRadius={72} paddingAngle={3} dataKey="value">
                 {serviceData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
               </Pie>
-              <Tooltip formatter={(v: number) => [`${v}%`, "Share"]}
+              <Tooltip formatter={(v) => [`${Number(v ?? 0)}%`, "Share"]}
                 contentStyle={{ background: "#1C1C22", border: "1px solid #27272A", borderRadius: 12 }} itemStyle={{ color: "#F5F5F7" }} />
             </PieChart>
           </ResponsiveContainer>

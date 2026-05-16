@@ -159,7 +159,7 @@ function AddModal({
   });
   const set = (k: string, v: string | boolean) =>
     setForm((f) => ({ ...f, [k]: v }));
-  const idx = Math.floor(Math.random() * BEFORE_PALETTES.length);
+  const [idx] = useState(() => Math.floor(Math.random() * BEFORE_PALETTES.length));
 
   return (
     <motion.div
@@ -211,7 +211,7 @@ function AddModal({
           </div>
           <div>
             <label className="text-[#52525B] text-xs mb-1 block">
-              Client Name (or "Anonymous")
+              Client Name (or &quot;Anonymous&quot;)
             </label>
             <input
               value={form.clientName}
