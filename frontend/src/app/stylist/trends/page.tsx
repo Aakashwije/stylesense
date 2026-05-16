@@ -193,92 +193,144 @@ const WOMENS_STYLES = [
 
 const COLOR_PALETTE = [
   {
-    name: "Platinum Blonde",
-    hex: "#E8E4D4",
-    category: "Blonde",
-    description: "Icy cool blonde. Requires full bleach and toner.",
-  },
-  {
-    name: "Ash Blonde",
-    hex: "#C8B9A0",
-    category: "Blonde",
-    description: "Muted, cool-toned blonde. Great with Wella T18 toner.",
-  },
-  {
-    name: "Golden Blonde",
-    hex: "#D4A96A",
-    category: "Blonde",
+    name: "Cherry Mocha",
+    hex: "#4A1F2B",
+    category: "Trendy",
     description:
-      "Warm, sunny blonde. Client favourite for Sri Lankan skin tones.",
+      "Deep cherry-toned brunette with glossy richness. One of the biggest 2026 trends.",
   },
   {
-    name: "Honey Brown",
-    hex: "#9B6A34",
-    category: "Brown",
+    name: "Burnt Copper",
+    hex: "#B55239",
+    category: "Trendy",
     description:
-      "Warm honey-toned brown. Suits medium complexions beautifully.",
+      "Warm copper-orange blend with dimensional shine. Perfect for bold transformations.",
   },
   {
-    name: "Chestnut",
-    hex: "#6B3A2A",
-    category: "Brown",
-    description: "Rich, red-brown. Natural-looking and low maintenance.",
+    name: "Champagne Brunette",
+    hex: "#8B6B5A",
+    category: "Trendy",
+    description:
+      "Soft brunette with champagne beige reflections. Luxurious and modern.",
   },
   {
-    name: "Copper Red",
-    hex: "#C44B2A",
-    category: "Red",
-    description: "Vibrant copper with orange warmth. Requires regular toning.",
+    name: "Teddy Bear Blonde",
+    hex: "#C89B6D",
+    category: "Trendy",
+    description:
+      "Warm caramel blonde with soft depth. Extremely popular for soft glam looks.",
   },
   {
-    name: "Burgundy",
-    hex: "#6B1E3C",
-    category: "Red",
-    description: "Deep red-purple. Bold and dramatic. Very popular for events.",
+    name: "Buttercream Blonde",
+    hex: "#E6C27A",
+    category: "Trendy",
+    description:
+      "Creamy warm blonde with buttery golden tones. Bright yet wearable.",
+  },
+  {
+    name: "Smokey Silver",
+    hex: "#B7B7B7",
+    category: "Trendy",
+    description:
+      "Cool silver-grey tone with a smoky finish. Futuristic and edgy.",
   },
   {
     name: "Jet Black",
-    hex: "#1A1A1A",
-    category: "Dark",
-    description: "Pure, deep black. Low maintenance but hard to lighten later.",
+    hex: "#0F0F0F",
+    category: "Popular",
+    description:
+      "Classic deep black with high shine. Timeless and elegant.",
   },
   {
-    name: "Smoky Ash",
-    hex: "#4A4A52",
-    category: "Dark",
-    description: "Dark grey-brown blend. Modern and sophisticated.",
+    name: "Chocolate Brown",
+    hex: "#5A3A2E",
+    category: "Popular",
+    description:
+      "Rich chocolate brunette with natural warmth. A salon favourite.",
   },
   {
-    name: "Pastel Pink",
-    hex: "#F4B8C1",
-    category: "Fashion",
-    description: "Soft, dreamy pink. Requires pre-lightening to level 10.",
+    name: "Chestnut Brown",
+    hex: "#6B3F2A",
+    category: "Popular",
+    description:
+      "Natural red-brown blend with soft warmth. Low maintenance and versatile.",
+  },
+  {
+    name: "Golden Blonde",
+    hex: "#E0B96E",
+    category: "Popular",
+    description:
+      "Warm golden blonde that enhances glow and dimension beautifully.",
+  },
+  {
+    name: "Dirty Blonde",
+    hex: "#B79B6C",
+    category: "Popular",
+    description:
+      "Natural dark blonde with soft ash and beige undertones.",
+  },
+  {
+    name: "Auburn Red",
+    hex: "#7A2F24",
+    category: "Popular",
+    description:
+      "Classic reddish-brown shade with rich depth and warmth.",
+  },
+  {
+    name: "Cinnamon Brown",
+    hex: "#8A4B2A",
+    category: "Popular",
+    description:
+      "Spicy medium brown with subtle cinnamon warmth and shine.",
+  },
+  {
+    name: "Beige Blonde",
+    hex: "#D7C0A8",
+    category: "Popular",
+    description:
+      "Balanced neutral blonde with soft creamy beige tones.",
+  },
+  {
+    name: "Honey Blonde",
+    hex: "#D6A45F",
+    category: "Both",
+    description:
+      "Warm honey-toned blonde that suits a wide range of skin tones.",
+  },
+  {
+    name: "Caramel Brown",
+    hex: "#A56B46",
+    category: "Both",
+    description:
+      "Golden caramel brunette with glossy ribbons of warmth.",
   },
   {
     name: "Rose Gold",
-    hex: "#C48B8B",
-    category: "Fashion",
+    hex: "#D89A8C",
+    category: "Both",
     description:
-      "Warm pink-copper blend. One of the most Instagrammable shades.",
+      "Pink-copper blend with a luxurious metallic finish.",
   },
   {
-    name: "Vivid Violet",
-    hex: "#6B2F8F",
-    category: "Fashion",
-    description: "Bold purple. Requires bleaching. Use semi-permanent dye.",
-  },
-  {
-    name: "Ocean Blue",
-    hex: "#2F6B8F",
-    category: "Fashion",
-    description: "Deep teal-blue. Striking on darker bases when pre-lightened.",
-  },
-  {
-    name: "Emerald",
-    hex: "#2F8F5A",
-    category: "Fashion",
+    name: "Mocha Brown",
+    hex: "#7B5748",
+    category: "Both",
     description:
-      "Rich jewel-toned green. Best on platinum or pre-lightened hair.",
+      "Smooth medium brunette with cool mocha undertones.",
+  },
+  {
+    name: "Bronde Blend",
+    hex: "#9A7458",
+    category: "Both",
+    description:
+      "Perfect balance between brunette and blonde for a natural sunkissed effect.",
+  },
+  {
+    name: "Copper Red",
+    hex: "#B55A30",
+    category: "Both",
+    description:
+      "Vibrant copper-red tone with fiery warmth and shine.",
   },
 ];
 
