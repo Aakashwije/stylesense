@@ -16,6 +16,24 @@ export interface PaymentIntent {
   currency: string;
 }
 
+export type SubscriptionPaymentProvider = "payhere" | "hela_pay";
+
+export interface SubscriptionPaymentRequest {
+  planId: "base" | "pro";
+  billingCycle: "monthly" | "yearly";
+  provider: SubscriptionPaymentProvider;
+  amount: number;
+  currency: "LKR";
+}
+
+export interface SubscriptionPaymentSession {
+  sessionId: string;
+  provider: SubscriptionPaymentProvider;
+  redirectUrl?: string;
+  qrCodeUrl?: string;
+  status: "pending" | "ready" | "failed";
+}
+
 export const paymentsService = {
   createPaymentIntent: async (
     amount: number,
@@ -69,6 +87,16 @@ export const paymentsService = {
     }>;
   }> => {
     const res = await apiClient.get("/payments/history");
+    return res.data;
+  },
+
+  createSubscriptionPaymentSession: async (
+    payload: SubscriptionPaymentRequest,
+  ): Promise<SubscriptionPaymentSession> => {
+    const res = await apiClient.post<SubscriptionPaymentSession>(
+      "/payments/subscriptions/session",
+      payload,
+    );
     return res.data;
   },
 };

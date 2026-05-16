@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
   Banknote,
+  Barcode,
   BookOpen,
   CalendarCheck,
   ChevronDown,
@@ -11,14 +12,17 @@ import {
   CreditCard,
   Gift,
   History,
+  Landmark,
   Minus,
   Pause,
   Percent,
   Plus,
+  QrCode,
   RotateCcw,
   Search,
   Settings,
   Smile,
+  Smartphone,
   Star,
   Sunset,
   Tag,
@@ -26,7 +30,7 @@ import {
   User,
   Zap,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   CLIENTS,
   DEFAULT_TAX_CONFIG,
@@ -87,6 +91,31 @@ const PAYMENT_METHODS: {
   { id: "cash", label: "Cash", icon: <Banknote className="w-3.5 h-3.5" /> },
   { id: "card", label: "Card", icon: <CreditCard className="w-3.5 h-3.5" /> },
   {
+    id: "card_terminal",
+    label: "Terminal",
+    icon: <CreditCard className="w-3.5 h-3.5" />,
+  },
+  {
+    id: "payhere",
+    label: "PayHere",
+    icon: <CreditCard className="w-3.5 h-3.5" />,
+  },
+  {
+    id: "hela_pay",
+    label: "Hela Pay",
+    icon: <Smartphone className="w-3.5 h-3.5" />,
+  },
+  {
+    id: "qr_payment",
+    label: "QR",
+    icon: <QrCode className="w-3.5 h-3.5" />,
+  },
+  {
+    id: "bank_transfer",
+    label: "Transfer",
+    icon: <Landmark className="w-3.5 h-3.5" />,
+  },
+  {
     id: "gift_voucher",
     label: "Voucher",
     icon: <Gift className="w-3.5 h-3.5" />,
@@ -110,6 +139,18 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.35, delay },
 });
 
+const ONLINE_PAYMENT_METHODS: PaymentMethodType[] = [
+  "card_terminal",
+  "payhere",
+  "hela_pay",
+  "qr_payment",
+];
+
+const COMMISSION_RATES = {
+  service: 35,
+  product: 10,
+};
+
 // ── ID counters ────────────────────────────────────────────────────────────────
 let suspendCounter = 0;
 let payEntryCounter = 0;
@@ -118,17 +159,14 @@ const newPayId = () => `pe-${++payEntryCounter}`;
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function POSPage() {
   // ── Bill ──────────────────────────────────────────────────────────────────
-  const [today, setToday] = useState("");
-  useEffect(() => {
-    setToday(
-      new Date().toLocaleDateString("en-GB", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-    );
-  }, []);
+  const [today] = useState(() =>
+    new Date().toLocaleDateString("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+  );
 
   const [bill, setBill] = useState<LineItem[]>([]);
   const [client, setClient] = useState<Client>(WALK_IN);
@@ -143,16 +181,22 @@ export default function POSPage() {
   const [billNotes, setBillNotes] = useState("");
   const [nextService, setNextService] = useState("");
   const [rebookDate, setRebookDate] = useState("");
+  const [holdLabel, setHoldLabel] = useState("");
   const [splitPayments, setSplitPayments] = useState<PaymentEntry[]>([]);
   const [payMethod, setPayMethod] = useState<PaymentMethodType | "split">(
     "card",
   );
+  const [gatewayStatus, setGatewayStatus] = useState<
+    "idle" | "polling" | "confirmed" | "failed"
+  >("idle");
+  const [gatewayReference, setGatewayReference] = useState("");
 
   // ── Catalog & inventory ────────────────────────────────────────────────────
   const [catalogTab, setCatalogTab] = useState<"services" | "products">(
     "services",
   );
   const [search, setSearch] = useState("");
+  const [clientSearch, setClientSearch] = useState("");
   const [stock, setStock] = useState<StockMap>(initStock);
 
   // ── App data ───────────────────────────────────────────────────────────────
@@ -183,9 +227,6 @@ export default function POSPage() {
     (() => void) | null
   >(null);
   const [managerPinTitle, setManagerPinTitle] = useState("Manager Approval");
-  const [pendingDiscount, setPendingDiscount] = useState<DiscountConfig | null>(
-    null,
-  );
 
   // ── Computed totals ────────────────────────────────────────────────────────
   const subtotal = useMemo(
@@ -226,15 +267,51 @@ export default function POSPage() {
     Math.max(0, total),
   );
 
+  const commissionSummary = useMemo(() => {
+    const byStylist = new Map<string, number>();
+    bill.forEach((item) => {
+      const stylistName = item.stylistName ?? staff.name;
+      const rate =
+        item.commissionRate ??
+        (item.type === "service"
+          ? COMMISSION_RATES.service
+          : COMMISSION_RATES.product);
+      const amount = Math.round((item.price * item.qty * rate) / 100);
+      byStylist.set(stylistName, (byStylist.get(stylistName) ?? 0) + amount);
+    });
+    return Array.from(byStylist.entries()).map(([name, amount]) => ({
+      name,
+      amount,
+    }));
+  }, [bill, staff.name]);
+
+  const commissionTotal = commissionSummary.reduce((a, x) => a + x.amount, 0);
+
   // ── Catalog helpers ────────────────────────────────────────────────────────
   const catalogItems = catalogTab === "services" ? QUICK_SERVICES : PRODUCTS;
 
   const searchResults =
     search.length > 1
-      ? [...QUICK_SERVICES, ...PRODUCTS].filter((x) =>
-          x.name.toLowerCase().includes(search.toLowerCase()),
-        )
+      ? [...QUICK_SERVICES, ...PRODUCTS].filter((x) => {
+          const q = search.toLowerCase();
+          const sku = "sku" in x ? x.sku?.toLowerCase() : "";
+          const barcode = "barcode" in x ? x.barcode : "";
+          return (
+            x.name.toLowerCase().includes(q) ||
+            sku?.includes(q) ||
+            barcode?.includes(search)
+          );
+        })
       : [];
+
+  const clientResults = CLIENTS.filter((c) => {
+    const q = clientSearch.toLowerCase();
+    return (
+      c.name.toLowerCase().includes(q) ||
+      c.phone.toLowerCase().includes(q) ||
+      c.email.toLowerCase().includes(q)
+    );
+  });
 
   const addItem = (
     item: (typeof QUICK_SERVICES)[number] | (typeof PRODUCTS)[number],
@@ -260,6 +337,9 @@ export default function POSPage() {
           qty: 1,
           stylistId: staff.id,
           stylistName: staff.name,
+          commissionRate: isProduct
+            ? COMMISSION_RATES.product
+            : COMMISSION_RATES.service,
         },
       ];
     });
@@ -288,12 +368,10 @@ export default function POSPage() {
   };
 
   const handleDiscountNeedApproval = (cfg: DiscountConfig) => {
-    setPendingDiscount(cfg);
     setManagerPinTitle("Approve Large Discount");
     setManagerPinCallback(() => () => {
       setDiscountConfig({ ...cfg, approvedBy: "Manager" });
       setShowDiscount(false);
-      setPendingDiscount(null);
     });
     setShowManagerPin(true);
   };
@@ -313,9 +391,28 @@ export default function POSPage() {
     setBillNotes("");
     setNextService("");
     setRebookDate("");
+    setHoldLabel("");
     setSplitPayments([]);
     setPayMethod("card");
+    setGatewayStatus("idle");
+    setGatewayReference("");
     setClient(WALK_IN);
+  };
+
+  const beginGatewayCheckout = () => {
+    if (bill.length === 0 || payMethod === "split") return;
+    setGatewayStatus("polling");
+    const ref = `${String(payMethod).toUpperCase().replace(/_/g, "-")}-${Date.now()}`;
+    setGatewayReference(ref);
+    window.setTimeout(() => setGatewayStatus("confirmed"), 1200);
+  };
+
+  const failGatewayCheckout = () => {
+    if (bill.length === 0 || payMethod === "split") return;
+    setGatewayReference(
+      `${String(payMethod).toUpperCase().replace(/_/g, "-")}-${Date.now()}`,
+    );
+    setGatewayStatus("failed");
   };
 
   // ── Process payment ────────────────────────────────────────────────────────
@@ -331,6 +428,12 @@ export default function POSPage() {
           id: newPayId(),
           method: payMethod as PaymentMethodType,
           amount: total,
+          reference: gatewayReference || undefined,
+          gatewayStatus: ONLINE_PAYMENT_METHODS.includes(
+            payMethod as PaymentMethodType,
+          )
+            ? "confirmed"
+            : undefined,
         },
       ];
     }
@@ -367,6 +470,7 @@ export default function POSPage() {
       loyaltyPointsEarned:
         client.id !== "walk-in" ? Math.floor(total / 100) : 0,
       loyaltyPointsRedeemed: loyaltyRedeemed,
+      commissionTotal,
       refunds: [],
       timestamp: new Date(),
     };
@@ -391,6 +495,7 @@ export default function POSPage() {
   // ── Suspend bill ───────────────────────────────────────────────────────────
   const suspendBill = () => {
     if (bill.length === 0) return;
+    const queueNumber = String(suspendCounter + 1).padStart(3, "0");
     const held: SuspendedBill = {
       id: `hold-${++suspendCounter}`,
       clientName: client.name,
@@ -404,6 +509,8 @@ export default function POSPage() {
       notes: billNotes,
       payments: [...splitPayments],
       loyaltyRedeemed,
+      holdLabel: holdLabel.trim() || undefined,
+      queueNumber: `Q-${queueNumber}`,
       suspendedAt: new Date(),
     };
     setSuspendedBills((prev) => [...prev, held]);
@@ -416,6 +523,7 @@ export default function POSPage() {
     setTipAmount(held.tipAmount);
     setServiceChargeEnabled(held.serviceChargeEnabled);
     setBillNotes(held.notes);
+    setHoldLabel(held.holdLabel ?? "");
     setSplitPayments(held.payments);
     setLoyaltyRedeemed(held.loyaltyRedeemed);
     const found = CLIENTS.find((c) => c.name === held.clientName);
@@ -621,11 +729,11 @@ export default function POSPage() {
               Search All Items
             </p>
             <div className="flex items-center gap-2 bg-[#141419] border border-[#27272A] rounded-xl px-3 h-10 focus-within:border-[#8B5CF6]/50 transition-colors">
-              <Search className="w-3.5 h-3.5 text-[#52525B] shrink-0" />
+              <Barcode className="w-3.5 h-3.5 text-[#52525B] shrink-0" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search services & products..."
+                placeholder="Search services, products, SKU, barcode..."
                 className="bg-transparent text-sm text-[#F5F5F7] placeholder:text-[#52525B] outline-none flex-1"
               />
               {search && (
@@ -657,6 +765,9 @@ export default function POSPage() {
                         <p className="text-[#52525B] text-xs capitalize">
                           {r.type}
                           {isProduct && ` · Stock: ${currentStock}`}
+                          {isProduct && "sku" in r && r.sku
+                            ? ` · ${r.sku}`
+                            : ""}
                         </p>
                       </div>
                       <span className="text-[#8B5CF6] text-sm font-semibold">
@@ -711,12 +822,24 @@ export default function POSPage() {
             </button>
             {showClientDD && (
               <div className="absolute top-12 left-0 right-0 bg-[#141419] border border-[#27272A] rounded-xl overflow-hidden z-30 shadow-xl">
-                {CLIENTS.map((c) => (
+                <div className="p-2 border-b border-[#27272A]">
+                  <div className="flex items-center gap-2 bg-[#1C1C22] border border-[#27272A] rounded-lg px-2 h-8">
+                    <Search className="w-3 h-3 text-[#52525B]" />
+                    <input
+                      value={clientSearch}
+                      onChange={(e) => setClientSearch(e.target.value)}
+                      placeholder="Search customer, phone, email..."
+                      className="bg-transparent outline-none text-xs text-[#F5F5F7] placeholder:text-[#52525B] flex-1"
+                    />
+                  </div>
+                </div>
+                {clientResults.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => {
                       setClient(c);
                       setShowClientDD(false);
+                      setClientSearch("");
                       setLoyaltyRedeemed(0);
                     }}
                     className="w-full text-left px-4 py-2.5 hover:bg-[#1C1C22] transition-colors flex items-center justify-between"
@@ -750,6 +873,40 @@ export default function POSPage() {
               </div>
             )}
           </div>
+
+          {client.id !== "walk-in" && (
+            <div className="grid grid-cols-3 gap-2 rounded-xl bg-[#141419] border border-[#27272A] p-3">
+              <div>
+                <p className="text-[#3f3f46] text-[10px]">Last visit</p>
+                <p className="text-[#A1A1AA] text-xs">
+                  {client.lastVisit || "No history"}
+                </p>
+              </div>
+              <div>
+                <p className="text-[#3f3f46] text-[10px]">Unpaid</p>
+                <p
+                  className={`text-xs font-semibold ${
+                    (client.unpaidBalance ?? 0) > 0
+                      ? "text-[#F59E0B]"
+                      : "text-[#10B981]"
+                  }`}
+                >
+                  {fmtLKR(client.unpaidBalance ?? 0)}
+                </p>
+              </div>
+              <div>
+                <p className="text-[#3f3f46] text-[10px]">Loyalty</p>
+                <p className="text-[#F59E0B] text-xs font-semibold">
+                  {client.loyaltyPoints} pts
+                </p>
+              </div>
+              {client.notes && (
+                <p className="col-span-3 text-[#52525B] text-xs border-t border-[#27272A] pt-2">
+                  {client.notes}
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Stylist selector */}
           <div className="relative">
@@ -965,6 +1122,26 @@ export default function POSPage() {
                 +{Math.floor(total / 100)} loyalty points on checkout
               </p>
             )}
+            {commissionSummary.length > 0 && (
+              <div className="border-t border-[#27272A] pt-2 mt-2">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-[#52525B]">Estimated commissions</span>
+                  <span className="text-[#F59E0B] font-semibold">
+                    {fmtLKR(commissionTotal)}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {commissionSummary.map((c) => (
+                    <span
+                      key={c.name}
+                      className="text-[10px] rounded-lg bg-[#1C1C22] border border-[#27272A] px-2 py-1 text-[#A1A1AA]"
+                    >
+                      {c.name}: {fmtLKR(c.amount)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Notes & rebook collapsible */}
@@ -998,6 +1175,18 @@ export default function POSPage() {
                   className="overflow-hidden"
                 >
                   <div className="px-4 pb-4 space-y-3 border-t border-[#27272A] pt-3">
+                    <div>
+                      <label className="text-[#3f3f46] text-[10px] block mb-1">
+                        Hold Label / Chair
+                      </label>
+                      <input
+                        type="text"
+                        value={holdLabel}
+                        onChange={(e) => setHoldLabel(e.target.value)}
+                        placeholder="e.g. Chair 03, Bride party, Queue A"
+                        className="w-full bg-[#1C1C22] border border-[#27272A] rounded-xl px-3 h-9 text-xs text-[#F5F5F7] placeholder:text-[#3f3f46] outline-none focus:border-[#8B5CF6]/50"
+                      />
+                    </div>
                     <div>
                       <label className="text-[#3f3f46] text-[10px] block mb-1">
                         Bill Notes
@@ -1050,6 +1239,8 @@ export default function POSPage() {
                   key={m.id}
                   onClick={() => {
                     setPayMethod(m.id);
+                    setGatewayStatus("idle");
+                    setGatewayReference("");
                     if (m.id === "split") setShowSplit(true);
                   }}
                   disabled={
@@ -1063,6 +1254,57 @@ export default function POSPage() {
                 </button>
               ))}
             </div>
+            {payMethod !== "split" &&
+              ONLINE_PAYMENT_METHODS.includes(payMethod) && (
+                <div className="mt-2 rounded-xl border border-[#27272A] bg-[#141419] p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[#F5F5F7] text-xs font-semibold">
+                        Hosted checkout status
+                      </p>
+                      <p className="text-[#52525B] text-[10px]">
+                        Payment polling and webhook confirmation demo
+                      </p>
+                    </div>
+                    <span
+                      className={`rounded-lg px-2 py-1 text-[10px] font-semibold ${
+                        gatewayStatus === "confirmed"
+                          ? "bg-[#10B981]/10 text-[#10B981]"
+                          : gatewayStatus === "failed"
+                            ? "bg-[#EF4444]/10 text-[#EF4444]"
+                            : gatewayStatus === "polling"
+                              ? "bg-[#F59E0B]/10 text-[#F59E0B]"
+                              : "bg-[#27272A] text-[#A1A1AA]"
+                      }`}
+                    >
+                      {gatewayStatus === "idle"
+                        ? "Not started"
+                        : gatewayStatus}
+                    </span>
+                  </div>
+                  {gatewayReference && (
+                    <p className="text-[#3f3f46] text-[10px] mt-2">
+                      Ref: {gatewayReference}
+                    </p>
+                  )}
+                  <div className="grid grid-cols-2 gap-2 mt-3">
+                    <button
+                      onClick={beginGatewayCheckout}
+                      disabled={bill.length === 0 || gatewayStatus === "polling"}
+                      className="h-8 rounded-lg bg-[#22D3EE]/10 border border-[#22D3EE]/20 text-[#22D3EE] text-xs font-semibold disabled:opacity-40"
+                    >
+                      Start / Poll
+                    </button>
+                    <button
+                      onClick={failGatewayCheckout}
+                      disabled={bill.length === 0 || gatewayStatus === "polling"}
+                      className="h-8 rounded-lg bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#EF4444] text-xs font-semibold disabled:opacity-40"
+                    >
+                      Mark Failed
+                    </button>
+                  </div>
+                </div>
+              )}
             {payMethod === "split" && splitPayments.length > 0 && (
               <div className="mt-2 space-y-1 px-1">
                 {splitPayments.map((p) => (
@@ -1086,11 +1328,25 @@ export default function POSPage() {
 
           {/* Charge button */}
           <button
-            onClick={() => processPayment()}
-            disabled={bill.length === 0}
+            onClick={() => {
+              if (
+                payMethod !== "split" &&
+                ONLINE_PAYMENT_METHODS.includes(payMethod) &&
+                gatewayStatus !== "confirmed"
+              ) {
+                beginGatewayCheckout();
+                return;
+              }
+              processPayment();
+            }}
+            disabled={bill.length === 0 || gatewayStatus === "polling"}
             className="w-full h-12 rounded-xl bg-[#8B5CF6] text-white font-bold text-sm hover:bg-[#7C3AED] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Charge {fmtLKR(total)}
+            {payMethod !== "split" &&
+            ONLINE_PAYMENT_METHODS.includes(payMethod) &&
+            gatewayStatus !== "confirmed"
+              ? `Start ${PAYMENT_METHODS.find((m) => m.id === payMethod)?.label} ${fmtLKR(total)}`
+              : `Charge ${fmtLKR(total)}`}
           </button>
         </motion.div>
       </div>
@@ -1222,7 +1478,6 @@ export default function POSPage() {
             onClose={() => {
               setShowManagerPin(false);
               setManagerPinCallback(null);
-              setPendingDiscount(null);
             }}
           />
         )}

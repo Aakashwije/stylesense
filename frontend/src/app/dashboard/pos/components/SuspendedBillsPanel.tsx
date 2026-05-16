@@ -65,6 +65,12 @@ export default function SuspendedBillsPanel({
                       <p className="text-[#F5F5F7] text-sm font-medium">
                         {bill.clientName}
                       </p>
+                      {(bill.queueNumber || bill.holdLabel) && (
+                        <p className="text-[#F59E0B] text-[10px] font-semibold mt-0.5">
+                          {bill.queueNumber}
+                          {bill.holdLabel ? ` · ${bill.holdLabel}` : ""}
+                        </p>
+                      )}
                       <p className="text-[#52525B] text-xs mt-0.5">
                         {bill.items.length} item
                         {bill.items.length !== 1 ? "s" : ""} · LKR{" "}

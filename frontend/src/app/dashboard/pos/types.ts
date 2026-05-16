@@ -1,6 +1,10 @@
 export type PaymentMethodType =
   | "cash"
   | "card"
+  | "card_terminal"
+  | "payhere"
+  | "hela_pay"
+  | "qr_payment"
   | "gift_voucher"
   | "loyalty"
   | "bank_transfer";
@@ -28,6 +32,7 @@ export interface LineItem {
   qty: number;
   stylistId?: string;
   stylistName?: string;
+  commissionRate?: number;
 }
 
 export interface PaymentEntry {
@@ -36,6 +41,7 @@ export interface PaymentEntry {
   amount: number;
   reference?: string;
   cardLast4?: string;
+  gatewayStatus?: "pending" | "confirmed" | "failed";
 }
 
 export interface DiscountConfig {
@@ -94,6 +100,7 @@ export interface Transaction {
   rebookDate: string;
   loyaltyPointsEarned: number;
   loyaltyPointsRedeemed: number;
+  commissionTotal?: number;
   refunds: RefundEntry[];
   timestamp: Date;
 }
@@ -111,6 +118,8 @@ export interface SuspendedBill {
   notes: string;
   payments: PaymentEntry[];
   loyaltyRedeemed: number;
+  holdLabel?: string;
+  queueNumber?: string;
   suspendedAt: Date;
 }
 
@@ -121,6 +130,9 @@ export interface Client {
   email: string;
   loyaltyPoints: number;
   memberLevel: "bronze" | "silver" | "gold" | "platinum" | null;
+  lastVisit?: string;
+  notes?: string;
+  unpaidBalance?: number;
 }
 
 export interface Stylist {
@@ -130,4 +142,6 @@ export interface Stylist {
 
 export interface CatalogProduct extends LineItem {
   stock: number;
+  sku?: string;
+  barcode?: string;
 }

@@ -5,7 +5,10 @@ import {
   Banknote,
   CreditCard,
   Gift,
+  Landmark,
   Plus,
+  QrCode,
+  Smartphone,
   Star,
   Trash2,
   X,
@@ -36,6 +39,26 @@ const METHOD_META: Record<
     icon: <CreditCard className="w-4 h-4" />,
     color: "#8B5CF6",
   },
+  card_terminal: {
+    label: "Card Terminal",
+    icon: <CreditCard className="w-4 h-4" />,
+    color: "#22D3EE",
+  },
+  payhere: {
+    label: "PayHere",
+    icon: <CreditCard className="w-4 h-4" />,
+    color: "#22D3EE",
+  },
+  hela_pay: {
+    label: "Hela Pay",
+    icon: <Smartphone className="w-4 h-4" />,
+    color: "#10B981",
+  },
+  qr_payment: {
+    label: "QR Payment",
+    icon: <QrCode className="w-4 h-4" />,
+    color: "#06B6D4",
+  },
   gift_voucher: {
     label: "Gift Voucher",
     icon: <Gift className="w-4 h-4" />,
@@ -48,7 +71,7 @@ const METHOD_META: Record<
   },
   bank_transfer: {
     label: "Bank Transfer",
-    icon: <Banknote className="w-4 h-4" />,
+    icon: <Landmark className="w-4 h-4" />,
     color: "#06B6D4",
   },
 };
@@ -178,10 +201,14 @@ export default function SplitPaymentModal({
                     />
                   )}
                   {(p.method === "gift_voucher" ||
-                    p.method === "bank_transfer") && (
+                    p.method === "bank_transfer" ||
+                    p.method === "card_terminal" ||
+                    p.method === "payhere" ||
+                    p.method === "hela_pay" ||
+                    p.method === "qr_payment") && (
                     <input
                       type="text"
-                      placeholder="Reference / Voucher No."
+                      placeholder="Reference / Voucher / Gateway ID"
                       value={p.reference ?? ""}
                       onChange={(e) =>
                         updatePayment(p.id, "reference", e.target.value)
