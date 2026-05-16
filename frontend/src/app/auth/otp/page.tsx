@@ -92,7 +92,7 @@ export default function OTPPage() {
         </SSButton>
 
         <p className="text-center text-[#A1A1AA] text-sm">
-          Didn't receive a code?{" "}
+          Didn&apos;t receive a code?{" "}
           <button className="text-[#8B5CF6] font-medium hover:text-[#7C3AED] transition-colors">
             Resend
           </button>

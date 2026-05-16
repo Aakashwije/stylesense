@@ -236,7 +236,7 @@ export default function AnalyticsPage() {
             </div>
           </div>
           <p className="text-[#52525B] text-xs mb-5">
-            Today's booking demand (actual vs AI prediction)
+            Today&apos;s booking demand (actual vs AI prediction)
           </p>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart

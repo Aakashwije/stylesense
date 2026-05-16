@@ -92,7 +92,7 @@ export function TestimonialsSection() {
                   strokeWidth={1.5}
                 />
                 <p className="text-[#A1A1AA] text-sm leading-relaxed flex-1 mb-5">
-                  "{t.text}"
+                  &quot;{t.text}&quot;
                 </p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">

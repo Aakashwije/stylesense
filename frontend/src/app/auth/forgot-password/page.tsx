@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
   return (
     <AuthLayout
       title="Reset your password"
-      subtitle="Enter your email and we'll send you reset instructions"
+      subtitle="Enter your email and we&apos;ll send you reset instructions"
     >
       {isSubmitSuccessful ? (
         <div className="text-center py-4">
@@ -38,7 +38,7 @@ export default function ForgotPasswordPage() {
             Check your inbox
           </h3>
           <p className="text-[#A1A1AA] text-sm mb-6">
-            We've sent password reset instructions to your email.
+            We&apos;ve sent password reset instructions to your email.
           </p>
           <Link
             href="/auth/login"

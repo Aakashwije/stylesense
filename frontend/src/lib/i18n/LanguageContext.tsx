@@ -4,7 +4,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -25,19 +24,25 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>("en");
+function getInitialLanguage(): Language {
+  if (typeof window === "undefined") {
+    return "en";
+  }
 
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored && (SUPPORTED_LANGUAGES as readonly string[]).includes(stored)) {
-        setLangState(stored as Language);
-      }
-    } catch {
-      // localStorage may be unavailable in some environments
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored && (SUPPORTED_LANGUAGES as readonly string[]).includes(stored)) {
+      return stored as Language;
     }
-  }, []);
+  } catch {
+    // localStorage may be unavailable in some environments
+  }
+
+  return "en";
+}
+
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [lang, setLangState] = useState<Language>(getInitialLanguage);
 
   const setLang = useCallback((next: Language) => {
     setLangState(next);

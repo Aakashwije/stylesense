@@ -36,7 +36,7 @@ export function CTASection() {
                 <span className="text-gradient-purple">best look ever?</span>
               </h2>
               <p className="text-[#A1A1AA] text-lg max-w-xl mx-auto mb-10">
-                Join 50,000+ clients who've transformed their beauty routine
+                Join 50,000+ clients who&apos;ve transformed their beauty routine
                 with AI-powered personalization.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

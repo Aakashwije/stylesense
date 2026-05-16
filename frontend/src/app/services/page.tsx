@@ -211,7 +211,9 @@ export default function ServicesPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-[#A1A1AA]">No services found for "{search}"</p>
+              <p className="text-[#A1A1AA]">
+                No services found for &quot;{search}&quot;
+              </p>
             </div>
           )}
         </div>

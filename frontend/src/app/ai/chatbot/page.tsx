@@ -36,6 +36,13 @@ export default function ChatbotPage() {
     undefined,
   );
   const endRef = useRef<HTMLDivElement>(null);
+  const nextMessageId = useRef(1);
+
+  const createMessageId = (suffix?: string) => {
+    const id = nextMessageId.current;
+    nextMessageId.current += 1;
+    return suffix ? `${id}-${suffix}` : id.toString();
+  };
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -44,7 +51,7 @@ export default function ChatbotPage() {
   const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return;
     const userMsg: Message = {
-      id: Date.now().toString(),
+      id: createMessageId(),
       role: "user",
       content: text,
     };
@@ -58,7 +65,7 @@ export default function ChatbotPage() {
       setMessages((prev) => [
         ...prev,
         {
-          id: `${Date.now()}-bot`,
+          id: createMessageId("bot"),
           role: "assistant",
           content: res.reply,
         },
@@ -67,7 +74,7 @@ export default function ChatbotPage() {
       setMessages((prev) => [
         ...prev,
         {
-          id: `${Date.now()}-err`,
+          id: createMessageId("err"),
           role: "assistant",
           content:
             "Sorry — I couldn't reach the AI service. Please check that the backend is running and try again.",
