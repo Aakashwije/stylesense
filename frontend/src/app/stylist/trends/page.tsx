@@ -34,7 +34,7 @@ const buildTabs = (t: Translations): { id: Tab; label: string }[] => [
 const MENS_CUTS = [
   {
     name: "Low Fade",
-    image: "/images/trends/men/low-fade.jpg",
+    image: "/images/trends/men/low-fade.jpg?v=20260516b",
     popularity: 98,
     tag: "Trending",
     description:
@@ -43,7 +43,7 @@ const MENS_CUTS = [
   },
   {
     name: "Mid Fade",
-    image: "/images/trends/men/mid-fade.jpg",
+    image: "/images/trends/men/mid-fade.jpg?v=20260516b",
     popularity: 94,
     tag: "Classic",
     description:
@@ -52,7 +52,7 @@ const MENS_CUTS = [
   },
   {
     name: "High Fade",
-    image: "/images/trends/men/high-fade.jpg",
+    image: "/images/trends/men/high-fade.jpg?v=20260516b",
     popularity: 88,
     tag: "Bold",
     description:
@@ -61,7 +61,7 @@ const MENS_CUTS = [
   },
   {
     name: "Textured Quiff",
-    image: "/images/trends/men/textured-quiff.jpg",
+    image: "/images/trends/men/textured-quiff.jpg?v=20260516b",
     popularity: 91,
     tag: "Trending",
     description:
@@ -70,7 +70,7 @@ const MENS_CUTS = [
   },
   {
     name: "French Crop",
-    image: "/images/trends/men/french-crop.jpg",
+    image: "/images/trends/men/french-crop.jpg?v=20260516b",
     popularity: 85,
     tag: "Modern",
     description:
@@ -79,7 +79,7 @@ const MENS_CUTS = [
   },
   {
     name: "Buzz Cut",
-    image: "/images/trends/men/buzz-cut.jpg",
+    image: "/images/trends/men/buzz-cut.jpg?v=20260516b",
     popularity: 76,
     tag: "Minimal",
     description:
@@ -88,7 +88,7 @@ const MENS_CUTS = [
   },
   {
     name: "Pompadour",
-    image: "/images/trends/men/pompadour.jpg",
+    image: "/images/trends/men/pompadour.jpg?v=20260516b",
     popularity: 80,
     tag: "Classic",
     description:
@@ -97,7 +97,7 @@ const MENS_CUTS = [
   },
   {
     name: "Curtain Bangs (Men)",
-    image: "/images/trends/men/curtain-bangs-men.jpg",
+    image: "/images/trends/men/curtain-bangs-men.jpg?v=20260516b",
     popularity: 82,
     tag: "Trending",
     description:
@@ -377,24 +377,27 @@ function StyleImage({
 }) {
   const [failed, setFailed] = useState(false);
   return (
-    <div className="w-full h-44 bg-[#1C1C22] border-b border-[#27272A] overflow-hidden flex items-center justify-center group">
-      {!failed ? (
-        <Image
-          src={src}
-          alt={alt}
-          width={1536}
-          height={1024}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          onError={() => setFailed(true)}
-        />
-      ) : (
-        <div className="flex flex-col items-center justify-center gap-2 px-4 text-center">
-          <ImageIcon className="w-7 h-7 text-[#3f3f46]" strokeWidth={1.25} />
-          <p className="text-[#3f3f46] text-[9px] font-mono leading-relaxed break-all">
-            {src}
-          </p>
-        </div>
-      )}
+    <div className="w-full bg-[#0B0B0F] border-b border-[#27272A] overflow-hidden group">
+      <div className="h-52 bg-white flex items-center justify-center">
+        {!failed ? (
+          <Image
+            src={src}
+            alt={alt}
+            width={1536}
+            height={1024}
+            unoptimized
+            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+            onError={() => setFailed(true)}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-2 px-4 text-center">
+            <ImageIcon className="w-7 h-7 text-[#3f3f46]" strokeWidth={1.25} />
+            <p className="text-[#3f3f46] text-[9px] font-mono leading-relaxed break-all">
+              {src}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -573,6 +576,7 @@ export default function StylistTrendsPage() {
                     alt={`${selectedStyle.name} front side back haircut reference`}
                     width={1536}
                     height={1024}
+                    unoptimized
                     className="w-full max-h-[68vh] object-contain"
                   />
                 </div>
