@@ -57,6 +57,8 @@ export const PRODUCTS = [
     price: 7500,
     type: "product" as const,
     stock: 12,
+    sku: "OLP-N3-150",
+    barcode: "479100100001",
   },
   {
     id: "pr2",
@@ -64,6 +66,8 @@ export const PRODUCTS = [
     price: 4500,
     type: "product" as const,
     stock: 8,
+    sku: "TIG-BH-SHP",
+    barcode: "479100100002",
   },
   {
     id: "pr3",
@@ -71,6 +75,8 @@ export const PRODUCTS = [
     price: 5200,
     type: "product" as const,
     stock: 5,
+    sku: "LOR-HM-200",
+    barcode: "479100100003",
   },
   {
     id: "pr4",
@@ -78,6 +84,8 @@ export const PRODUCTS = [
     price: 3800,
     type: "product" as const,
     stock: 0,
+    sku: "KER-SRM-100",
+    barcode: "479100100004",
   },
   {
     id: "pr5",
@@ -85,6 +93,8 @@ export const PRODUCTS = [
     price: 6800,
     type: "product" as const,
     stock: 3,
+    sku: "MOR-OIL-100",
+    barcode: "479100100005",
   },
   {
     id: "pr6",
@@ -92,6 +102,8 @@ export const PRODUCTS = [
     price: 3200,
     type: "product" as const,
     stock: 15,
+    sku: "CLR-CON-250",
+    barcode: "479100100006",
   },
   {
     id: "pr7",
@@ -99,6 +111,8 @@ export const PRODUCTS = [
     price: 2800,
     type: "product" as const,
     stock: 7,
+    sku: "HEAT-SPR-200",
+    barcode: "479100100007",
   },
   {
     id: "pr8",
@@ -106,6 +120,8 @@ export const PRODUCTS = [
     price: 4200,
     type: "product" as const,
     stock: 2,
+    sku: "SCL-SRM-050",
+    barcode: "479100100008",
   },
 ];
 
@@ -117,6 +133,9 @@ export const CLIENTS: Client[] = [
     email: "dilhani@email.com",
     loyaltyPoints: 450,
     memberLevel: "gold",
+    lastVisit: "2026-05-04",
+    notes: "Prefers ammonia-free colour and evening appointments.",
+    unpaidBalance: 0,
   },
   {
     id: "c2",
@@ -125,6 +144,9 @@ export const CLIENTS: Client[] = [
     email: "sanduni@email.com",
     loyaltyPoints: 120,
     memberLevel: "silver",
+    lastVisit: "2026-04-28",
+    notes: "Sensitive scalp. Patch test before colour services.",
+    unpaidBalance: 2500,
   },
   {
     id: "c3",
@@ -133,6 +155,9 @@ export const CLIENTS: Client[] = [
     email: "thilini@email.com",
     loyaltyPoints: 890,
     memberLevel: "platinum",
+    lastVisit: "2026-05-10",
+    notes: "VIP client. Offer quiet room for long colour appointments.",
+    unpaidBalance: 0,
   },
   {
     id: "c4",
@@ -141,6 +166,9 @@ export const CLIENTS: Client[] = [
     email: "nadeesha@email.com",
     loyaltyPoints: 30,
     memberLevel: "bronze",
+    lastVisit: "2026-03-19",
+    notes: "Usually books wash and blowout before events.",
+    unpaidBalance: 0,
   },
   {
     id: "c5",
@@ -149,6 +177,9 @@ export const CLIENTS: Client[] = [
     email: "chamari@email.com",
     loyaltyPoints: 200,
     memberLevel: "silver",
+    lastVisit: "2026-04-11",
+    notes: "Interested in keratin package next visit.",
+    unpaidBalance: 1200,
   },
   {
     id: "walk-in",
@@ -157,6 +188,9 @@ export const CLIENTS: Client[] = [
     email: "",
     loyaltyPoints: 0,
     memberLevel: null,
+    lastVisit: "",
+    notes: "",
+    unpaidBalance: 0,
   },
 ];
 

@@ -25,6 +25,10 @@ const REFUND_REASONS = [
 const METHOD_LABEL: Record<PaymentMethodType, string> = {
   cash: "Cash",
   card: "Card",
+  card_terminal: "Card Terminal",
+  payhere: "PayHere",
+  hela_pay: "Hela Pay",
+  qr_payment: "QR Payment",
   gift_voucher: "Gift Voucher",
   loyalty: "Loyalty Points",
   bank_transfer: "Bank Transfer",

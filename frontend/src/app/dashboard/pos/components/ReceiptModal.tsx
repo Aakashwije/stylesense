@@ -29,6 +29,10 @@ interface Props {
 const METHOD_LABEL: Record<string, string> = {
   cash: "Cash",
   card: "Card",
+  card_terminal: "Card Terminal",
+  payhere: "PayHere",
+  hela_pay: "Hela Pay",
+  qr_payment: "QR Payment",
   gift_voucher: "Gift Voucher",
   loyalty: "Loyalty Points",
   bank_transfer: "Bank Transfer",
@@ -280,6 +284,7 @@ function ReceiptBody({
               {METHOD_LABEL[p.method] ?? p.method}
               {p.cardLast4 ? ` ••••${p.cardLast4}` : ""}
               {p.reference ? ` (${p.reference})` : ""}
+              {p.gatewayStatus ? ` - ${p.gatewayStatus}` : ""}
             </span>
             <span>LKR {p.amount.toLocaleString()}</span>
           </div>

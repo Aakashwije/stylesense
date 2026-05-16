@@ -38,6 +38,11 @@ const TABS: { id: DiscountType; label: string; icon: React.ReactNode }[] = [
     label: "Happy Hour",
     icon: <Zap className="w-3.5 h-3.5" />,
   },
+  {
+    id: "bundle",
+    label: "Bundle",
+    icon: <Tag className="w-3.5 h-3.5" />,
+  },
 ];
 
 const PERCENT_PRESETS = [5, 10, 15, 20, 25, 30];
@@ -51,6 +56,11 @@ const HAPPY_HOUR_PRESETS = [
   { value: 10, label: "10% — Morning (9–11am)" },
   { value: 15, label: "15% — Midday (12–2pm)" },
   { value: 20, label: "20% — Quiet Hours (3–5pm)" },
+];
+const BUNDLE_PRESETS = [
+  { value: 12, label: "12% — Cut + Blowout Bundle" },
+  { value: 18, label: "18% — Colour Care Bundle" },
+  { value: 22, label: "22% — Bridal Prep Bundle" },
 ];
 
 export default function DiscountModal({
@@ -79,6 +89,7 @@ export default function DiscountModal({
     const pct =
       cfg.type === "percent" ||
       cfg.type === "member" ||
+      cfg.type === "bundle" ||
       cfg.type === "happy_hour"
         ? cfg.value
         : cfg.type === "promo" &&
@@ -135,9 +146,14 @@ export default function DiscountModal({
     tryApply({ type: "happy_hour", value: val, label });
   };
 
+  const applyBundle = (val: number, label: string) => {
+    tryApply({ type: "bundle", value: val, label });
+  };
+
   const discountAmount = current
     ? current.type === "percent" ||
       current.type === "member" ||
+      current.type === "bundle" ||
       current.type === "happy_hour"
       ? Math.round((subtotal * current.value) / 100)
       : current.type === "promo"
@@ -388,6 +404,29 @@ export default function DiscountModal({
                         − LKR{" "}
                         {Math.round(
                           (subtotal * h.value) / 100,
+                        ).toLocaleString()}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Bundle tab */}
+              {tab === "bundle" && (
+                <div className="space-y-2">
+                  {BUNDLE_PRESETS.map((b) => (
+                    <button
+                      key={b.label}
+                      onClick={() => applyBundle(b.value, b.label)}
+                      className={`w-full text-left px-4 py-3 rounded-xl border transition-colors ${current?.type === "bundle" && current.value === b.value ? "border-[#8B5CF6] bg-[#8B5CF6]/10" : "border-[#27272A] bg-[#1C1C22] hover:border-[#8B5CF6]/40"}`}
+                    >
+                      <p className="text-[#F5F5F7] text-sm font-medium">
+                        {b.label}
+                      </p>
+                      <p className="text-[#52525B] text-xs">
+                        − LKR{" "}
+                        {Math.round(
+                          (subtotal * b.value) / 100,
                         ).toLocaleString()}
                       </p>
                     </button>
