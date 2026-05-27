@@ -2,8 +2,10 @@
 
 import { SSButton } from "@/components/common/SSButton";
 import { SSCard } from "@/components/common/SSCard";
+import { CalendarPicker } from "@/components/common/CalendarPicker";
 import { PublicLayout } from "@/components/layouts/PublicLayout";
 import { cn } from "@/lib/utils";
+import { bookingService } from "@/services/booking";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -14,7 +16,8 @@ import {
   Scissors,
   User,
 } from "lucide-react";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const STEPS = ["Service", "Stylist", "Schedule", "Confirm"];
 
@@ -138,11 +141,23 @@ function StepIndicator({ step, current }: { step: number; current: number }) {
 }
 
 export default function BookingPage() {
+  const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [selectedStylist, setSelectedStylist] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const stylistParam = searchParams.get("stylist");
+    if (stylistParam) {
+      setSelectedStylist(stylistParam);
+      setCurrentStep(1);
+    }
+  }, [searchParams]);
 
   const canNext =
     (currentStep === 0 && selectedService) ||
@@ -152,6 +167,36 @@ export default function BookingPage() {
 
   const service = SERVICES.find((s) => s.id === selectedService);
   const stylist = STYLISTS.find((s) => s.id === selectedStylist);
+
+  const handleConfirmBooking = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      if (!selectedService || !selectedStylist || !selectedDate || !selectedTime) {
+        setError("Please complete all booking details");
+        return;
+      }
+
+      await bookingService.createBooking({
+        serviceId: selectedService,
+        stylistId: selectedStylist,
+        date: selectedDate,
+        timeSlot: selectedTime,
+      });
+
+      setSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/client/bookings";
+      }, 2000);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to create booking"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <PublicLayout>
@@ -286,11 +331,9 @@ export default function BookingPage() {
                     Choose Date & Time
                   </h2>
                   <SSCard className="mb-4">
-                    <p className="text-[#A1A1AA] text-sm mb-3">Select a date</p>
-                    <input
-                      type="date"
-                      min={new Date().toISOString().split("T")[0]}
-                      onChange={(e) => setSelectedDate(e.target.value)}
+                    <CalendarPicker
+                      value={selectedDate}
+                      onChange={setSelectedDate}
                       className="w-full bg-[#0B0B0F] border border-[#27272A] rounded-xl px-4 h-11 text-[#F5F5F7] text-sm outline-none focus:border-[#8B5CF6]"
                     />
                   </SSCard>
@@ -329,6 +372,22 @@ export default function BookingPage() {
                   <h2 className="text-[#F5F5F7] font-semibold text-lg mb-4">
                     Confirm Booking
                   </h2>
+
+                  {error && (
+                    <div className="mb-4 p-4 bg-red-500/10 border border-red-500/50 rounded-xl">
+                      <p className="text-red-400 text-sm">{error}</p>
+                    </div>
+                  )}
+
+                  {success && (
+                    <div className="mb-4 p-4 bg-green-500/10 border border-green-500/50 rounded-xl">
+                      <p className="text-green-400 text-sm flex items-center gap-2">
+                        <Check className="w-4 h-4" />
+                        Booking confirmed! Redirecting...
+                      </p>
+                    </div>
+                  )}
+
                   <SSCard className="mb-4">
                     <h3 className="text-[#A1A1AA] text-xs uppercase tracking-wider mb-4">
                       Booking Summary
@@ -374,9 +433,11 @@ export default function BookingPage() {
                   <SSButton
                     fullWidth
                     size="lg"
-                    onClick={() => alert("Booking confirmed! 🎉")}
+                    onClick={handleConfirmBooking}
+                    disabled={isLoading || success}
+                    isLoading={isLoading}
                   >
-                    Confirm & Pay
+                    {success ? "Booking Confirmed!" : "Confirm & Pay"}
                   </SSButton>
                 </div>
               )}

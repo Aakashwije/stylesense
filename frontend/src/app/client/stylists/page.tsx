@@ -397,7 +397,7 @@ function StylistsContent() {
               </div>
 
               <Link
-                href={`/client/bookings/new?stylist=${stylist.id}&salon=${stylist.salonId}`}
+                href={`/booking?stylist=${stylist.id}&salon=${stylist.salonId}`}
                 className="flex items-center justify-center gap-2 w-full h-10 rounded-xl bg-[#8B5CF6] text-white text-sm font-semibold hover:bg-[#7C3AED] transition-colors"
               >
                 <Calendar className="w-4 h-4" />
